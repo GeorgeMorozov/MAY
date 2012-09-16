@@ -16,8 +16,13 @@ namespace StoreCheck.Models
     public class Spr_RolesMetadata
     {
         [Required]
-        [DisplayName("Название роли")]
+        //[DisplayName("Название роли")]
+        [Display(Name = "RoleCaption", ResourceType = typeof(MyStrings))]
+       // [UIHint("Roles")]
         public string Name { get; set; }
+        //[UIHint("Roles")]
+        [Display(Name = "ID", ResourceType = typeof(MyStrings))]
+        public string ID { get; set; }
     }
 
 }
