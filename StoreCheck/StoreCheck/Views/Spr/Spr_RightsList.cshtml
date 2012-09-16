@@ -1,0 +1,34 @@
+﻿@model IEnumerable<StoreCheck.Models.Spr_Rights>
+
+@{
+    ViewBag.Title = "Справочник: Права";
+}
+
+<h2>Справочник: Права</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "Spr_RightCreate")
+</p>
+<table>
+    <tr>
+        <th colspan="2">
+            Права
+        </th>
+    </tr>
+
+@foreach (StoreCheck.Models.Spr_Rights item in ViewBag.Spr_RightsItems)
+{
+    <tr>
+        <td>
+            @item.Name
+        </td>
+        <td>        
+            @Html.ActionLink("Редактировать", "Spr_RightEdit", new { id = item.ID }) |
+            @Html.ActionLink("Просмотреть", "Spr_RightDetails", new { id = item.ID }) |
+            @Html.ActionLink("Удалить", "Spr_RightDelete", new { id = item.ID }, new { onclick = "return confirm('Вы уверены')" })
+        </td>
+    </tr>
+}
+
+</table>
+

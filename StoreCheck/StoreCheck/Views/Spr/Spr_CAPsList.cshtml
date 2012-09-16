@@ -1,0 +1,71 @@
+﻿@model IEnumerable<StoreCheck.Models.Spr_CAP>
+
+@{
+    ViewBag.Title = "Справочник: Торговые агенты";
+}
+
+<h2>Справочник: Торговые агенты</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "Spr_CAPCreate")
+</p>
+<table>
+    <tr>
+        <th>
+            SKUКМУ
+        </th>
+        <th>
+            SKUгруппировка
+        </th>
+        <th>
+            Приоритетность
+        </th>
+        <th>
+            ПриоритетностьСчет
+        </th>
+        <th>
+            КодАссортимент
+        </th>
+        <th>
+            Ассортимент
+        </th>
+        <th>
+            КатегорияТРТ
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (StoreCheck.Models.Spr_CAP item in ViewBag.Spr_CAPsItems)
+{
+    <tr>
+        <td>
+            @item.SKUКМУ
+        </td>
+        <td>
+            @item.SKUгруппировка
+        </td>
+        <td>
+            @item.Приоритетность
+        </td>
+        <td>
+            @item.ПриоритетностьСчет
+        </td>
+        <td>
+            @item.КодАссортимент
+        </td>
+        <td>
+            @item.Ассортимент
+        </td>
+        <td>
+            @item.КатегорияТРТ
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Spr_CAPEdit", new { id=item.ID }) |
+            @Html.ActionLink("Просмотреть", "Spr_CAPDetails", new { id = item.ID }) |
+            @Html.ActionLink("Удалить", "Spr_CAPDelete", new { id = item.ID }, new { onclick = "return confirm('Вы уверены')" })
+        </td>  
+    </tr>
+}
+
+</table>
+
