@@ -4,14 +4,73 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
+using System.Web.Mvc.Ajax;
+using System.Web.Routing;
 
 namespace StoreCheck
 {
-    public static class Extentions
+    public static class Extension
     {
-        public static string MyH1Helper(this HtmlHelper html, string text)
+        public static MvcHtmlString MyH1Helper(this HtmlHelper html, string text)
         {
-            return String.Format("<h1>{0}</h1>", text);
+            string s = String.Format("<h1>{0}</h1>", text);
+            return MvcHtmlString.Create(s);
         }
+
+        // Extension method
+        public static MvcHtmlString ActionImage(this HtmlHelper html, string action, object routeValues, string imagePath, string alt)
+        {
+            var url = new UrlHelper(html.ViewContext.RequestContext);
+
+            // build the <img> tag
+            var imgBuilder = new TagBuilder("img");
+            imgBuilder.MergeAttribute("src", url.Content(imagePath));
+            imgBuilder.MergeAttribute("alt", alt);
+            string imgHtml = imgBuilder.ToString(TagRenderMode.SelfClosing);
+
+            // build the <a> tag
+            var anchorBuilder = new TagBuilder("a");
+            anchorBuilder.MergeAttribute("href", url.Action(action, routeValues));
+            anchorBuilder.MergeAttribute("Title", alt);
+            anchorBuilder.InnerHtml = imgHtml; // include the <img> tag inside
+            string anchorHtml = anchorBuilder.ToString(TagRenderMode.Normal);
+
+
+            return MvcHtmlString.Create(anchorHtml);
+        }
+
+        // Extension method
+        public static MvcHtmlString ActionImage(this HtmlHelper html, string action, object routeValues, string imagePath, string alt, object htmlAttributes)
+        {
+            var url = new UrlHelper(html.ViewContext.RequestContext);
+
+            // build the <img> tag
+            var imgBuilder = new TagBuilder("img");
+            imgBuilder.MergeAttribute("src", url.Content(imagePath));
+            imgBuilder.MergeAttribute("alt", alt);
+            string imgHtml = imgBuilder.ToString(TagRenderMode.SelfClosing);
+
+            // build the <a> tag
+            var anchorBuilder = new TagBuilder("a");
+            anchorBuilder.MergeAttribute("href", url.Action(action, routeValues));
+            anchorBuilder.MergeAttribute("Title", alt);
+            anchorBuilder.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+            anchorBuilder.InnerHtml = imgHtml; // include the <img> tag inside
+            string anchorHtml = anchorBuilder.ToString(TagRenderMode.Normal);
+
+
+            return MvcHtmlString.Create(anchorHtml);
+        }
+
+
+        public static MvcHtmlString ImageActionLink(this AjaxHelper helper, string imageUrl, string altText, string actionName, object routeValues, AjaxOptions ajaxOptions)
+        {
+            var builder = new TagBuilder("img");
+            builder.MergeAttribute("src", imageUrl);
+            builder.MergeAttribute("alt", altText);
+            var link = helper.ActionLink("[replaceme]", actionName, routeValues, ajaxOptions);
+            return new MvcHtmlString(link.ToHtmlString().Replace("[replaceme]", builder.ToString(TagRenderMode.SelfClosing)));
+        }
+
     }
 }

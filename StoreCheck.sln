@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreCheck", "StoreCheck.csproj", "{9A817598-0425-4438-88AD-C110232665DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreCheck", "StoreCheck\StoreCheck.csproj", "{9A817598-0425-4438-88AD-C110232665DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

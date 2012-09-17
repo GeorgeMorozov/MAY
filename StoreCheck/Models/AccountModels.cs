@@ -114,6 +114,7 @@ namespace StoreCheck.Models
         {
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Value cannot be null or empty.", "userName");
             if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
+            //return true;
             return IsAuthenticated("LDAP://maytea.com", "maytea", userName, password);
             //return IsAuthenticated("LDAP://office.intelserv.com", "office", userName, password);
             //return _provider.ValidateUser(userName, password);
@@ -148,6 +149,7 @@ namespace StoreCheck.Models
             }
             catch (Exception ex)
             {
+                string s = ex.Message;
                 //throw new Exception("Error authenticating user. " + ex.Message);
                 return false;
             }

@@ -1,3 +1,0 @@
-MAY.STORECHECK
-
-ASP.NET MVC Project
