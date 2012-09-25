@@ -1,0 +1,84 @@
+﻿@model StoreCheck.Models.Spr_CAP
+
+@{
+    ViewBag.Title = "Редактирование: Ассортимент";
+}
+
+<h2>Редактирование: Ассортимент</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Ассортимент</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SKUКМУ)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SKUКМУ)
+            @Html.ValidationMessageFor(model => model.SKUКМУ)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SKUгруппировка)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SKUгруппировка)
+            @Html.ValidationMessageFor(model => model.SKUгруппировка)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Приоритетность)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Приоритетность)
+            @Html.ValidationMessageFor(model => model.Приоритетность)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ПриоритетностьСчет)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ПриоритетностьСчет)
+            @Html.ValidationMessageFor(model => model.ПриоритетностьСчет)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.КодАссортимент)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.КодАссортимент)
+            @Html.ValidationMessageFor(model => model.КодАссортимент)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Ассортимент)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Ассортимент)
+            @Html.ValidationMessageFor(model => model.Ассортимент)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.КатегорияТРТ)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.КатегорияТРТ)
+            @Html.ValidationMessageFor(model => model.КатегорияТРТ)
+        </div>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Назад", "Spr_CAPsList")
+</div>
+

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<StoreCheck.Models.Spr_CAP>
+@using StoreCheck;
+@{
+    ViewBag.Title = "Справочник: Ассортимент";
+}
+
+<h2>Справочник: Ассортимент</h2>
+
+    <link href="@Url.Content("~/Content/Tables.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.tablesorter.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.tablesorter.pager.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("table.tablesorter").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+            .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
+        });
+    </script>
+
+<p>
+    @Html.ActionLink("Добавить", "Spr_CAPCreate")
+</p>
+<table class="tablesorter">
+  <thead>
+    <tr>
+        <th>
+            SKUКМУ
+        </th>
+        <th>
+            SKUгруппировка
+        </th>
+        <th>
+            Приоритетность
+        </th>
+        <th>
+            ПриоритетностьСчет
+        </th>
+        <th>
+            КодАссортимент
+        </th>
+        <th>
+            Ассортимент
+        </th>
+        <th>
+            КатегорияТРТ
+        </th>
+
+    </tr>
+   </thead>
+  <tbody>
+@foreach (StoreCheck.Models.Spr_CAP item in ViewBag.Spr_CAPsItems)
+{
+    <tr>
+        <td>
+            @item.SKUКМУ
+        </td>
+        <td>
+            @item.SKUгруппировка
+        </td>
+        <td>
+            @item.Приоритетность
+        </td>
+        <td>
+            @item.ПриоритетностьСчет
+        </td>
+        <td>
+            @item.КодАссортимент
+        </td>
+        <td>
+            @item.Ассортимент
+        </td>
+        <td>
+            @item.КатегорияТРТ
+        </td>
+        <td class="td_btn">
+            @Html.ActionImage("Spr_CAPEdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
+            @Html.ActionImage("Spr_CAPDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
+            @Html.ActionImage("Spr_CAPDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
+        </td>  
+    </tr>
+}
+
+</tbody>
+</table>
+
+ @Html.Partial("_PaginationBar")
+
+
+

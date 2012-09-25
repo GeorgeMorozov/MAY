@@ -1,0 +1,19 @@
+﻿@model StoreCheck.Models.Spr_Rights
+
+@{
+    ViewBag.Title = "Просмотр: Права";
+}
+
+<h2>Просмотр: Права</h2>
+
+<fieldset>
+    <legend>Право</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">@Model.Name</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Редактировать", "Spr_RightEdit", new { id = Model.ID }) |
+    @Html.ActionLink("Назад", "Spr_RightsList")
+</p>
+

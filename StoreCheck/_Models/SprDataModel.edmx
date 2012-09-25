@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="DBModelStoreContainer">
+          <EntitySet Name="Spr_CAP" EntityType="DBModel.Store.Spr_CAP" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Spr_Rights" EntityType="DBModel.Store.Spr_Rights" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Spr_Roles" EntityType="DBModel.Store.Spr_Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Spr_SR" EntityType="DBModel.Store.Spr_SR" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="Spr_CAP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="SKUКМУ" Type="nvarchar" MaxLength="255" />
+          <Property Name="SKUгруппировка" Type="nvarchar" MaxLength="255" />
+          <Property Name="Приоритетность" Type="int" />
+          <Property Name="ПриоритетностьСчет" Type="int" />
+          <Property Name="КодАссортимент" Type="varchar" MaxLength="50" />
+          <Property Name="Ассортимент" Type="nvarchar" MaxLength="255" />
+          <Property Name="КатегорияТРТ" Type="nvarchar" MaxLength="255" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Spr_Rights">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Spr_Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Spr_SR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="SBU" Type="varchar" MaxLength="250" />
+          <Property Name="Регион" Type="varchar" MaxLength="250" />
+          <Property Name="Область" Type="varchar" MaxLength="250" />
+          <Property Name="Дистрибутор" Type="varchar" MaxLength="250" />
+          <Property Name="КодСупервайзер" Type="varchar" MaxLength="250" />
+          <Property Name="Супервайзер" Type="varchar" MaxLength="250" />
+          <Property Name="КодТА" Type="varchar" MaxLength="250" />
+          <Property Name="ТА" Type="varchar" MaxLength="250" />
+          <Property Name="ТипТА" Type="varchar" MaxLength="250" />
+          <Property Name="МаршрутТА" Type="varchar" MaxLength="250" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Spr_CAP" EntityType="DBModel.Spr_CAP" />
+          <EntitySet Name="Spr_Rights" EntityType="DBModel.Spr_Rights" />
+          <EntitySet Name="Spr_Roles" EntityType="DBModel.Spr_Roles" />
+          <EntitySet Name="Spr_SR" EntityType="DBModel.Spr_SR" />
+        </EntityContainer>
+        <EntityType Name="Spr_CAP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="SKUКМУ" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="SKUгруппировка" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Приоритетность" Type="Int32" />
+          <Property Name="ПриоритетностьСчет" Type="Int32" />
+          <Property Name="КодАссортимент" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Ассортимент" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="КатегорияТРТ" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Spr_Rights">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Spr_Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Spr_SR">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="SBU" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Регион" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Область" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Дистрибутор" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="КодСупервайзер" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Супервайзер" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="КодТА" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="ТА" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="ТипТА" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="МаршрутТА" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities">
+          <EntitySetMapping Name="Spr_CAP"><EntityTypeMapping TypeName="DBModel.Spr_CAP"><MappingFragment StoreEntitySet="Spr_CAP">
+            <ScalarProperty Name="SKUКМУ" ColumnName="SKUКМУ" />
+            <ScalarProperty Name="SKUгруппировка" ColumnName="SKUгруппировка" />
+            <ScalarProperty Name="Приоритетность" ColumnName="Приоритетность" />
+            <ScalarProperty Name="ПриоритетностьСчет" ColumnName="ПриоритетностьСчет" />
+            <ScalarProperty Name="КодАссортимент" ColumnName="КодАссортимент" />
+            <ScalarProperty Name="Ассортимент" ColumnName="Ассортимент" />
+            <ScalarProperty Name="КатегорияТРТ" ColumnName="КатегорияТРТ" />
+            <ScalarProperty Name="ID" ColumnName="ID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Spr_Rights"><EntityTypeMapping TypeName="DBModel.Spr_Rights"><MappingFragment StoreEntitySet="Spr_Rights">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Spr_Roles"><EntityTypeMapping TypeName="DBModel.Spr_Roles"><MappingFragment StoreEntitySet="Spr_Roles">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Spr_SR"><EntityTypeMapping TypeName="DBModel.Spr_SR"><MappingFragment StoreEntitySet="Spr_SR">
+            <ScalarProperty Name="SBU" ColumnName="SBU" />
+            <ScalarProperty Name="Регион" ColumnName="Регион" />
+            <ScalarProperty Name="Область" ColumnName="Область" />
+            <ScalarProperty Name="Дистрибутор" ColumnName="Дистрибутор" />
+            <ScalarProperty Name="КодСупервайзер" ColumnName="КодСупервайзер" />
+            <ScalarProperty Name="Супервайзер" ColumnName="Супервайзер" />
+            <ScalarProperty Name="КодТА" ColumnName="КодТА" />
+            <ScalarProperty Name="ТА" ColumnName="ТА" />
+            <ScalarProperty Name="ТипТА" ColumnName="ТипТА" />
+            <ScalarProperty Name="МаршрутТА" ColumnName="МаршрутТА" />
+            <ScalarProperty Name="ID" ColumnName="ID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="SprDataModel">
+        <EntityTypeShape EntityType="DBModel.Spr_CAP" Width="1.5" PointX="0.75" PointY="0.75" Height="2.2496956380208331" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Spr_Rights" Width="1.5" PointX="2.75" PointY="0.75" Height="1.2636116536458335" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Spr_Roles" Width="1.5" PointX="0.75" PointY="3.75" Height="1.2636116536458335" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Spr_SR" Width="1.5" PointX="2.75" PointY="3.75" Height="2.7427376302083335" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

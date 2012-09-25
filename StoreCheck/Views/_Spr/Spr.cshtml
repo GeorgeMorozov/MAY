@@ -1,0 +1,12 @@
+﻿@using StoreCheck;
+@{
+    ViewBag.Title = "Справочники";
+}
+
+<h2>Справочники</h2>
+    <ul id="submenu">
+        <li>@Html.ActionLink("Роли", "Spr_RolesList", "Spr")</li>                    
+        <li>@Html.ActionLink("Права", "Spr_RightsList", "Spr")</li>
+        <li>@Html.ActionLink("Ассортимент", "Spr_CAPsList", "Spr")</li>                    
+        <li>@Html.ActionLink("Торговые агенты", "Spr_SRsList", "Spr")</li>
+    </ul>

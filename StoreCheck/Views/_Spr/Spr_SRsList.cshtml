@@ -1,0 +1,106 @@
+﻿@model IEnumerable<StoreCheck.Models.Spr_SR>
+@using StoreCheck;
+@{
+    ViewBag.Title = "Справочник: Торговые агенты";
+}
+
+<h2>Справочник: Торговые агенты</h2>
+
+    <link href="@Url.Content("~/Content/Tables.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.tablesorter.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.tablesorter.pager.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("table.tablesorter").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
+            .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
+        });
+    </script>
+
+<p>
+    @Html.ActionLink("Добавить", "Spr_SRCreate")
+</p>
+<table class="tablesorter">
+  <thead>
+    <tr>
+        <th>
+            SBU
+        </th>
+        <th>
+            Регион
+        </th>
+        <th>
+            Область
+        </th>
+        <th>
+            Дистрибутор
+        </th>
+        <th>
+            КодСупервайзер
+        </th>
+        <th>
+            Супервайзер
+        </th>
+        <th>
+            КодТА
+        </th>
+        <th>
+            ТА
+        </th>
+        <th>
+            ТипТА
+        </th>
+        <th>
+            МаршрутТА
+        </th>
+
+    </tr>
+ </thead>
+  <tbody>
+@foreach (StoreCheck.Models.Spr_SR item in ViewBag.Spr_SRsItems)
+{
+    <tr>
+        <td>
+            @item.SBU
+        </td>
+        <td>
+            @item.Регион
+        </td>
+        <td>
+            @item.Область
+        </td>
+        <td>
+            @item.Дистрибутор
+        </td>
+        <td>
+            @item.КодСупервайзер
+        </td>
+        <td>
+            @item.Супервайзер
+        </td>
+        <td>
+            @item.КодТА
+        </td>
+        <td>
+            @item.ТА
+        </td>
+        <td>
+            @item.ТипТА
+        </td>
+        <td>
+            @item.МаршрутТА
+        </td>
+        <td class="td_btn">
+            @Html.ActionImage("Spr_SREdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
+            @Html.ActionImage("Spr_SRDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
+            @Html.ActionImage("Spr_SRDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
+        </td>   
+    </tr>
+}
+
+</tbody>
+</table>
+@Html.Partial("_PaginationBar")
+
+

@@ -1,0 +1,23 @@
+﻿@model StoreCheck.Models.Spr_Roles
+
+@{
+    ViewBag.Title = "Просмотр: Роли";
+}
+
+<h2>Просмотр: Роли</h2>
+
+<fieldset>
+    <legend>Роль</legend>
+   <table><tr>
+    <td><div class="display-label">@Html.LabelFor(model => model.ID)</div></td>
+    <td><div class="display-field">@Model.ID</div></td>
+    </tr><tr>
+    <td><div class="display-label">@Html.LabelFor(model => model.Name)</div></td>
+   <td><div class="display-field">@Model.Name</div></td>
+   </tr></table>
+</fieldset>
+<p>
+    @Html.ActionLink("Редактировать", "Spr_RoleEdit", new { id = Model.ID }) |
+    @Html.ActionLink("Назад", "Spr_RolesList")
+</p>
+

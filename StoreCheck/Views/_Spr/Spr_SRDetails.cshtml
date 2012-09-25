@@ -1,0 +1,46 @@
+﻿@model StoreCheck.Models.Spr_SR
+
+@{
+    ViewBag.Title = "Просмотр: Торговые агенты";
+}
+
+<h2>Просмотр: Торговые агенты</h2>
+
+<fieldset>
+    <legend>Торговые агенты</legend>
+
+    <div class="display-label">SBU</div>
+    <div class="display-field">@Model.SBU</div>
+
+    <div class="display-label">Регион</div>
+    <div class="display-field">@Model.Регион</div>
+
+    <div class="display-label">Область</div>
+    <div class="display-field">@Model.Область</div>
+
+    <div class="display-label">Дистрибутор</div>
+    <div class="display-field">@Model.Дистрибутор</div>
+
+    <div class="display-label">КодСупервайзер</div>
+    <div class="display-field">@Model.КодСупервайзер</div>
+
+    <div class="display-label">Супервайзер</div>
+    <div class="display-field">@Model.Супервайзер</div>
+
+    <div class="display-label">КодТА</div>
+    <div class="display-field">@Model.КодТА</div>
+
+    <div class="display-label">ТА</div>
+    <div class="display-field">@Model.ТА</div>
+
+    <div class="display-label">ТипТА</div>
+    <div class="display-field">@Model.ТипТА</div>
+
+    <div class="display-label">МаршрутТА</div>
+    <div class="display-field">@Model.МаршрутТА</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Редактировать", "Spr_SREdit", new { id = Model.ID }) |
+    @Html.ActionLink("Назад", "Spr_SRsList")
+</p>
+

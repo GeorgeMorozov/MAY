@@ -1,0 +1,37 @@
+﻿@model StoreCheck.Models.Spr_CAP
+
+@{
+    ViewBag.Title = "Просмотр: Ассортимент";
+}
+
+<h2>Просмотр: Ассортимент</h2>
+
+<fieldset>
+    <legend>Ассортимент</legend>
+
+    <div class="display-label">SKUКМУ</div>
+    <div class="display-field">@Model.SKUКМУ</div>
+
+    <div class="display-label">SKUгруппировка</div>
+    <div class="display-field">@Model.SKUгруппировка</div>
+
+    <div class="display-label">Приоритетность</div>
+    <div class="display-field">@Model.Приоритетность</div>
+
+    <div class="display-label">ПриоритетностьСчет</div>
+    <div class="display-field">@Model.ПриоритетностьСчет</div>
+
+    <div class="display-label">КодАссортимент</div>
+    <div class="display-field">@Model.КодАссортимент</div>
+
+    <div class="display-label">Ассортимент</div>
+    <div class="display-field">@Model.Ассортимент</div>
+
+    <div class="display-label">КатегорияТРТ</div>
+    <div class="display-field">@Model.КатегорияТРТ</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Редактировать", "Spr_CAPEdit", new { id = Model.ID }) |
+    @Html.ActionLink("Назад", "Spr_CAPsList")
+</p>
+
