@@ -1,0 +1,149 @@
+﻿@using MvcPaging;
+@using StoreCheck;
+@model IPagedList<StoreCheck.Models.Spr_Outlets>
+
+
+    @{ViewBag.Title = "Торговые точки";}
+
+<h2>Торговые точки</h2>
+
+
+
+  @using (Html.BeginForm("EditStore", "Store"))
+  {
+      @Html.DropDownList("RegNm");
+      @Html.DropDownList("OblNm");                                 
+      @Html.DropDownList("DistNm");
+      @Html.DropDownList("Release");  
+      @Html.DropDownList("Category");                                 
+      @Html.DropDownList("Client");
+      @Html.DropDownList("Adress");                             
+                                                                                               
+       <input type="submit" value="Поиск" />
+     
+  }
+
+
+<table>
+    <tr>
+        <th></th>
+        <th>
+            SBU
+        </th>
+        <th>
+            Регион
+        </th>
+        <th>
+            Область
+        </th>
+        <th>
+            Дистрибутор
+        </th>
+        <th>
+            КодКлиент
+        </th>
+        <th>
+            ИНН
+        </th>
+        <th>
+            КодАдресдоставки
+        </th>
+        <th>
+            Клиент
+        </th>
+        <th>
+            Адресдоставки
+        </th>
+        <th>
+            ОбластьТРТ
+        </th>
+        <th>
+            РайонТРТ
+        </th>
+        <th>
+            ГородТРТ
+        </th>
+        <th>
+            УлицаТРТ
+        </th>
+        <th>
+            ДомТРТ
+        </th>
+        <th>
+            ПримечаниеТРТ
+        </th>
+        <th>
+            Каналреализации
+        </th>
+        <th>
+            КатегорияТРТ
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionImage("Spr_OutletsDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
+            </td>
+            <td>
+                @item.SBU
+            </td>
+            <td>
+                @item.Регион
+            </td>
+            <td>
+                @item.Область
+            </td>
+            <td>
+                @item.Дистрибутор
+            </td>
+            <td>
+                @item.КодКлиент
+            </td>
+            <td>
+                @item.ИНН
+            </td>
+            <td>
+                @item.КодАдресдоставки
+            </td>
+            <td>
+                @item.Клиент
+            </td>
+            <td>
+                @item.Адресдоставки
+            </td>
+            <td>
+                @item.ОбластьТРТ
+            </td>
+            <td>
+                @item.РайонТРТ
+            </td>
+            <td>
+                @item.ГородТРТ
+            </td>
+            <td>
+                @item.УлицаТРТ
+            </td>
+            <td>
+                @item.ДомТРТ
+            </td>
+            <td>
+                @item.ПримечаниеТРТ
+            </td>
+            <td>
+                @item.Каналреализации
+            </td>
+            <td>
+                @item.КатегорияТРТ
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="pager">
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+</div>
+
+
+
