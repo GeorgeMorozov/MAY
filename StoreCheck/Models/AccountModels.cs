@@ -91,6 +91,7 @@ namespace StoreCheck.Models
     public class AccountMembershipService : IMembershipService
     {
         private readonly MembershipProvider _provider;
+        private readonly DataManager _db = new DataManager();
 
         public AccountMembershipService()
             : this(null)
@@ -114,8 +115,7 @@ namespace StoreCheck.Models
         {
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Value cannot be null or empty.", "userName");
             if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
-            //return true;
-            return IsAuthenticated("LDAP://maytea.com", "maytea", userName, password);
+            return true;
             //return IsAuthenticated("LDAP://office.intelserv.com", "office", userName, password);
             //return _provider.ValidateUser(userName, password);
 
@@ -146,10 +146,11 @@ namespace StoreCheck.Models
                 //Update the new path to the user in the directory.  
                 _path = result.Path;
                 _filterAttribute = (string)result.Properties["cn"][0];
+                _db.logOn(username, _filterAttribute);
+                
             }
             catch (Exception ex)
             {
-                string s = ex.Message;
                 //throw new Exception("Error authenticating user. " + ex.Message);
                 return false;
             }

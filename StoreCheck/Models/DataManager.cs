@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,84 +8,98 @@ namespace StoreCheck.Models
 {
     public class DataManager
     {
-        private DBEntities _SprDB;
+        private readonly DBEntities _DB;
 
         public DataManager()
         {
-            _SprDB = new DBEntities();
+            _DB = new DBEntities();
         }
-//-----------------Spr_Roles----------------------------------------------
-        public IQueryable<Spr_Roles> GetSpr_Roles()
+        //-----------------Spr_Roles----------------------------------------------
+        public IQueryable<Spr_Roles> GetSpr_RolesIQ()
         {
-            return _SprDB.Spr_Roles;
+            return _DB.Spr_Roles;
+        }
+
+        public IList<Spr_Roles> GetSpr_Roles()
+        {
+            return _DB.Spr_Roles.AsEnumerable().ToList();
         }
 
         public Spr_Roles GetSpr_Role(Guid id)
         {
-            return _SprDB.Spr_Roles.SingleOrDefault(it => it.ID == id);
+            return _DB.Spr_Roles.SingleOrDefault(it => it.ID == id);
         }
 
         public void SaveSpr_Role(Spr_Roles obj)
         {
             Spr_Roles old = GetSpr_Role(obj.ID);
             old.Name = obj.Name;
-            _SprDB.SaveChanges();
+            _DB.SaveChanges();
         }
 
         public void AddSpr_Role(Spr_Roles obj)
         {
-            _SprDB.Spr_Roles.AddObject(obj);
-            _SprDB.SaveChanges();
+            _DB.Spr_Roles.AddObject(obj);
+            _DB.SaveChanges();
         }
 
         public void DeleteSpr_Role(Guid id)
         {
-            var obj = _SprDB.Spr_Roles.SingleOrDefault(c => c.ID == id);
-            _SprDB.Spr_Roles.DeleteObject(obj);
-            _SprDB.SaveChanges();
+            var obj = _DB.Spr_Roles.SingleOrDefault(c => c.ID == id);
+            _DB.Spr_Roles.DeleteObject(obj);
+            _DB.SaveChanges();
         }
 
-//-----------------Spr_Rights----------------------------------------------
-        public IQueryable<Spr_Rights> GetSpr_Rights()
+        //-----------------Spr_Rights----------------------------------------------
+        public IQueryable<Spr_Rights> GetSpr_RightsIQ()
         {
-            return _SprDB.Spr_Rights;
+            return _DB.Spr_Rights;
+        }
+
+        public IList<Spr_Rights> GetSpr_Rights()
+        {
+            return _DB.Spr_Rights.AsEnumerable().ToList();
         }
 
         public Spr_Rights GetSpr_Right(Guid id)
         {
-            return _SprDB.Spr_Rights.SingleOrDefault(it => it.ID == id);
+            return _DB.Spr_Rights.SingleOrDefault(it => it.ID == id);
         }
 
         public void SaveSpr_Right(Spr_Roles obj)
         {
             Spr_Rights old = GetSpr_Right(obj.ID);
             old.Name = obj.Name;
-            _SprDB.SaveChanges();
+            _DB.SaveChanges();
         }
 
         public void AddSpr_Right(Spr_Rights obj)
         {
-            _SprDB.Spr_Rights.AddObject(obj);
-            _SprDB.SaveChanges();
+            _DB.Spr_Rights.AddObject(obj);
+            _DB.SaveChanges();
         }
 
         public void DeleteSpr_Right(Guid id)
         {
-            var obj = _SprDB.Spr_Rights.SingleOrDefault(c => c.ID == id);
-            _SprDB.Spr_Rights.DeleteObject(obj);
-            _SprDB.SaveChanges();
+            var obj = _DB.Spr_Rights.SingleOrDefault(c => c.ID == id);
+            _DB.Spr_Rights.DeleteObject(obj);
+            _DB.SaveChanges();
         }
 
 
-//-----------------Spr_CAP----------------------------------------------
-        public IQueryable<Spr_CAP> GetSpr_CAPs()
+        //-----------------Spr_CAP----------------------------------------------
+        public IQueryable<Spr_CAP> GetSpr_CAPsIQ()
         {
-            return _SprDB.Spr_CAP;
+            return _DB.Spr_CAP;
+        }
+        public IList<Spr_CAP> GetSpr_CAPs()
+        {
+            return _DB.Spr_CAP.AsEnumerable().ToList();
         }
 
         public Spr_CAP GetSpr_CAP(Guid id)
         {
-            return _SprDB.Spr_CAP.SingleOrDefault(it => it.ID == id);
+            return _DB.Spr_CAP.SingleOrDefault(it => it.ID == id);
         }
 
         public void SaveSpr_CAP(Spr_CAP obj)
@@ -97,32 +112,38 @@ namespace StoreCheck.Models
             old.КодАссортимент = obj.КодАссортимент;
             old.Приоритетность = obj.Приоритетность;
             old.ПриоритетностьСчет = obj.ПриоритетностьСчет;
-            _SprDB.SaveChanges();
+            _DB.SaveChanges();
         }
 
         public void AddSpr_CAP(Spr_CAP obj)
         {
-            _SprDB.Spr_CAP.AddObject(obj);
-            _SprDB.SaveChanges();
+            _DB.Spr_CAP.AddObject(obj);
+            _DB.SaveChanges();
         }
 
         public void DeleteSpr_CAP(Guid id)
         {
-            var obj = _SprDB.Spr_CAP.SingleOrDefault(c => c.ID == id);
-            _SprDB.Spr_CAP.DeleteObject(obj);
-            _SprDB.SaveChanges();
+            var obj = _DB.Spr_CAP.SingleOrDefault(c => c.ID == id);
+            _DB.Spr_CAP.DeleteObject(obj);
+            _DB.SaveChanges();
         }
 
 
-//-----------------Spr_SR----------------------------------------------
-        public IQueryable<Spr_SR> GetSpr_SRs()
+        //-----------------Spr_SR----------------------------------------------
+        public IQueryable<Spr_SR> GetSpr_SRsIQ()
         {
-            return _SprDB.Spr_SR;
+            return _DB.Spr_SR;
         }
+
+        public IList<Spr_SR> GetSpr_SRs()
+        {
+            return _DB.Spr_SR.AsEnumerable().ToList();
+        }
+
 
         public Spr_SR GetSpr_SR(Guid id)
         {
-            return _SprDB.Spr_SR.SingleOrDefault(it => it.ID == id);
+            return _DB.Spr_SR.SingleOrDefault(it => it.ID == id);
         }
 
         public void SaveSpr_SR(Spr_SR obj)
@@ -138,22 +159,71 @@ namespace StoreCheck.Models
             old.Супервайзер = obj.Супервайзер;
             old.ТА = obj.ТА;
             old.ТипТА = obj.ТипТА;
-            _SprDB.SaveChanges();
+            _DB.SaveChanges();
         }
 
         public void AddSpr_SR(Spr_SR obj)
         {
-            _SprDB.Spr_SR.AddObject(obj);
-            _SprDB.SaveChanges();
+            _DB.Spr_SR.AddObject(obj);
+            _DB.SaveChanges();
         }
 
         public void DeleteSpr_SR(Guid id)
         {
-            var obj = _SprDB.Spr_SR.SingleOrDefault(c => c.ID == id);
-            _SprDB.Spr_SR.DeleteObject(obj);
-            _SprDB.SaveChanges();
+            var obj = _DB.Spr_SR.SingleOrDefault(c => c.ID == id);
+            _DB.Spr_SR.DeleteObject(obj);
+            _DB.SaveChanges();
         }
 
-//-----------------------------------------------------------------------
+        //-------------Stores-------------------------------------------------------
+
+        public IList<Spr_Outlets> GetStores()
+        {
+            return _DB.Spr_Outlets.AsEnumerable().ToList();
+        }
+
+        public IQueryable<Spr_Outlets> GetStoresIQ()
+        {
+            return _DB.Spr_Outlets;
+        }
+
+        public Spr_Outlets GetStore(Guid id)
+        {
+            return _DB.Spr_Outlets.SingleOrDefault(it => it.ID == id);
+        }
+
+        public void Test(Guid id)
+        {
+            //return _DB.Spr_Outlets.SingleOrDefault(it => it.ID == id);
+            //System.Data.Objects.ObjectParameter[] params;
+            // _DB.CreateQuery("select * from Spr_Outlets", params);
+        }
+
+        public Spr_Outlets GetSpr_Outlet(Guid id)
+        {
+            return _DB.Spr_Outlets.SingleOrDefault(it => it.ID == id);
+        }
+
+        public void AddCheckOutlet(CheckOutlet obj)
+        {
+            _DB.CheckOutlet.AddObject(obj);
+            _DB.SaveChanges();
+        }
+
+        public void AddCheckOutletData(CheckOutletData obj)
+        {
+            _DB.CheckOutletData.AddObject(obj);
+            _DB.SaveChanges();
+        }
+        //-----------------------------------Users-------------------------------------------------------
+
+        public void logOn(string username, string _filterAttribute)
+        {
+
+            IList<Users> userlst = _DB.Users.Where(p => p.Login.Equals(username)).ToList();
+            
+           // _DB.Users.AddObject(obj);
+           // _DB.SaveChanges();
+        }
     }
 }

@@ -1,45 +1,45 @@
-﻿@model IEnumerable<StoreCheck.Models.Spr_Roles>
+﻿@using MvcPaging;
 @using StoreCheck;
+@model IPagedList<StoreCheck.Models.Spr_Roles>
+           
+
 @{
     ViewBag.Title = "Справочник: Роли";
 }
 
 <h2>Справочник: Роли</h2>
-    <link href="@Url.Content("~/Content/Tables.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery.tablesorter.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery.tablesorter.pager.js")" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("table.tablesorter").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
-            .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
-        });
-    </script>
+
 
 <p>
     @Html.ActionLink("Добавить", "Spr_RoleCreate")
 </p>
-<table class="tablesorter">
+<table>
             <thead>
                 <tr>
-                    <th >Роль</th>
+                    <th colspan="2">Роль</th>
                 </tr>
             </thead>
     <tbody>
-    @foreach (StoreCheck.Models.Spr_Roles item in ViewBag.Spr_RolesItems)
+    @foreach (var item in ViewData.Model)
     {
         <tr>
+                 <td class="td_btn">
+                @Html.ActionImage("Spr_RoleEdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
+                @Html.ActionImage("Spr_RoleDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
+                @Html.ActionImage("Spr_RoleDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
+                </td>  
             <td>
                 @item.Name
-            </td>
-         <td class="td_btn">
-            @Html.ActionImage("Spr_RoleEdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
-            @Html.ActionImage("Spr_RoleDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
-            @Html.ActionImage("Spr_RoleDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
-        </td>     
+            </td>  
         </tr>
     }
 </tbody>
 </table>
-@Html.Partial("_PaginationBar")
+
+<div class="pager">
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+</div>
+<div>
+    @Html.ActionLink("Назад", "Spr")
+</div>
 

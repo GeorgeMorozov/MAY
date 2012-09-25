@@ -11,12 +11,5 @@ namespace StoreCheck.Controllers
         //
         // GET: /ViewStores/
 
-        public ActionResult ViewStores()
-        {
-            if (!Request.IsAuthenticated)
-                return RedirectToAction("LogOn", "Account");
-            return View();
-        }
-
     }
 }

@@ -1,51 +1,48 @@
-﻿@model IEnumerable<StoreCheck.Models.Spr_Rights>
+﻿@using MvcPaging;
 @using StoreCheck;
+@model IPagedList<StoreCheck.Models.Spr_Rights>           
+
 @{
     ViewBag.Title = "Справочник: Права";
 }
 
 <h2>Справочник: Права</h2>
 
-    <link href="@Url.Content("~/Content/Tables.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery.tablesorter.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery.tablesorter.pager.js")" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("table.tablesorter").tablesorter({ widthFixed: true, sortList: [[0, 0]] })
-            .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
-        });
-    </script>
 
 <p>
     @Html.ActionLink("Добавить", "Spr_RightCreate")
 </p>
-<table class="tablesorter">
+<table>
   <thead>
     <tr>
-        <th >
+        <th colspan="2">
             Права
         </th>
     </tr>
  </thead>
   <tbody>
-@foreach (StoreCheck.Models.Spr_Rights item in ViewBag.Spr_RightsItems)
+@foreach (var item in ViewData.Model)
 {
-    <tr>
+    <tr>               
+       <td class="td_btn">
+        @Html.ActionImage("Spr_RightEdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
+        @Html.ActionImage("Spr_RightDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
+        @Html.ActionImage("Spr_RightDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
+       </td>  
         <td>
             @item.Name
         </td>
-        <td class="td_btn">
-            @Html.ActionImage("Spr_RightEdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
-            @Html.ActionImage("Spr_RightDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
-            @Html.ActionImage("Spr_RightDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
-        </td>  
+
     </tr>
 }
 
 </tbody>
 </table>
-@Html.Partial("_PaginationBar")
 
+<div class="pager">
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+</div>
+<div>
+    @Html.ActionLink("Назад", "Spr")
+</div>
 

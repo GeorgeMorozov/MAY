@@ -13,6 +13,7 @@ namespace StoreCheck.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly DataManager _db = new DataManager();
 
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }
@@ -39,6 +40,7 @@ namespace StoreCheck.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 if (MembershipService.ValidateUser(model.UserName, model.Password))
                 {
                     FormsService.SignIn(model.UserName, model.RememberMe);

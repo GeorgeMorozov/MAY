@@ -4,28 +4,28 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using MvcPaging;
 using StoreCheck.Models;
 
 namespace StoreCheck.Controllers
 {
     public class SprController : Controller
     {
-     
-        private DataManager _db = new DataManager();
+
+        private readonly DataManager _db = new DataManager();
+        private const int defaultPageSize = 10;
 
         public ActionResult Spr()
         {
             if (!Request.IsAuthenticated)
-                return RedirectToAction("LogOn", "Account");
-            else
-                return View();
+                return RedirectToAction("LogOn", "Account");        
+           return View();
         }
 
-//---------------------------Spr_Roles----------------------------------------
-        public ActionResult Spr_RolesList()
-        {        
-            ViewBag.Spr_RolesItems = _db.GetSpr_Roles();
-            return View();
+        //---------------------------Spr_Roles----------------------------------------
+        public ActionResult Spr_RolesList(int? page)
+        {
+            return View(_db.GetSpr_Roles().ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
         }
 
         [HttpGet]
@@ -37,23 +37,22 @@ namespace StoreCheck.Controllers
         [HttpPost]
         public ActionResult Spr_RoleCreate(Spr_Roles obj)
         {
-            obj.ID = Guid.NewGuid(); 
+            obj.ID = Guid.NewGuid();
             _db.AddSpr_Role(obj);
             return RedirectToAction("Spr_RolesList");
+        }
 
-        } 
-     
         public ActionResult Spr_RoleDetails(Guid id)
         {
             return View(_db.GetSpr_Role(id));
         }
 
-        public ActionResult Spr_RoleDelete( Guid id)
+        public ActionResult Spr_RoleDelete(Guid id)
         {
             _db.DeleteSpr_Role(id);
-            return RedirectToAction("Spr_RolesList"); ;
+            return RedirectToAction("Spr_RolesList");
         }
- 
+
         [HttpGet]
         public ActionResult Spr_RoleEdit(Guid id)
         {
@@ -63,22 +62,18 @@ namespace StoreCheck.Controllers
         [HttpPost]
         public ActionResult Spr_RoleEdit(Spr_Roles obj)
         {
-           if(ModelState.IsValid)
-           {
-               _db.SaveSpr_Role(obj);
-               return RedirectToAction("Spr_RolesList");
-           }
-           else
-           {
-               return View();
-           }      
+            if (ModelState.IsValid)
+            {
+                _db.SaveSpr_Role(obj);
+                return RedirectToAction("Spr_RolesList");
+            }
+            return View();
         }
 
-//-------------------Spr_Rights------------------------------------
-        public ActionResult Spr_RightsList()
+        //-------------------Spr_Rights------------------------------------
+        public ActionResult Spr_RightsList(int? page)
         {
-            ViewBag.Spr_RightsItems = _db.GetSpr_Rights();
-            return View();
+            return View(_db.GetSpr_Rights().ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
         }
 
         [HttpGet]
@@ -93,7 +88,6 @@ namespace StoreCheck.Controllers
             obj.ID = Guid.NewGuid();
             _db.AddSpr_Right(obj);
             return RedirectToAction("Spr_RightsList");
-
         }
 
         public ActionResult Spr_RightDetails(Guid id)
@@ -104,7 +98,7 @@ namespace StoreCheck.Controllers
         public ActionResult Spr_RightDelete(Guid id)
         {
             _db.DeleteSpr_Right(id);
-            return RedirectToAction("Spr_RightsList"); ;
+            return RedirectToAction("Spr_RightsList");
         }
 
         [HttpGet]
@@ -121,17 +115,13 @@ namespace StoreCheck.Controllers
                 _db.SaveSpr_Right(obj);
                 return RedirectToAction("Spr_RightsList");
             }
-            else
-            {
-                return View();
-            }
+            return View();
         }
 
-//-------------------Spr_CAP------------------------------------
-        public ActionResult Spr_CAPsList()
+        //-------------------Spr_CAP------------------------------------
+        public ActionResult Spr_CAPsList(int? page)
         {
-            ViewBag.Spr_CAPsItems = _db.GetSpr_CAPs();
-            return View();
+            return View(_db.GetSpr_CAPs().ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
         }
 
         [HttpGet]
@@ -146,7 +136,6 @@ namespace StoreCheck.Controllers
             obj.ID = Guid.NewGuid();
             _db.AddSpr_CAP(obj);
             return RedirectToAction("Spr_CAPsList");
-
         }
 
         public ActionResult Spr_CAPDetails(Guid id)
@@ -157,7 +146,7 @@ namespace StoreCheck.Controllers
         public ActionResult Spr_CAPDelete(Guid id)
         {
             _db.DeleteSpr_CAP(id);
-            return RedirectToAction("Spr_CAPsList"); ;
+            return RedirectToAction("Spr_CAPsList");
         }
 
         [HttpGet]
@@ -174,18 +163,15 @@ namespace StoreCheck.Controllers
                 _db.SaveSpr_CAP(obj);
                 return RedirectToAction("Spr_CAPsList");
             }
-            else
-            {
-                return View();
-            }
+            return View();
+
         }
 
-//-------------------Spr_SP------------------------------------
+        //-------------------Spr_SP------------------------------------
 
-        public ActionResult Spr_SRsList()
+        public ActionResult Spr_SRsList(int? page)
         {
-            ViewBag.Spr_SRsItems = _db.GetSpr_SRs();
-            return View();
+            return View(_db.GetSpr_SRs().ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
         }
 
         [HttpGet]
@@ -200,7 +186,6 @@ namespace StoreCheck.Controllers
             obj.ID = Guid.NewGuid();
             _db.AddSpr_SR(obj);
             return RedirectToAction("Spr_SRsList");
-
         }
 
         public ActionResult Spr_SRDetails(Guid id)
@@ -211,7 +196,7 @@ namespace StoreCheck.Controllers
         public ActionResult Spr_SRDelete(Guid id)
         {
             _db.DeleteSpr_SR(id);
-            return RedirectToAction("Spr_SRsList"); ;
+            return RedirectToAction("Spr_SRsList");
         }
 
         [HttpGet]
@@ -228,11 +213,8 @@ namespace StoreCheck.Controllers
                 _db.SaveSpr_SR(obj);
                 return RedirectToAction("Spr_SRsList");
             }
-            else
-            {
-                return View();
-            }
-        }
+            return View();
 
+        }
     }
 }

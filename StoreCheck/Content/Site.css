@@ -6,8 +6,8 @@ to use a different color start by replacing all instances of
 body
 {
     background-color: #5c87b2;
-    font-size: 75%;
-    font-family: Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
+    font-size: .75em;
+    font-family: Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
     color: #696969;
@@ -44,6 +44,7 @@ h1, h2, h3, h4, h5, h6
 {
     font-size: 1.5em;
     color: #000;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 h1
@@ -104,6 +105,7 @@ page width. Or, you can specify an exact pixel width. */
     color: #fff;
     border: none;
     line-height: 2em;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 32px !important;
 }
 
@@ -112,7 +114,7 @@ page width. Or, you can specify an exact pixel width. */
     padding: 30px 30px 15px 30px;
     background-color: #fff;
     margin-bottom: 30px;
-    _height: 1px; /* only IE6 applies CSS properties starting with an underscore */
+    _height: 1px; /* only IE6 applies CSS properties starting with an underscrore */
 }
 
 #footer
@@ -179,62 +181,6 @@ ul#menu li.selected a
     color: #000;
 }
 
-/* FORM LAYOUT ELEMENTS   
-----------------------------------------------------------*/
-
-fieldset 
-{
-    border:1px solid #ddd;
-    padding:0 1.4em 1.4em 1.4em;
-    margin:0 0 1.5em 0;
-}
-
-legend 
-{
-    font-size:1.2em;
-    font-weight: bold;
-}
-
-textarea 
-{
-    min-height: 75px;
-}
-
-input[type="text"] 
-{
-    width: 200px;
-    border: 1px solid #CCC;
-}
-
-input[type="password"] 
-{
-    width: 200px;
-    border: 1px solid #CCC;
-}
-
-/* TABLE
-----------------------------------------------------------*/
-
-table 
-{
-  border: solid 1px #e8eef4;
-  border-collapse: collapse;
-}
-
-table td 
-{
-  padding: 5px;   
-  border: solid 1px #e8eef4;
-}
-
-table th
-{
-  padding: 6px 5px;
-  text-align: left;
-  background-color: #e8eef4; 
-  border: solid 1px #e8eef4;   
-}
-
 /* MISC  
 ----------------------------------------------------------*/
 .clear
@@ -252,7 +198,7 @@ table th
     margin-top:40px;
 }
 
-div#title
+#title
 {
     display:block;
     float:left;
@@ -280,66 +226,121 @@ div#title
     text-decoration: underline;
 }
 
-#logindisplay a:hover
-{
-    color: white;
-    text-decoration: none;
+/* Grid */
+table.grid
+{	
+	color: #333333;
+	border-collapse: collapse;
 }
 
-/* Styles for validation helpers
------------------------------------------------------------*/
-.field-validation-error
+table.grid th
 {
-    color: #ff0000;
+	color: #333333;
+	background-color: #eee;
+	font-weight: bold;
+	border-right: solid 1px #fff;
+	border-bottom: solid 1px #ccc;
+	padding: 4px;
 }
 
-.field-validation-valid
+table.grid td
 {
-    display: none;
+	border-bottom: 1px solid #eee;
+	padding: 4px;
+
 }
 
-.input-validation-error
+
+/* Pager */
+.pager 
 {
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
+	margin:8px 3px;
+	padding:3px;
 }
 
-.validation-summary-errors
+.pager .disabled 
 {
-    font-weight: bold;
-    color: #ff0000;
+	border:1px solid #ddd;
+	color:#999;
+	margin-top:4px;
+	padding:3px;
+	text-align:center;
 }
 
-.validation-summary-valid
+.pager .current 
 {
-    display: none;
+	background-color:#06c;
+	border:1px solid #009;
+	color:#fff;
+	font-weight:bold;
+	margin-top:4px;
+	padding:3px 5px;
+	text-align:center;
 }
 
-/* Styles for editor and display helpers
-----------------------------------------------------------*/
-.display-label,
-.editor-label
+.pager span, .pager a
 {
-    margin: 1em 0 0 0;
+	margin: 4px 3px;
 }
 
-.display-field,
-.editor-field
+.pager a 
 {
-    margin:0.5em 0 0 0;
+	border:1px solid #c0c0c0;
+	padding:3px 5px;
+	text-align:center;
+	text-decoration:none;
 }
 
-.text-box
-{
-    width: 30em;
+/*
+---------------------------------------------------------------*/
+table  {
+border-spacing:0;
+border:1px solid gray;
+_width: 90%;
+_margin-left: auto;
+_margin-right: auto;        
+        
 }
 
-.text-box.multi-line
-{
-    height: 6.5em;
+table thead th:hover { 
+background-color:#E8EEF4;color:black;
 }
 
-.tri-state
-{
-    width: 6em;
+table td { 
+border:1px solid gray;
 }
+
+.td_btn{width:60px; text-align:center;}
+
+table { border-spacing:0; border:1px solid gray;}
+table.tablesorter thead tr .header {
+	background-image: url(images/bg.png);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(images/asc.png);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(images/desc.png);
+}
+table th {  
+           border:1px outset gray; 
+           background-color:#5C87B2; 
+           color:White; 
+           cursor:pointer;
+}
+table thead th:hover { background-color:#E8EEF4;color:black;}
+table td { min-height:80px; border:1px solid gray; padding:5px;}
+
+.first, .next, .prev, .last{margin-top:5px;} 
