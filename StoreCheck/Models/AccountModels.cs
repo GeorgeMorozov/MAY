@@ -86,12 +86,15 @@ namespace StoreCheck.Models
         bool ValidateUser(string userName, string password);
         MembershipCreateStatus CreateUser(string userName, string password, string email);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
+        //bool CurrUser();
     }
 
     public class AccountMembershipService : IMembershipService
     {
         private readonly MembershipProvider _provider;
         private readonly DataManager _db = new DataManager();
+        private Users _currUser;
+        //public Users CurrUser { get; }
 
         public AccountMembershipService()
             : this(null)
@@ -111,18 +114,28 @@ namespace StoreCheck.Models
             }
         }
 
+        public bool CurrUser
+        {
+            get
+            {
+                return true; //_currUser;
+            }
+        }
+
         public bool ValidateUser(string userName, string password)
         {
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Value cannot be null or empty.", "userName");
             if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
-            return true;
+            //return true;
+            return ((_currUser = IsAuthenticated("LDAP://maytea.com", "maytea", userName, password)) != null);
             //return IsAuthenticated("LDAP://office.intelserv.com", "office", userName, password);
             //return _provider.ValidateUser(userName, password);
 
         }
 
-        public bool IsAuthenticated(string _path, string domain, string username, string pwd)
+        public Users IsAuthenticated(string _path, string domain, string username, string pwd)
         {
+            Users usr = null;
             string domainAndUsername = domain + @"\" + username;
             string _filterAttribute;
             DirectoryEntry entry = new DirectoryEntry(_path, domainAndUsername, pwd);
@@ -138,24 +151,24 @@ namespace StoreCheck.Models
                 search.PropertiesToLoad.Add("cn");
                 SearchResult result = search.FindOne();
 
-                if (null == result)
+                if (result == null)
                 {
-                    return false;
+                    return usr;
                 }
 
                 //Update the new path to the user in the directory.  
                 _path = result.Path;
                 _filterAttribute = (string)result.Properties["cn"][0];
-                _db.logOn(username, _filterAttribute);
+                usr = _db.GetCurrUser(username, _filterAttribute);
                 
             }
             catch (Exception ex)
             {
                 //throw new Exception("Error authenticating user. " + ex.Message);
-                return false;
+                return usr;
             }
 
-            return true;
+            return usr;
         }
 
         public MembershipCreateStatus CreateUser(string userName, string password, string email)

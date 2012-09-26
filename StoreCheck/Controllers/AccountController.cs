@@ -43,6 +43,7 @@ namespace StoreCheck.Controllers
 
                 if (MembershipService.ValidateUser(model.UserName, model.Password))
                 {
+                   // Users usr = MembershipService.CurrUser();
                     FormsService.SignIn(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl))
                     {

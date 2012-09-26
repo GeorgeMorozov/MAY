@@ -217,13 +217,22 @@ namespace StoreCheck.Models
         }
         //-----------------------------------Users-------------------------------------------------------
 
-        public void logOn(string username, string _filterAttribute)
+        public Users GetCurrUser(string username, string filterAttribute)
         {
-
+            Users usr = null; 
             IList<Users> userlst = _DB.Users.Where(p => p.Login.Equals(username)).ToList();
-            
-           // _DB.Users.AddObject(obj);
-           // _DB.SaveChanges();
+            if (userlst.Count == 0)
+            {
+                usr = new Users();
+                usr.Login = username;
+                usr.FIO = filterAttribute;
+                _DB.Users.AddObject(usr);
+                _DB.SaveChanges();
+            }
+            else
+                usr = userlst[0];
+            return usr;
+ 
         }
     }
 }
