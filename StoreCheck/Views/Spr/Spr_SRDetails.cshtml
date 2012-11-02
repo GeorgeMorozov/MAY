@@ -1,13 +1,11 @@
 ﻿@model StoreCheck.Models.Spr_SR
 
 @{
-    ViewBag.Title = "Просмотр: Ассортимент";
+    ViewBag.Title = "Просмотр: Торговые агенты";
 }
 
-<h2>Просмотр: Ассортимент</h2>
-
 <fieldset>
-    <legend>Ассортимент</legend>
+    <legend>Просмотр: Торговые агенты</legend>
 
     <div class="display-label">SBU</div>
     <div class="display-field">@Model.SBU</div>
@@ -20,12 +18,6 @@
 
     <div class="display-label">Дистрибутор</div>
     <div class="display-field">@Model.Дистрибутор</div>
-
-    <div class="display-label">КодСупервайзер</div>
-    <div class="display-field">@Model.КодСупервайзер</div>
-
-    <div class="display-label">Супервайзер</div>
-    <div class="display-field">@Model.Супервайзер</div>
 
     <div class="display-label">КодТА</div>
     <div class="display-field">@Model.КодТА</div>
@@ -41,6 +33,6 @@
 </fieldset>
 <p>
     @Html.ActionLink("Редактировать", "Spr_SREdit", new { id = Model.ID }) |
-    @Html.ActionLink("Назад", "Spr_SRsList")
+    @Html.ActionLink("Назад", "Spr_SRList")
 </p>
 

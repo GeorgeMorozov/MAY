@@ -14,7 +14,6 @@ namespace MvcPaging
 		private readonly int pageSize;
 		private readonly int currentPage;
 		private readonly int totalItemCount;
-		private readonly string actionName;
         private readonly RouteValueDictionary linkWithoutPageValuesDictionary;
         private readonly AjaxOptions ajaxOptions;
 

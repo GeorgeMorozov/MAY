@@ -19,11 +19,13 @@ using System.Runtime.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("DBModel", "FK_CheckOutlet_OutletID", "Spr_Outlets", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(StoreCheck.Models.Spr_Outlets), "CheckOutlet", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(StoreCheck.Models.CheckOutlet), true)]
-[assembly: EdmRelationshipAttribute("DBModel", "FK_CheckOutlet_UserID", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(StoreCheck.Models.Users), "CheckOutlet", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(StoreCheck.Models.CheckOutlet), true)]
 [assembly: EdmRelationshipAttribute("DBModel", "FK_CheckOutletData_OutletID", "CheckOutlet", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(StoreCheck.Models.CheckOutlet), "CheckOutletData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(StoreCheck.Models.CheckOutletData), true)]
+[assembly: EdmRelationshipAttribute("DBModel", "FK_CheckOutletImg_OutletID", "CheckOutlet", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(StoreCheck.Models.CheckOutlet), "CheckOutletImg", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(StoreCheck.Models.CheckOutletImg), true)]
 [assembly: EdmRelationshipAttribute("DBModel", "FK_CheckOutletData_SKUID", "Spr_CAP", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(StoreCheck.Models.Spr_CAP), "CheckOutletData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(StoreCheck.Models.CheckOutletData), true)]
 [assembly: EdmRelationshipAttribute("DBModel", "FK_Roles_Spr_Rights", "Spr_Rights", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(StoreCheck.Models.Spr_Rights), "Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(StoreCheck.Models.Roles), true)]
 [assembly: EdmRelationshipAttribute("DBModel", "FK_Roles_Spr_Roles", "Spr_Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(StoreCheck.Models.Spr_Roles), "Roles", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(StoreCheck.Models.Roles), true)]
+[assembly: EdmRelationshipAttribute("DBModel", "FK_CheckOutlet_UserID", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(StoreCheck.Models.Users), "CheckOutlet", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(StoreCheck.Models.CheckOutlet), true)]
+[assembly: EdmRelationshipAttribute("DBModel", "FK_Users_Users", "Users", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(StoreCheck.Models.Users), "Users1", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(StoreCheck.Models.Users), true)]
 
 #endregion
 
@@ -34,32 +36,32 @@ namespace StoreCheck.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class DBEntities : ObjectContext
+    public partial class Entities : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new DBEntities object using the connection string found in the 'DBEntities' section of the application configuration file.
+        /// Initializes a new Entities object using the connection string found in the 'Entities' section of the application configuration file.
         /// </summary>
-        public DBEntities() : base("name=DBEntities", "DBEntities")
+        public Entities() : base("name=Entities", "Entities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new DBEntities object.
+        /// Initialize a new Entities object.
         /// </summary>
-        public DBEntities(string connectionString) : base(connectionString, "DBEntities")
+        public Entities(string connectionString) : base(connectionString, "Entities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new DBEntities object.
+        /// Initialize a new Entities object.
         /// </summary>
-        public DBEntities(EntityConnection connection) : base(connection, "DBEntities")
+        public Entities(EntityConnection connection) : base(connection, "Entities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -106,6 +108,22 @@ namespace StoreCheck.Models
             }
         }
         private ObjectSet<CheckOutletData> _CheckOutletData;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CheckOutletImg> CheckOutletImg
+        {
+            get
+            {
+                if ((_CheckOutletImg == null))
+                {
+                    _CheckOutletImg = base.CreateObjectSet<CheckOutletImg>("CheckOutletImg");
+                }
+                return _CheckOutletImg;
+            }
+        }
+        private ObjectSet<CheckOutletImg> _CheckOutletImg;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -206,6 +224,118 @@ namespace StoreCheck.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<sysdiagrams> sysdiagrams
+        {
+            get
+            {
+                if ((_sysdiagrams == null))
+                {
+                    _sysdiagrams = base.CreateObjectSet<sysdiagrams>("sysdiagrams");
+                }
+                return _sysdiagrams;
+            }
+        }
+        private ObjectSet<sysdiagrams> _sysdiagrams;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<VWCheckOutlet> VWCheckOutlet
+        {
+            get
+            {
+                if ((_VWCheckOutlet == null))
+                {
+                    _VWCheckOutlet = base.CreateObjectSet<VWCheckOutlet>("VWCheckOutlet");
+                }
+                return _VWCheckOutlet;
+            }
+        }
+        private ObjectSet<VWCheckOutlet> _VWCheckOutlet;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<VWCheckOutletData> VWCheckOutletData
+        {
+            get
+            {
+                if ((_VWCheckOutletData == null))
+                {
+                    _VWCheckOutletData = base.CreateObjectSet<VWCheckOutletData>("VWCheckOutletData");
+                }
+                return _VWCheckOutletData;
+            }
+        }
+        private ObjectSet<VWCheckOutletData> _VWCheckOutletData;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<VWRoles> VWRoles
+        {
+            get
+            {
+                if ((_VWRoles == null))
+                {
+                    _VWRoles = base.CreateObjectSet<VWRoles>("VWRoles");
+                }
+                return _VWRoles;
+            }
+        }
+        private ObjectSet<VWRoles> _VWRoles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<VWUsers> VWUsers
+        {
+            get
+            {
+                if ((_VWUsers == null))
+                {
+                    _VWUsers = base.CreateObjectSet<VWUsers>("VWUsers");
+                }
+                return _VWUsers;
+            }
+        }
+        private ObjectSet<VWUsers> _VWUsers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Spr_ChannelRetail> Spr_ChannelRetail
+        {
+            get
+            {
+                if ((_Spr_ChannelRetail == null))
+                {
+                    _Spr_ChannelRetail = base.CreateObjectSet<Spr_ChannelRetail>("Spr_ChannelRetail");
+                }
+                return _Spr_ChannelRetail;
+            }
+        }
+        private ObjectSet<Spr_ChannelRetail> _Spr_ChannelRetail;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Spr_TypeTA> Spr_TypeTA
+        {
+            get
+            {
+                if ((_Spr_TypeTA == null))
+                {
+                    _Spr_TypeTA = base.CreateObjectSet<Spr_TypeTA>("Spr_TypeTA");
+                }
+                return _Spr_TypeTA;
+            }
+        }
+        private ObjectSet<Spr_TypeTA> _Spr_TypeTA;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<Users> Users
         {
             get
@@ -236,6 +366,14 @@ namespace StoreCheck.Models
         public void AddToCheckOutletData(CheckOutletData checkOutletData)
         {
             base.AddObject("CheckOutletData", checkOutletData);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CheckOutletImg EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCheckOutletImg(CheckOutletImg checkOutletImg)
+        {
+            base.AddObject("CheckOutletImg", checkOutletImg);
         }
     
         /// <summary>
@@ -284,6 +422,62 @@ namespace StoreCheck.Models
         public void AddToSpr_SR(Spr_SR spr_SR)
         {
             base.AddObject("Spr_SR", spr_SR);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the sysdiagrams EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTosysdiagrams(sysdiagrams sysdiagrams)
+        {
+            base.AddObject("sysdiagrams", sysdiagrams);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the VWCheckOutlet EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVWCheckOutlet(VWCheckOutlet vWCheckOutlet)
+        {
+            base.AddObject("VWCheckOutlet", vWCheckOutlet);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the VWCheckOutletData EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVWCheckOutletData(VWCheckOutletData vWCheckOutletData)
+        {
+            base.AddObject("VWCheckOutletData", vWCheckOutletData);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the VWRoles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVWRoles(VWRoles vWRoles)
+        {
+            base.AddObject("VWRoles", vWRoles);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the VWUsers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVWUsers(VWUsers vWUsers)
+        {
+            base.AddObject("VWUsers", vWUsers);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Spr_ChannelRetail EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSpr_ChannelRetail(Spr_ChannelRetail spr_ChannelRetail)
+        {
+            base.AddObject("Spr_ChannelRetail", spr_ChannelRetail);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Spr_TypeTA EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSpr_TypeTA(Spr_TypeTA spr_TypeTA)
+        {
+            base.AddObject("Spr_TypeTA", spr_TypeTA);
         }
     
         /// <summary>
@@ -406,24 +600,24 @@ namespace StoreCheck.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> CkeckDate
+        public Nullable<global::System.DateTime> CheckDate
         {
             get
             {
-                return _CkeckDate;
+                return _CheckDate;
             }
             set
             {
-                OnCkeckDateChanging(value);
-                ReportPropertyChanging("CkeckDate");
-                _CkeckDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CkeckDate");
-                OnCkeckDateChanged();
+                OnCheckDateChanging(value);
+                ReportPropertyChanging("CheckDate");
+                _CheckDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CheckDate");
+                OnCheckDateChanged();
             }
         }
-        private Nullable<global::System.DateTime> _CkeckDate;
-        partial void OnCkeckDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnCkeckDateChanged();
+        private Nullable<global::System.DateTime> _CheckDate;
+        partial void OnCheckDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnCheckDateChanged();
 
         #endregion
     
@@ -473,6 +667,50 @@ namespace StoreCheck.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DBModel", "FK_CheckOutletData_OutletID", "CheckOutletData")]
+        public EntityCollection<CheckOutletData> CheckOutletData
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CheckOutletData>("DBModel.FK_CheckOutletData_OutletID", "CheckOutletData");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CheckOutletData>("DBModel.FK_CheckOutletData_OutletID", "CheckOutletData", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DBModel", "FK_CheckOutletImg_OutletID", "CheckOutletImg")]
+        public EntityCollection<CheckOutletImg> CheckOutletImg
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CheckOutletImg>("DBModel.FK_CheckOutletImg_OutletID", "CheckOutletImg");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CheckOutletImg>("DBModel.FK_CheckOutletImg_OutletID", "CheckOutletImg", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DBModel", "FK_CheckOutlet_UserID", "Users")]
         public Users Users
         {
@@ -501,28 +739,6 @@ namespace StoreCheck.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("DBModel.FK_CheckOutlet_UserID", "Users", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("DBModel", "FK_CheckOutletData_OutletID", "CheckOutletData")]
-        public EntityCollection<CheckOutletData> CheckOutletData
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CheckOutletData>("DBModel.FK_CheckOutletData_OutletID", "CheckOutletData");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CheckOutletData>("DBModel.FK_CheckOutletData_OutletID", "CheckOutletData", value);
                 }
             }
         }
@@ -705,6 +921,152 @@ namespace StoreCheck.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Spr_CAP>("DBModel.FK_CheckOutletData_SKUID", "Spr_CAP", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DBModel", Name="CheckOutletImg")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CheckOutletImg : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CheckOutletImg object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="outletID">Initial value of the OutletID property.</param>
+        public static CheckOutletImg CreateCheckOutletImg(global::System.Guid id, global::System.Guid outletID)
+        {
+            CheckOutletImg checkOutletImg = new CheckOutletImg();
+            checkOutletImg.ID = id;
+            checkOutletImg.OutletID = outletID;
+            return checkOutletImg;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Guid _ID;
+        partial void OnIDChanging(global::System.Guid value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid OutletID
+        {
+            get
+            {
+                return _OutletID;
+            }
+            set
+            {
+                OnOutletIDChanging(value);
+                ReportPropertyChanging("OutletID");
+                _OutletID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OutletID");
+                OnOutletIDChanged();
+            }
+        }
+        private global::System.Guid _OutletID;
+        partial void OnOutletIDChanging(global::System.Guid value);
+        partial void OnOutletIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Path
+        {
+            get
+            {
+                return _Path;
+            }
+            set
+            {
+                OnPathChanging(value);
+                ReportPropertyChanging("Path");
+                _Path = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Path");
+                OnPathChanged();
+            }
+        }
+        private global::System.String _Path;
+        partial void OnPathChanging(global::System.String value);
+        partial void OnPathChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DBModel", "FK_CheckOutletImg_OutletID", "CheckOutlet")]
+        public CheckOutlet CheckOutlet
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CheckOutlet>("DBModel.FK_CheckOutletImg_OutletID", "CheckOutlet").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CheckOutlet>("DBModel.FK_CheckOutletImg_OutletID", "CheckOutlet").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CheckOutlet> CheckOutletReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CheckOutlet>("DBModel.FK_CheckOutletImg_OutletID", "CheckOutlet");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CheckOutlet>("DBModel.FK_CheckOutletImg_OutletID", "CheckOutlet", value);
                 }
             }
         }
@@ -1112,6 +1474,30 @@ namespace StoreCheck.Models
         private global::System.Guid _ID;
         partial void OnIDChanging(global::System.Guid value);
         partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ТорговаяМарка
+        {
+            get
+            {
+                return _ТорговаяМарка;
+            }
+            set
+            {
+                OnТорговаяМаркаChanging(value);
+                ReportPropertyChanging("ТорговаяМарка");
+                _ТорговаяМарка = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ТорговаяМарка");
+                OnТорговаяМаркаChanged();
+            }
+        }
+        private global::System.String _ТорговаяМарка;
+        partial void OnТорговаяМаркаChanging(global::System.String value);
+        partial void OnТорговаяМаркаChanged();
 
         #endregion
     
@@ -1140,6 +1526,109 @@ namespace StoreCheck.Models
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DBModel", Name="Spr_ChannelRetail")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Spr_ChannelRetail : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Spr_ChannelRetail object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static Spr_ChannelRetail CreateSpr_ChannelRetail(global::System.Guid id)
+        {
+            Spr_ChannelRetail spr_ChannelRetail = new Spr_ChannelRetail();
+            spr_ChannelRetail.ID = id;
+            return spr_ChannelRetail;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Guid _ID;
+        partial void OnIDChanging(global::System.Guid value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SBU
+        {
+            get
+            {
+                return _SBU;
+            }
+            set
+            {
+                OnSBUChanging(value);
+                ReportPropertyChanging("SBU");
+                _SBU = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SBU");
+                OnSBUChanged();
+            }
+        }
+        private global::System.String _SBU;
+        partial void OnSBUChanging(global::System.String value);
+        partial void OnSBUChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Каналреализации
+        {
+            get
+            {
+                return _Каналреализации;
+            }
+            set
+            {
+                OnКаналреализацииChanging(value);
+                ReportPropertyChanging("Каналреализации");
+                _Каналреализации = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Каналреализации");
+                OnКаналреализацииChanged();
+            }
+        }
+        private global::System.String _Каналреализации;
+        partial void OnКаналреализацииChanging(global::System.String value);
+        partial void OnКаналреализацииChanged();
+
+        #endregion
+    
     }
     
     /// <summary>
@@ -2035,54 +2524,6 @@ namespace StoreCheck.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String КодСупервайзер
-        {
-            get
-            {
-                return _КодСупервайзер;
-            }
-            set
-            {
-                OnКодСупервайзерChanging(value);
-                ReportPropertyChanging("КодСупервайзер");
-                _КодСупервайзер = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("КодСупервайзер");
-                OnКодСупервайзерChanged();
-            }
-        }
-        private global::System.String _КодСупервайзер;
-        partial void OnКодСупервайзерChanging(global::System.String value);
-        partial void OnКодСупервайзерChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Супервайзер
-        {
-            get
-            {
-                return _Супервайзер;
-            }
-            set
-            {
-                OnСупервайзерChanging(value);
-                ReportPropertyChanging("Супервайзер");
-                _Супервайзер = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Супервайзер");
-                OnСупервайзерChanged();
-            }
-        }
-        private global::System.String _Супервайзер;
-        partial void OnСупервайзерChanging(global::System.String value);
-        partial void OnСупервайзерChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public global::System.String КодТА
         {
             get
@@ -2208,6 +2649,240 @@ namespace StoreCheck.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DBModel", Name="Spr_TypeTA")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Spr_TypeTA : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Spr_TypeTA object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static Spr_TypeTA CreateSpr_TypeTA(global::System.Guid id)
+        {
+            Spr_TypeTA spr_TypeTA = new Spr_TypeTA();
+            spr_TypeTA.ID = id;
+            return spr_TypeTA;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Guid _ID;
+        partial void OnIDChanging(global::System.Guid value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ТипТА
+        {
+            get
+            {
+                return _ТипТА;
+            }
+            set
+            {
+                OnТипТАChanging(value);
+                ReportPropertyChanging("ТипТА");
+                _ТипТА = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ТипТА");
+                OnТипТАChanged();
+            }
+        }
+        private global::System.String _ТипТА;
+        partial void OnТипТАChanging(global::System.String value);
+        partial void OnТипТАChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DBModel", Name="sysdiagrams")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class sysdiagrams : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new sysdiagrams object.
+        /// </summary>
+        /// <param name="name">Initial value of the name property.</param>
+        /// <param name="principal_id">Initial value of the principal_id property.</param>
+        /// <param name="diagram_id">Initial value of the diagram_id property.</param>
+        public static sysdiagrams Createsysdiagrams(global::System.String name, global::System.Int32 principal_id, global::System.Int32 diagram_id)
+        {
+            sysdiagrams sysdiagrams = new sysdiagrams();
+            sysdiagrams.name = name;
+            sysdiagrams.principal_id = principal_id;
+            sysdiagrams.diagram_id = diagram_id;
+            return sysdiagrams;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                OnnameChanging(value);
+                ReportPropertyChanging("name");
+                _name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("name");
+                OnnameChanged();
+            }
+        }
+        private global::System.String _name;
+        partial void OnnameChanging(global::System.String value);
+        partial void OnnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 principal_id
+        {
+            get
+            {
+                return _principal_id;
+            }
+            set
+            {
+                Onprincipal_idChanging(value);
+                ReportPropertyChanging("principal_id");
+                _principal_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("principal_id");
+                Onprincipal_idChanged();
+            }
+        }
+        private global::System.Int32 _principal_id;
+        partial void Onprincipal_idChanging(global::System.Int32 value);
+        partial void Onprincipal_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 diagram_id
+        {
+            get
+            {
+                return _diagram_id;
+            }
+            set
+            {
+                if (_diagram_id != value)
+                {
+                    Ondiagram_idChanging(value);
+                    ReportPropertyChanging("diagram_id");
+                    _diagram_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("diagram_id");
+                    Ondiagram_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _diagram_id;
+        partial void Ondiagram_idChanging(global::System.Int32 value);
+        partial void Ondiagram_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> version
+        {
+            get
+            {
+                return _version;
+            }
+            set
+            {
+                OnversionChanging(value);
+                ReportPropertyChanging("version");
+                _version = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("version");
+                OnversionChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _version;
+        partial void OnversionChanging(Nullable<global::System.Int32> value);
+        partial void OnversionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] definition
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_definition);
+            }
+            set
+            {
+                OndefinitionChanging(value);
+                ReportPropertyChanging("definition");
+                _definition = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("definition");
+                OndefinitionChanged();
+            }
+        }
+        private global::System.Byte[] _definition;
+        partial void OndefinitionChanging(global::System.Byte[] value);
+        partial void OndefinitionChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="DBModel", Name="Users")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2309,24 +2984,48 @@ namespace StoreCheck.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Role
+        public Nullable<global::System.Guid> RoleID
         {
             get
             {
-                return _Role;
+                return _RoleID;
             }
             set
             {
-                OnRoleChanging(value);
-                ReportPropertyChanging("Role");
-                _Role = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Role");
-                OnRoleChanged();
+                OnRoleIDChanging(value);
+                ReportPropertyChanging("RoleID");
+                _RoleID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RoleID");
+                OnRoleIDChanged();
             }
         }
-        private global::System.String _Role;
-        partial void OnRoleChanging(global::System.String value);
-        partial void OnRoleChanged();
+        private Nullable<global::System.Guid> _RoleID;
+        partial void OnRoleIDChanging(Nullable<global::System.Guid> value);
+        partial void OnRoleIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UserBits
+        {
+            get
+            {
+                return _UserBits;
+            }
+            set
+            {
+                OnUserBitsChanging(value);
+                ReportPropertyChanging("UserBits");
+                _UserBits = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserBits");
+                OnUserBitsChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UserBits;
+        partial void OnUserBitsChanging(Nullable<global::System.Int32> value);
+        partial void OnUserBitsChanged();
 
         #endregion
     
@@ -2353,8 +3052,727 @@ namespace StoreCheck.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DBModel", "FK_Users_Users", "Users1")]
+        public Users Users1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("DBModel.FK_Users_Users", "Users1").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("DBModel.FK_Users_Users", "Users1").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Users> Users1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("DBModel.FK_Users_Users", "Users1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("DBModel.FK_Users_Users", "Users1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DBModel", "FK_Users_Users", "Users")]
+        public Users Users2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("DBModel.FK_Users_Users", "Users").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("DBModel.FK_Users_Users", "Users").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Users> Users2Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Users>("DBModel.FK_Users_Users", "Users");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Users>("DBModel.FK_Users_Users", "Users", value);
+                }
+            }
+        }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DBModel", Name="VWCheckOutlet")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class VWCheckOutlet : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new VWCheckOutlet object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        /// <param name="outletID">Initial value of the OutletID property.</param>
+        public static VWCheckOutlet CreateVWCheckOutlet(global::System.Guid id, global::System.Guid outletID)
+        {
+            VWCheckOutlet vWCheckOutlet = new VWCheckOutlet();
+            vWCheckOutlet.ID = id;
+            vWCheckOutlet.OutletID = outletID;
+            return vWCheckOutlet;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Guid _ID;
+        partial void OnIDChanging(global::System.Guid value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CheckDate
+        {
+            get
+            {
+                return _CheckDate;
+            }
+            set
+            {
+                OnCheckDateChanging(value);
+                ReportPropertyChanging("CheckDate");
+                _CheckDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CheckDate");
+                OnCheckDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CheckDate;
+        partial void OnCheckDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnCheckDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Клиент
+        {
+            get
+            {
+                return _Клиент;
+            }
+            set
+            {
+                OnКлиентChanging(value);
+                ReportPropertyChanging("Клиент");
+                _Клиент = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Клиент");
+                OnКлиентChanged();
+            }
+        }
+        private global::System.String _Клиент;
+        partial void OnКлиентChanging(global::System.String value);
+        partial void OnКлиентChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Login
+        {
+            get
+            {
+                return _Login;
+            }
+            set
+            {
+                OnLoginChanging(value);
+                ReportPropertyChanging("Login");
+                _Login = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Login");
+                OnLoginChanged();
+            }
+        }
+        private global::System.String _Login;
+        partial void OnLoginChanging(global::System.String value);
+        partial void OnLoginChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid OutletID
+        {
+            get
+            {
+                return _OutletID;
+            }
+            set
+            {
+                if (_OutletID != value)
+                {
+                    OnOutletIDChanging(value);
+                    ReportPropertyChanging("OutletID");
+                    _OutletID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("OutletID");
+                    OnOutletIDChanged();
+                }
+            }
+        }
+        private global::System.Guid _OutletID;
+        partial void OnOutletIDChanging(global::System.Guid value);
+        partial void OnOutletIDChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DBModel", Name="VWCheckOutletData")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class VWCheckOutletData : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new VWCheckOutletData object.
+        /// </summary>
+        /// <param name="outletID">Initial value of the OutletID property.</param>
+        /// <param name="capID">Initial value of the CapID property.</param>
+        /// <param name="checkOutletID">Initial value of the CheckOutletID property.</param>
+        public static VWCheckOutletData CreateVWCheckOutletData(global::System.Guid outletID, global::System.Guid capID, global::System.Guid checkOutletID)
+        {
+            VWCheckOutletData vWCheckOutletData = new VWCheckOutletData();
+            vWCheckOutletData.OutletID = outletID;
+            vWCheckOutletData.CapID = capID;
+            vWCheckOutletData.CheckOutletID = checkOutletID;
+            return vWCheckOutletData;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Path
+        {
+            get
+            {
+                return _Path;
+            }
+            set
+            {
+                OnPathChanging(value);
+                ReportPropertyChanging("Path");
+                _Path = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Path");
+                OnPathChanged();
+            }
+        }
+        private global::System.String _Path;
+        partial void OnPathChanging(global::System.String value);
+        partial void OnPathChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CheckDate
+        {
+            get
+            {
+                return _CheckDate;
+            }
+            set
+            {
+                OnCheckDateChanging(value);
+                ReportPropertyChanging("CheckDate");
+                _CheckDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CheckDate");
+                OnCheckDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CheckDate;
+        partial void OnCheckDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnCheckDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SKUКМУ
+        {
+            get
+            {
+                return _SKUКМУ;
+            }
+            set
+            {
+                OnSKUКМУChanging(value);
+                ReportPropertyChanging("SKUКМУ");
+                _SKUКМУ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SKUКМУ");
+                OnSKUКМУChanged();
+            }
+        }
+        private global::System.String _SKUКМУ;
+        partial void OnSKUКМУChanging(global::System.String value);
+        partial void OnSKUКМУChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Login
+        {
+            get
+            {
+                return _Login;
+            }
+            set
+            {
+                OnLoginChanging(value);
+                ReportPropertyChanging("Login");
+                _Login = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Login");
+                OnLoginChanged();
+            }
+        }
+        private global::System.String _Login;
+        partial void OnLoginChanging(global::System.String value);
+        partial void OnLoginChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Клиент
+        {
+            get
+            {
+                return _Клиент;
+            }
+            set
+            {
+                OnКлиентChanging(value);
+                ReportPropertyChanging("Клиент");
+                _Клиент = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Клиент");
+                OnКлиентChanged();
+            }
+        }
+        private global::System.String _Клиент;
+        partial void OnКлиентChanging(global::System.String value);
+        partial void OnКлиентChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid OutletID
+        {
+            get
+            {
+                return _OutletID;
+            }
+            set
+            {
+                if (_OutletID != value)
+                {
+                    OnOutletIDChanging(value);
+                    ReportPropertyChanging("OutletID");
+                    _OutletID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("OutletID");
+                    OnOutletIDChanged();
+                }
+            }
+        }
+        private global::System.Guid _OutletID;
+        partial void OnOutletIDChanging(global::System.Guid value);
+        partial void OnOutletIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid CapID
+        {
+            get
+            {
+                return _CapID;
+            }
+            set
+            {
+                if (_CapID != value)
+                {
+                    OnCapIDChanging(value);
+                    ReportPropertyChanging("CapID");
+                    _CapID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CapID");
+                    OnCapIDChanged();
+                }
+            }
+        }
+        private global::System.Guid _CapID;
+        partial void OnCapIDChanging(global::System.Guid value);
+        partial void OnCapIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid CheckOutletID
+        {
+            get
+            {
+                return _CheckOutletID;
+            }
+            set
+            {
+                if (_CheckOutletID != value)
+                {
+                    OnCheckOutletIDChanging(value);
+                    ReportPropertyChanging("CheckOutletID");
+                    _CheckOutletID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CheckOutletID");
+                    OnCheckOutletIDChanged();
+                }
+            }
+        }
+        private global::System.Guid _CheckOutletID;
+        partial void OnCheckOutletIDChanging(global::System.Guid value);
+        partial void OnCheckOutletIDChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DBModel", Name="VWRoles")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class VWRoles : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new VWRoles object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static VWRoles CreateVWRoles(global::System.Guid id)
+        {
+            VWRoles vWRoles = new VWRoles();
+            vWRoles.ID = id;
+            return vWRoles;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Guid _ID;
+        partial void OnIDChanging(global::System.Guid value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RightName
+        {
+            get
+            {
+                return _RightName;
+            }
+            set
+            {
+                OnRightNameChanging(value);
+                ReportPropertyChanging("RightName");
+                _RightName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RightName");
+                OnRightNameChanged();
+            }
+        }
+        private global::System.String _RightName;
+        partial void OnRightNameChanging(global::System.String value);
+        partial void OnRightNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoleName
+        {
+            get
+            {
+                return _RoleName;
+            }
+            set
+            {
+                OnRoleNameChanging(value);
+                ReportPropertyChanging("RoleName");
+                _RoleName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RoleName");
+                OnRoleNameChanged();
+            }
+        }
+        private global::System.String _RoleName;
+        partial void OnRoleNameChanging(global::System.String value);
+        partial void OnRoleNameChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DBModel", Name="VWUsers")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class VWUsers : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new VWUsers object.
+        /// </summary>
+        /// <param name="userID">Initial value of the UserID property.</param>
+        public static VWUsers CreateVWUsers(global::System.Guid userID)
+        {
+            VWUsers vWUsers = new VWUsers();
+            vWUsers.UserID = userID;
+            return vWUsers;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid UserID
+        {
+            get
+            {
+                return _UserID;
+            }
+            set
+            {
+                if (_UserID != value)
+                {
+                    OnUserIDChanging(value);
+                    ReportPropertyChanging("UserID");
+                    _UserID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserID");
+                    OnUserIDChanged();
+                }
+            }
+        }
+        private global::System.Guid _UserID;
+        partial void OnUserIDChanging(global::System.Guid value);
+        partial void OnUserIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Login
+        {
+            get
+            {
+                return _Login;
+            }
+            set
+            {
+                OnLoginChanging(value);
+                ReportPropertyChanging("Login");
+                _Login = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Login");
+                OnLoginChanged();
+            }
+        }
+        private global::System.String _Login;
+        partial void OnLoginChanging(global::System.String value);
+        partial void OnLoginChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FIO
+        {
+            get
+            {
+                return _FIO;
+            }
+            set
+            {
+                OnFIOChanging(value);
+                ReportPropertyChanging("FIO");
+                _FIO = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FIO");
+                OnFIOChanged();
+            }
+        }
+        private global::System.String _FIO;
+        partial void OnFIOChanging(global::System.String value);
+        partial void OnFIOChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoleName
+        {
+            get
+            {
+                return _RoleName;
+            }
+            set
+            {
+                OnRoleNameChanging(value);
+                ReportPropertyChanging("RoleName");
+                _RoleName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RoleName");
+                OnRoleNameChanged();
+            }
+        }
+        private global::System.String _RoleName;
+        partial void OnRoleNameChanging(global::System.String value);
+        partial void OnRoleNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> RoleID
+        {
+            get
+            {
+                return _RoleID;
+            }
+            set
+            {
+                OnRoleIDChanging(value);
+                ReportPropertyChanging("RoleID");
+                _RoleID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RoleID");
+                OnRoleIDChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _RoleID;
+        partial void OnRoleIDChanging(Nullable<global::System.Guid> value);
+        partial void OnRoleIDChanged();
+
+        #endregion
+    
     }
 
     #endregion

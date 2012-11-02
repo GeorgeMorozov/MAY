@@ -86,7 +86,6 @@ namespace StoreCheck.Models
         bool ValidateUser(string userName, string password);
         MembershipCreateStatus CreateUser(string userName, string password, string email);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
-        //bool CurrUser();
     }
 
     public class AccountMembershipService : IMembershipService
@@ -94,11 +93,20 @@ namespace StoreCheck.Models
         private readonly MembershipProvider _provider;
         private readonly DataManager _db = new DataManager();
         private Users _currUser;
-        //public Users CurrUser { get; }
-
+        private string _CurrUsrLogin;
+        /*
         public AccountMembershipService()
             : this(null)
         {
+        }
+         */ 
+        public AccountMembershipService(string Login)
+        {
+            _CurrUsrLogin = Login; 
+            if (_currUser == null)
+            {
+                _currUser = _db.GetUserByLogin(_CurrUsrLogin);
+            }
         }
 
         public AccountMembershipService(MembershipProvider provider)
@@ -114,11 +122,15 @@ namespace StoreCheck.Models
             }
         }
 
-        public bool CurrUser
+        public Users CurrUser
         {
             get
             {
-                return true; //_currUser;
+                if (_currUser == null)
+                {
+                    _currUser = _db.GetUserByLogin(_CurrUsrLogin);
+                }
+                return _currUser;
             }
         }
 
@@ -126,18 +138,25 @@ namespace StoreCheck.Models
         {
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Value cannot be null or empty.", "userName");
             if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
-            //return true;
-            return ((_currUser = IsAuthenticated("LDAP://maytea.com", "maytea", userName, password)) != null);
-            //return IsAuthenticated("LDAP://office.intelserv.com", "office", userName, password);
-            //return _provider.ValidateUser(userName, password);
-
+            
+            //_currUser = IsAuthenticated("LDAP://office.intelserv.com", "office", userName, password);
+            _currUser = IsAuthenticated("LDAP://maytea.com", "maytea", userName, password);            
+            // if (_currUser == null)  _currUser = new Users(); _currUser.Login = "George";
+            return (_currUser != null);
         }
 
         public Users IsAuthenticated(string _path, string domain, string username, string pwd)
         {
+   
             Users usr = null;
             string domainAndUsername = domain + @"\" + username;
-            string _filterAttribute;
+            string _filterAttribute = String.Empty;
+
+            //TEST{
+            //_filterAttribute = "mGeorge";
+           // return _db.GetCurrUser(username, _filterAttribute);
+            //TEST}
+
             DirectoryEntry entry = new DirectoryEntry(_path, domainAndUsername, pwd);
 
             try
@@ -156,7 +175,7 @@ namespace StoreCheck.Models
                     return usr;
                 }
 
-                //Update the new path to the user in the directory.  
+                //Update the new path to the user in the directory.
                 _path = result.Path;
                 _filterAttribute = (string)result.Properties["cn"][0];
                 usr = _db.GetCurrUser(username, _filterAttribute);
@@ -164,7 +183,8 @@ namespace StoreCheck.Models
             }
             catch (Exception ex)
             {
-                //throw new Exception("Error authenticating user. " + ex.Message);
+                
+                throw new Exception("Error authenticating user. " + ex.Message);
                 return usr;
             }
 

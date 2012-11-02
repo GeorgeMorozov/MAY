@@ -16,12 +16,12 @@ namespace StoreCheck.Controllers
         private readonly DataManager _db = new DataManager();
 
         public IFormsAuthenticationService FormsService { get; set; }
-        public IMembershipService MembershipService { get; set; }
+        public AccountMembershipService MembershipService { get; set; }
 
         protected override void Initialize(RequestContext requestContext)
         {
             if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
-            if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
+            if (MembershipService == null) { MembershipService = new AccountMembershipService(requestContext.HttpContext.User.Identity.Name); }
 
             base.Initialize(requestContext);
         }
@@ -43,7 +43,8 @@ namespace StoreCheck.Controllers
 
                 if (MembershipService.ValidateUser(model.UserName, model.Password))
                 {
-                   // Users usr = MembershipService.CurrUser();
+                    Users usr = MembershipService.CurrUser;
+                    Session["CurrUsr"] = usr;
                     FormsService.SignIn(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl))
                     {

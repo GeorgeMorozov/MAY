@@ -25,4 +25,5 @@ namespace StoreCheck.Models
         public string ID { get; set; }
     }
 
+
 }

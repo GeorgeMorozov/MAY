@@ -1,13 +1,11 @@
 ﻿@model StoreCheck.Models.Spr_CAP
 
 @{
-    ViewBag.Title = "Просмотр: Торговые агенты";
+    ViewBag.Title = "Просмотр: Ассортимент";
 }
 
-<h2>Просмотр: Торговые агенты</h2>
-
 <fieldset>
-    <legend>Торговые агенты</legend>
+    <legend>Просмотр: Ассортимент</legend>
 
     <div class="display-label">SKUКМУ</div>
     <div class="display-field">@Model.SKUКМУ</div>
@@ -32,6 +30,6 @@
 </fieldset>
 <p>
     @Html.ActionLink("Редактировать", "Spr_CAPEdit", new { id = Model.ID }) |
-    @Html.ActionLink("Назад", "Spr_CAPsList")
+    @Html.ActionLink("Назад", "Spr_CAPList")
 </p>
 

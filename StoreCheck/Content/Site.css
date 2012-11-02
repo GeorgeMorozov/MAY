@@ -295,24 +295,27 @@ table.grid td
 ---------------------------------------------------------------*/
 table  {
 border-spacing:0;
-border:1px solid gray;
-_width: 90%;
+border:0px solid gray;
+_width: 95%;
 _margin-left: auto;
-_margin-right: auto;        
-        
+_margin-right: auto;                
 }
+
 
 table thead th:hover { 
 background-color:#E8EEF4;color:black;
 }
 
 table td { 
-border:1px solid gray;
+border-bottom:1px solid gray;
+border-right:1px solid gray;
+padding:2px;
 }
 
 .td_btn{width:60px; text-align:center;}
 
-table { border-spacing:0; border:1px solid gray;}
+_table { border-spacing:0; border:1px solid gray;}
+
 table.tablesorter thead tr .header {
 	background-image: url(images/bg.png);
 	background-repeat: no-repeat;
@@ -335,12 +338,34 @@ table.tablesorter thead tr .headerSortDown {
 	background-image: url(images/desc.png);
 }
 table th {  
-           border:1px outset gray; 
+           border:0px outset gray; 
            background-color:#5C87B2; 
            color:White; 
            cursor:pointer;
+           text-align:left;
 }
 table thead th:hover { background-color:#E8EEF4;color:black;}
-table td { min-height:80px; border:1px solid gray; padding:5px;}
+
 
 .first, .next, .prev, .last{margin-top:5px;} 
+
+.noborder
+{
+	width:300px;
+	float:left;
+}
+.noborder TD
+{
+	border:0px;
+}
+.fill_bg 
+{
+  background-color:#5C87B2;  
+}
+  
+.no-border{
+border:0px;
+}
+.no-border TD{
+border:0px;
+}   

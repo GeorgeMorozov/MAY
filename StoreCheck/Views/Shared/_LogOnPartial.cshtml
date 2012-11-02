@@ -1,5 +1,7 @@
 ﻿@if(Request.IsAuthenticated) {
-    <text>Здравствуйте <b>@Context.User.Identity.Name</b>!
+    <text>Здравствуйте <b>@Html.ActionLink(Context.User.Identity.Name, "UserPage","Admin")</b>!
+      <div>
+</div>
     [ @Html.ActionLink("Выход", "LogOff", "Account") ]</text>
 }
 else {

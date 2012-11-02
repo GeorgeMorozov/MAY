@@ -4,17 +4,58 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="DBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="DBModelStoreContainer">
           <EntitySet Name="CheckOutlet" EntityType="DBModel.Store.CheckOutlet" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CheckOutletData" EntityType="DBModel.Store.CheckOutletData" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CheckOutletImg" EntityType="DBModel.Store.CheckOutletImg" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Roles" EntityType="DBModel.Store.Roles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Spr_CAP" EntityType="DBModel.Store.Spr_CAP" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Spr_ChannelRetail" EntityType="DBModel.Store.Spr_ChannelRetail" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Spr_Outlets" EntityType="DBModel.Store.Spr_Outlets" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Spr_Rights" EntityType="DBModel.Store.Spr_Rights" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Spr_Roles" EntityType="DBModel.Store.Spr_Roles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Spr_SR" EntityType="DBModel.Store.Spr_SR" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Spr_TypeTA" EntityType="DBModel.Store.Spr_TypeTA" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="DBModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="DBModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VWCheckOutlet" EntityType="DBModel.Store.VWCheckOutlet" store:Type="Views" store:Schema="dbo" store:Name="VWCheckOutlet">
+            <DefiningQuery>SELECT 
+      [VWCheckOutlet].[ID] AS [ID], 
+      [VWCheckOutlet].[CheckDate] AS [CheckDate], 
+      [VWCheckOutlet].[Клиент] AS [Клиент], 
+      [VWCheckOutlet].[Login] AS [Login], 
+      [VWCheckOutlet].[OutletID] AS [OutletID]
+      FROM [dbo].[VWCheckOutlet] AS [VWCheckOutlet]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VWCheckOutletData" EntityType="DBModel.Store.VWCheckOutletData" store:Type="Views" store:Schema="dbo" store:Name="VWCheckOutletData">
+            <DefiningQuery>SELECT 
+      [VWCheckOutletData].[Path] AS [Path], 
+      [VWCheckOutletData].[CheckDate] AS [CheckDate], 
+      [VWCheckOutletData].[SKUКМУ] AS [SKUКМУ], 
+      [VWCheckOutletData].[Login] AS [Login], 
+      [VWCheckOutletData].[Клиент] AS [Клиент], 
+      [VWCheckOutletData].[OutletID] AS [OutletID], 
+      [VWCheckOutletData].[CapID] AS [CapID], 
+      [VWCheckOutletData].[CheckOutletID] AS [CheckOutletID]
+      FROM [dbo].[VWCheckOutletData] AS [VWCheckOutletData]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VWRoles" EntityType="DBModel.Store.VWRoles" store:Type="Views" store:Schema="dbo" store:Name="VWRoles">
+            <DefiningQuery>SELECT 
+      [VWRoles].[ID] AS [ID], 
+      [VWRoles].[RightName] AS [RightName], 
+      [VWRoles].[RoleName] AS [RoleName]
+      FROM [dbo].[VWRoles] AS [VWRoles]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VWUsers" EntityType="DBModel.Store.VWUsers" store:Type="Views" store:Schema="dbo" store:Name="VWUsers">
+            <DefiningQuery>SELECT 
+      [VWUsers].[UserID] AS [UserID], 
+      [VWUsers].[Login] AS [Login], 
+      [VWUsers].[FIO] AS [FIO], 
+      [VWUsers].[RoleName] AS [RoleName], 
+      [VWUsers].[RoleID] AS [RoleID]
+      FROM [dbo].[VWUsers] AS [VWUsers]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_CheckOutlet_OutletID" Association="DBModel.Store.FK_CheckOutlet_OutletID">
             <End Role="Spr_Outlets" EntitySet="Spr_Outlets" />
             <End Role="CheckOutlet" EntitySet="CheckOutlet" />
@@ -31,6 +72,10 @@
             <End Role="Spr_CAP" EntitySet="Spr_CAP" />
             <End Role="CheckOutletData" EntitySet="CheckOutletData" />
           </AssociationSet>
+          <AssociationSet Name="FK_CheckOutletImg_OutletID" Association="DBModel.Store.FK_CheckOutletImg_OutletID">
+            <End Role="CheckOutlet" EntitySet="CheckOutlet" />
+            <End Role="CheckOutletImg" EntitySet="CheckOutletImg" />
+          </AssociationSet>
           <AssociationSet Name="FK_Roles_Spr_Rights" Association="DBModel.Store.FK_Roles_Spr_Rights">
             <End Role="Spr_Rights" EntitySet="Spr_Rights" />
             <End Role="Roles" EntitySet="Roles" />
@@ -38,6 +83,10 @@
           <AssociationSet Name="FK_Roles_Spr_Roles" Association="DBModel.Store.FK_Roles_Spr_Roles">
             <End Role="Spr_Roles" EntitySet="Spr_Roles" />
             <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Users" Association="DBModel.Store.FK_Users_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="CheckOutlet">
@@ -47,7 +96,7 @@
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="OutletID" Type="uniqueidentifier" />
           <Property Name="UserID" Type="uniqueidentifier" />
-          <Property Name="CkeckDate" Type="date" />
+          <Property Name="CheckDate" Type="date" />
         </EntityType>
         <EntityType Name="CheckOutletData">
           <Key>
@@ -56,6 +105,14 @@
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CheckOutletID" Type="uniqueidentifier" />
           <Property Name="SKUID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="CheckOutletImg">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OutletID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -77,6 +134,15 @@
           <Property Name="Ассортимент" Type="nvarchar" MaxLength="255" />
           <Property Name="КатегорияТРТ" Type="nvarchar" MaxLength="255" />
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ТорговаяМарка" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Spr_ChannelRetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SBU" Type="nchar" MaxLength="50" />
+          <Property Name="Каналреализации" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Spr_Outlets">
           <Key>
@@ -126,13 +192,28 @@
           <Property Name="Регион" Type="varchar" MaxLength="250" />
           <Property Name="Область" Type="varchar" MaxLength="250" />
           <Property Name="Дистрибутор" Type="varchar" MaxLength="250" />
-          <Property Name="КодСупервайзер" Type="varchar" MaxLength="250" />
-          <Property Name="Супервайзер" Type="varchar" MaxLength="250" />
           <Property Name="КодТА" Type="varchar" MaxLength="250" />
           <Property Name="ТА" Type="varchar" MaxLength="250" />
           <Property Name="ТипТА" Type="varchar" MaxLength="250" />
           <Property Name="МаршрутТА" Type="varchar" MaxLength="250" />
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Spr_TypeTA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ТипТА" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -141,7 +222,64 @@
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" />
           <Property Name="FIO" Type="nvarchar" MaxLength="50" />
-          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleID" Type="uniqueidentifier" />
+          <Property Name="UserBits" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'D:\WORK\MAY\SRC\STORECHECK\APP_DATA\DB.MDF.dbo.VWCheckOutlet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="VWCheckOutlet">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="OutletID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CheckDate" Type="date" />
+          <Property Name="Клиент" Type="varchar" MaxLength="250" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="OutletID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'D:\WORK\MAY\SRC\STORECHECK\APP_DATA\DB.MDF.dbo.VWCheckOutletData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="VWCheckOutletData">
+          <Key>
+            <PropertyRef Name="OutletID" />
+            <PropertyRef Name="CapID" />
+            <PropertyRef Name="CheckOutletID" />
+          </Key>
+          <Property Name="Path" Type="nvarchar" MaxLength="150" />
+          <Property Name="CheckDate" Type="date" />
+          <Property Name="SKUКМУ" Type="nvarchar" MaxLength="255" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Клиент" Type="varchar" MaxLength="250" />
+          <Property Name="OutletID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CapID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CheckOutletID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'D:\WORK\MAY\SRC\STORECHECK\APP_DATA\DB.MDF.dbo.VWRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="VWRoles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RightName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'D:\WORK\MAY\SRC\STORECHECK\APP_DATA\DB.MDF.dbo.VWUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="VWUsers">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleID" Type="uniqueidentifier" />
         </EntityType>
         <Association Name="FK_CheckOutlet_OutletID">
           <End Role="Spr_Outlets" Type="DBModel.Store.Spr_Outlets" Multiplicity="0..1" />
@@ -191,6 +329,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CheckOutletImg_OutletID">
+          <End Role="CheckOutlet" Type="DBModel.Store.CheckOutlet" Multiplicity="1" />
+          <End Role="CheckOutletImg" Type="DBModel.Store.CheckOutletImg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckOutlet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CheckOutletImg">
+              <PropertyRef Name="OutletID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Roles_Spr_Rights">
           <End Role="Spr_Rights" Type="DBModel.Store.Spr_Rights" Multiplicity="0..1" />
           <End Role="Roles" Type="DBModel.Store.Roles" Multiplicity="*" />
@@ -215,32 +365,77 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+        <Association Name="FK_Users_Users">
+          <End Role="Users" Type="DBModel.Store.Users" Multiplicity="1" />
+          <End Role="Users1" Type="DBModel.Store.Users" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CheckOutlet" EntityType="DBModel.CheckOutlet" />
           <EntitySet Name="CheckOutletData" EntityType="DBModel.CheckOutletData" />
+          <EntitySet Name="CheckOutletImg" EntityType="DBModel.CheckOutletImg" />
           <EntitySet Name="Roles" EntityType="DBModel.Roles" />
           <EntitySet Name="Spr_CAP" EntityType="DBModel.Spr_CAP" />
           <EntitySet Name="Spr_Outlets" EntityType="DBModel.Spr_Outlets" />
           <EntitySet Name="Spr_Rights" EntityType="DBModel.Spr_Rights" />
           <EntitySet Name="Spr_Roles" EntityType="DBModel.Spr_Roles" />
           <EntitySet Name="Spr_SR" EntityType="DBModel.Spr_SR" />
-          <EntitySet Name="Users" EntityType="DBModel.Users" />
+          <EntitySet Name="sysdiagrams" EntityType="DBModel.sysdiagrams" />
+          <EntitySet Name="VWCheckOutlet" EntityType="DBModel.VWCheckOutlet" />
+          <EntitySet Name="VWCheckOutletData" EntityType="DBModel.VWCheckOutletData" />
           <AssociationSet Name="FK_CheckOutlet_OutletID" Association="DBModel.FK_CheckOutlet_OutletID">
             <End Role="Spr_Outlets" EntitySet="Spr_Outlets" />
-            <End Role="CheckOutlet" EntitySet="CheckOutlet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CheckOutlet_UserID" Association="DBModel.FK_CheckOutlet_UserID">
-            <End Role="Users" EntitySet="Users" />
             <End Role="CheckOutlet" EntitySet="CheckOutlet" />
           </AssociationSet>
           <AssociationSet Name="FK_CheckOutletData_OutletID" Association="DBModel.FK_CheckOutletData_OutletID">
             <End Role="CheckOutlet" EntitySet="CheckOutlet" />
             <End Role="CheckOutletData" EntitySet="CheckOutletData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckOutletImg_OutletID" Association="DBModel.FK_CheckOutletImg_OutletID">
+            <End Role="CheckOutlet" EntitySet="CheckOutlet" />
+            <End Role="CheckOutletImg" EntitySet="CheckOutletImg" />
           </AssociationSet>
           <AssociationSet Name="FK_CheckOutletData_SKUID" Association="DBModel.FK_CheckOutletData_SKUID">
             <End Role="Spr_CAP" EntitySet="Spr_CAP" />
@@ -254,6 +449,19 @@
             <End Role="Spr_Roles" EntitySet="Spr_Roles" />
             <End Role="Roles" EntitySet="Roles" />
           </AssociationSet>
+          <EntitySet Name="VWRoles" EntityType="DBModel.VWRoles" />
+          <EntitySet Name="VWUsers" EntityType="DBModel.VWUsers" />
+          <EntitySet Name="Spr_ChannelRetail" EntityType="DBModel.Spr_ChannelRetail" />
+          <EntitySet Name="Spr_TypeTA" EntityType="DBModel.Spr_TypeTA" />
+          <EntitySet Name="Users" EntityType="DBModel.Users" />
+          <AssociationSet Name="FK_CheckOutlet_UserID" Association="DBModel.FK_CheckOutlet_UserID">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CheckOutlet" EntitySet="CheckOutlet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Users" Association="DBModel.FK_Users_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CheckOutlet">
           <Key>
@@ -262,10 +470,11 @@
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="OutletID" Type="Guid" />
           <Property Name="UserID" Type="Guid" />
-          <Property Name="CkeckDate" Type="DateTime" />
+          <Property Name="CheckDate" Type="DateTime" />
           <NavigationProperty Name="Spr_Outlets" Relationship="DBModel.FK_CheckOutlet_OutletID" FromRole="CheckOutlet" ToRole="Spr_Outlets" />
-          <NavigationProperty Name="Users" Relationship="DBModel.FK_CheckOutlet_UserID" FromRole="CheckOutlet" ToRole="Users" />
           <NavigationProperty Name="CheckOutletData" Relationship="DBModel.FK_CheckOutletData_OutletID" FromRole="CheckOutlet" ToRole="CheckOutletData" />
+          <NavigationProperty Name="CheckOutletImg" Relationship="DBModel.FK_CheckOutletImg_OutletID" FromRole="CheckOutlet" ToRole="CheckOutletImg" />
+          <NavigationProperty Name="Users" Relationship="DBModel.FK_CheckOutlet_UserID" FromRole="CheckOutlet" ToRole="Users" />
         </EntityType>
         <EntityType Name="CheckOutletData">
           <Key>
@@ -276,6 +485,15 @@
           <Property Name="SKUID" Type="Guid" />
           <NavigationProperty Name="CheckOutlet" Relationship="DBModel.FK_CheckOutletData_OutletID" FromRole="CheckOutletData" ToRole="CheckOutlet" />
           <NavigationProperty Name="Spr_CAP" Relationship="DBModel.FK_CheckOutletData_SKUID" FromRole="CheckOutletData" ToRole="Spr_CAP" />
+        </EntityType>
+        <EntityType Name="CheckOutletImg">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="OutletID" Type="Guid" Nullable="false" />
+          <Property Name="Path" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="CheckOutlet" Relationship="DBModel.FK_CheckOutletImg_OutletID" FromRole="CheckOutletImg" ToRole="CheckOutlet" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -300,6 +518,7 @@
           <Property Name="КатегорияТРТ" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="ID" Type="Guid" Nullable="false" />
           <NavigationProperty Name="CheckOutletData" Relationship="DBModel.FK_CheckOutletData_SKUID" FromRole="Spr_CAP" ToRole="CheckOutletData" />
+          <Property Type="String" Name="ТорговаяМарка" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Spr_Outlets">
           <Key>
@@ -352,23 +571,47 @@
           <Property Name="Регион" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
           <Property Name="Область" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
           <Property Name="Дистрибутор" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
-          <Property Name="КодСупервайзер" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
-          <Property Name="Супервайзер" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
           <Property Name="КодТА" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
           <Property Name="ТА" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
           <Property Name="ТипТА" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
           <Property Name="МаршрутТА" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
           <Property Name="ID" Type="Guid" Nullable="false" />
         </EntityType>
-        <EntityType Name="Users">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="VWCheckOutlet">
           <Key>
             <PropertyRef Name="ID" />
+            <PropertyRef Name="OutletID" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CheckDate" Type="DateTime" />
+          <Property Name="Клиент" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
           <Property Name="Login" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="FIO" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Role" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="CheckOutlet" Relationship="DBModel.FK_CheckOutlet_UserID" FromRole="Users" ToRole="CheckOutlet" />
+          <Property Name="OutletID" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VWCheckOutletData">
+          <Key>
+            <PropertyRef Name="OutletID" />
+            <PropertyRef Name="CapID" />
+            <PropertyRef Name="CheckOutletID" />
+          </Key>
+          <Property Name="Path" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+          <Property Name="CheckDate" Type="DateTime" />
+          <Property Name="SKUКМУ" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Login" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Клиент" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="OutletID" Type="Guid" Nullable="false" />
+          <Property Name="CapID" Type="Guid" Nullable="false" />
+          <Property Type="Guid" Name="CheckOutletID" Nullable="false" />
         </EntityType>
         <Association Name="FK_CheckOutlet_OutletID">
           <End Role="Spr_Outlets" Type="DBModel.Spr_Outlets" Multiplicity="0..1" />
@@ -382,18 +625,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CheckOutlet_UserID">
-          <End Role="Users" Type="DBModel.Users" Multiplicity="0..1" />
-          <End Role="CheckOutlet" Type="DBModel.CheckOutlet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CheckOutlet">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CheckOutletData_OutletID">
           <End Role="CheckOutlet" Type="DBModel.CheckOutlet" Multiplicity="0..1" />
           <End Role="CheckOutletData" Type="DBModel.CheckOutletData" Multiplicity="*" />
@@ -403,6 +634,18 @@
             </Principal>
             <Dependent Role="CheckOutletData">
               <PropertyRef Name="CheckOutletID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckOutletImg_OutletID">
+          <End Role="CheckOutlet" Type="DBModel.CheckOutlet" Multiplicity="1" />
+          <End Role="CheckOutletImg" Type="DBModel.CheckOutletImg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckOutlet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CheckOutletImg">
+              <PropertyRef Name="OutletID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -442,22 +685,97 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="VWRoles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="RightName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="RoleName" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VWUsers">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Type="Guid" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="Login" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FIO" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="RoleName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="RoleID" />
+        </EntityType>
+        <EntityType Name="Spr_ChannelRetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="SBU" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Каналреализации" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Spr_TypeTA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="ТипТА" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Login" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FIO" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="RoleID" />
+          <Property Type="Int32" Name="UserBits" />
+          <NavigationProperty Name="CheckOutlet" Relationship="DBModel.FK_CheckOutlet_UserID" FromRole="Users" ToRole="CheckOutlet" />
+          <NavigationProperty Name="Users1" Relationship="DBModel.FK_Users_Users" FromRole="Users" ToRole="Users1" />
+          <NavigationProperty Name="Users2" Relationship="DBModel.FK_Users_Users" FromRole="Users1" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_CheckOutlet_UserID">
+          <End Type="DBModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="DBModel.CheckOutlet" Role="CheckOutlet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CheckOutlet">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Users">
+          <End Type="DBModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="DBModel.Users" Role="Users1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users1">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="CheckOutlet"><EntityTypeMapping TypeName="DBModel.CheckOutlet"><MappingFragment StoreEntitySet="CheckOutlet">
             <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="OutletID" ColumnName="OutletID" />
             <ScalarProperty Name="UserID" ColumnName="UserID" />
-            <ScalarProperty Name="CkeckDate" ColumnName="CkeckDate" />
+            <ScalarProperty Name="CheckDate" ColumnName="CheckDate" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="CheckOutletData"><EntityTypeMapping TypeName="DBModel.CheckOutletData"><MappingFragment StoreEntitySet="CheckOutletData">
             <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="CheckOutletID" ColumnName="CheckOutletID" />
             <ScalarProperty Name="SKUID" ColumnName="SKUID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="CheckOutletImg"><EntityTypeMapping TypeName="DBModel.CheckOutletImg"><MappingFragment StoreEntitySet="CheckOutletImg">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="OutletID" ColumnName="OutletID" />
+            <ScalarProperty Name="Path" ColumnName="Path" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Roles"><EntityTypeMapping TypeName="DBModel.Roles"><MappingFragment StoreEntitySet="Roles">
             <ScalarProperty Name="ID" ColumnName="ID" />
@@ -465,7 +783,8 @@
             <ScalarProperty Name="Rights" ColumnName="Rights" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Spr_CAP"><EntityTypeMapping TypeName="DBModel.Spr_CAP"><MappingFragment StoreEntitySet="Spr_CAP">
-            <ScalarProperty Name="SKUКМУ" ColumnName="SKUКМУ" />
+            <ScalarProperty Name="ТорговаяМарка" ColumnName="ТорговаяМарка" />
+                <ScalarProperty Name="SKUКМУ" ColumnName="SKUКМУ" />
             <ScalarProperty Name="SKUгруппировка" ColumnName="SKUгруппировка" />
             <ScalarProperty Name="Приоритетность" ColumnName="Приоритетность" />
             <ScalarProperty Name="ПриоритетностьСчет" ColumnName="ПриоритетностьСчет" />
@@ -510,20 +829,84 @@
             <ScalarProperty Name="Регион" ColumnName="Регион" />
             <ScalarProperty Name="Область" ColumnName="Область" />
             <ScalarProperty Name="Дистрибутор" ColumnName="Дистрибутор" />
-            <ScalarProperty Name="КодСупервайзер" ColumnName="КодСупервайзер" />
-            <ScalarProperty Name="Супервайзер" ColumnName="Супервайзер" />
             <ScalarProperty Name="КодТА" ColumnName="КодТА" />
             <ScalarProperty Name="ТА" ColumnName="ТА" />
             <ScalarProperty Name="ТипТА" ColumnName="ТипТА" />
             <ScalarProperty Name="МаршрутТА" ColumnName="МаршрутТА" />
             <ScalarProperty Name="ID" ColumnName="ID" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="DBModel.Users"><MappingFragment StoreEntitySet="Users">
-            <ScalarProperty Name="ID" ColumnName="ID" />
-            <ScalarProperty Name="Login" ColumnName="Login" />
-            <ScalarProperty Name="FIO" ColumnName="FIO" />
-            <ScalarProperty Name="Role" ColumnName="Role" />
+          <EntitySetMapping Name="sysdiagrams"><EntityTypeMapping TypeName="DBModel.sysdiagrams"><MappingFragment StoreEntitySet="sysdiagrams">
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+            <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+            <ScalarProperty Name="version" ColumnName="version" />
+            <ScalarProperty Name="definition" ColumnName="definition" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="VWCheckOutlet"><EntityTypeMapping TypeName="DBModel.VWCheckOutlet"><MappingFragment StoreEntitySet="VWCheckOutlet">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="CheckDate" ColumnName="CheckDate" />
+            <ScalarProperty Name="Клиент" ColumnName="Клиент" />
+            <ScalarProperty Name="Login" ColumnName="Login" />
+            <ScalarProperty Name="OutletID" ColumnName="OutletID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="VWCheckOutletData"><EntityTypeMapping TypeName="DBModel.VWCheckOutletData"><MappingFragment StoreEntitySet="VWCheckOutletData">
+            <ScalarProperty Name="CheckOutletID" ColumnName="CheckOutletID" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+            <ScalarProperty Name="CheckDate" ColumnName="CheckDate" />
+            <ScalarProperty Name="SKUКМУ" ColumnName="SKUКМУ" />
+            <ScalarProperty Name="Login" ColumnName="Login" />
+            <ScalarProperty Name="Клиент" ColumnName="Клиент" />
+            <ScalarProperty Name="OutletID" ColumnName="OutletID" />
+            <ScalarProperty Name="CapID" ColumnName="CapID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="VWRoles">
+            <EntityTypeMapping TypeName="DBModel.VWRoles">
+              <MappingFragment StoreEntitySet="VWRoles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RightName" ColumnName="RightName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VWUsers">
+            <EntityTypeMapping TypeName="DBModel.VWUsers">
+              <MappingFragment StoreEntitySet="VWUsers">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Spr_ChannelRetail">
+            <EntityTypeMapping TypeName="DBModel.Spr_ChannelRetail">
+              <MappingFragment StoreEntitySet="Spr_ChannelRetail">
+                <ScalarProperty Name="Каналреализации" ColumnName="Каналреализации" />
+                <ScalarProperty Name="SBU" ColumnName="SBU" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Spr_TypeTA">
+            <EntityTypeMapping TypeName="DBModel.Spr_TypeTA">
+              <MappingFragment StoreEntitySet="Spr_TypeTA">
+                <ScalarProperty Name="ТипТА" ColumnName="ТипТА" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserBits" ColumnName="UserBits" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -544,43 +927,67 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="DBModel">
-        <EntityTypeShape EntityType="DBModel.CheckOutlet" Width="1.5" PointX="3" PointY="2.5" Height="2.3648893229166674" IsExpanded="true" />
+      <Diagram Name="DBModel" ZoomLevel="84">
+        <EntityTypeShape EntityType="DBModel.CheckOutlet" Width="1.5" PointX="3" PointY="2.375" Height="2.5571907552083335" IsExpanded="true" />
         <EntityTypeShape EntityType="DBModel.CheckOutletData" Width="1.5" PointX="5.25" PointY="2.75" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModel.Roles" Width="1.5" PointX="8" PointY="5.875" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.CheckOutletImg" Width="1.5" PointX="5.25" PointY="5.5" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Roles" Width="1.5" PointX="10" PointY="0.875" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="DBModel.Spr_CAP" Width="1.5" PointX="3" PointY="7.375" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="DBModel.Spr_Outlets" Width="1.5" PointX="0.75" PointY="1.125" Height="5.2494108072916674" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModel.Spr_Rights" Width="1.5" PointX="5.75" PointY="6.125" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModel.Spr_Roles" Width="1.5" PointX="5.75" PointY="9.125" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModel.Spr_SR" Width="1.5" PointX="7.75" PointY="0.75" Height="3.1340950520833317" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBModel.Users" Width="1.5" PointX="0.75" PointY="7.75" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Spr_Rights" Width="1.5" PointX="7.75" PointY="1.125" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Spr_Roles" Width="1.5" PointX="7.75" PointY="4.125" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Spr_SR" Width="1.5" PointX="7.625" PointY="6.875" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="3.75" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.VWCheckOutlet" Width="1.5" PointX="11.625" PointY="9.75" Height="1.7566536458333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.VWCheckOutletData" Width="1.875" PointX="9.5" PointY="9.75" Height="2.2496956380208335" IsExpanded="true" />
         <AssociationConnector Association="DBModel.FK_CheckOutlet_OutletID" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="3.6824446614583337" />
-          <ConnectorPoint PointX="3" PointY="3.6824446614583337" />
-        </AssociationConnector>
-        <AssociationConnector Association="DBModel.FK_CheckOutlet_UserID" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.75" />
-          <ConnectorPoint PointX="2.625" PointY="7.375" />
-          <ConnectorPoint PointX="2.625" PointY="4.3049189921875008" />
-          <ConnectorPoint PointX="3" PointY="4.3049189921875008" />
+          <ConnectorPoint PointX="2.25" PointY="3.6535953776041663" />
+          <ConnectorPoint PointX="3" PointY="3.6535953776041663" />
         </AssociationConnector>
         <AssociationConnector Association="DBModel.FK_CheckOutletData_OutletID" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="3.7401432291666667" />
-          <ConnectorPoint PointX="5.25" PointY="3.7401432291666667" />
+          <ConnectorPoint PointX="4.5" PointY="3.445733421875" />
+          <ConnectorPoint PointX="5.25" PointY="3.445733421875" />
+        </AssociationConnector>
+        <AssociationConnector Association="DBModel.FK_CheckOutletImg_OutletID" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="4.9321907552083326" />
+          <ConnectorPoint PointX="3.75" PointY="6.3939925130208337" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="6.3939925130208328" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="6.3939925130208337" />
+          <ConnectorPoint PointX="5.25" PointY="6.3939925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="DBModel.FK_CheckOutletData_SKUID" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="8.422841796875" />
-          <ConnectorPoint PointX="5.46875" PointY="8.422841796875" />
-          <ConnectorPoint PointX="5.46875" PointY="4.7302864583333335" />
+          <ConnectorPoint PointX="4.5000000000000018" PointY="7.375" />
+          <ConnectorPoint PointX="4.875" PointY="7.0000000000000018" />
+          <ConnectorPoint PointX="4.875" PointY="4.26646684375" />
+          <ConnectorPoint PointX="5.25" PointY="4.26646684375" />
         </AssociationConnector>
         <AssociationConnector Association="DBModel.FK_Roles_Spr_Rights" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.25" PointY="6.922841796875" />
-          <ConnectorPoint PointX="8" PointY="6.922841796875" />
+          <ConnectorPoint PointX="9.25" PointY="1.9228417968749998" />
+          <ConnectorPoint PointX="10" PointY="1.9228417968749998" />
         </AssociationConnector>
         <AssociationConnector Association="DBModel.FK_Roles_Spr_Roles" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.25" PointY="9.922841796875" />
-          <ConnectorPoint PointX="8.75" PointY="9.922841796875" />
-          <ConnectorPoint PointX="8.75" PointY="7.8552864583333317" />
+          <ConnectorPoint PointX="9.25" PointY="4.922841796875" />
+          <ConnectorPoint PointX="9.5" PointY="4.922841796875" />
+          <ConnectorPoint PointX="9.5" PointY="3.5" />
+          <ConnectorPoint PointX="10.75" PointY="3.5" />
+          <ConnectorPoint PointX="10.75" PointY="2.8552864583333335" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="DBModel.VWRoles" Width="1.5" PointX="7.875" PointY="10.25" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="DBModel.VWUsers" Width="1.5" PointX="6.25" PointY="10.25" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="DBModel.Spr_ChannelRetail" Width="1.875" PointX="9.5" PointY="6.875" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="DBModel.Spr_TypeTA" Width="1.5" PointX="11.625" PointY="6.875" Height="1.4033821614583335" />
+        <EntityTypeShape EntityType="DBModel.Users" Width="1.5" PointX="0.75" PointY="12" Height="2.5571907552083388" />
+        <AssociationConnector Association="DBModel.FK_CheckOutlet_UserID" >
+          <ConnectorPoint PointX="2.25" PointY="12.001152846153847" />
+          <ConnectorPoint PointX="2.625" PointY="11.626152846153847" />
+          <ConnectorPoint PointX="2.625" PointY="4.3241450664062491" />
+          <ConnectorPoint PointX="3" PointY="4.3241450664062491" />
+        </AssociationConnector>
+        <AssociationConnector Association="DBModel.FK_Users_Users" >
+          <ConnectorPoint PointX="1.2819230769230767" PointY="14.557190755208339" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="14.807190755208339" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="14.807190755208339" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="14.557190755208339" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
