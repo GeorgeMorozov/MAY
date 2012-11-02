@@ -1,0 +1,49 @@
+﻿@using MvcPaging;
+@using StoreCheck;
+@model IPagedList<StoreCheck.Models.Spr_ChannelRetail>
+
+@{
+    ViewBag.Title = "Справочник: Каналы реализации";
+}
+
+<h2>Справочник: Каналы реализации</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "Spr_ChannelRetailCreate")
+</p>
+<table>
+    <tr>
+        <th class="td_btn"></th>
+        <th>
+            SBU
+        </th>
+        <th>
+            Каналреализации
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+         <td class="td_btn">
+                @Html.ActionImage("Spr_ChannelRetailEdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
+                @Html.ActionImage("Spr_ChannelRetailDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
+                @Html.ActionImage("Spr_ChannelRetailDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SBU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Каналреализации)
+        </td>
+        
+    </tr>
+}
+
+</table>
+<div class="pager">
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+</div>
+<div>
+    @Html.ActionLink("Назад", "Spr")
+</div>

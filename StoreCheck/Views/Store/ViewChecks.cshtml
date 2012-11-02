@@ -1,0 +1,44 @@
+﻿@using MvcPaging;
+@using StoreCheck;
+@model IPagedList<StoreCheck.Models.VWCheckOutlet>
+
+@{
+    ViewBag.Title = "Список проверок: "+ ViewBag.Name;
+}
+
+<h2>Список проверок: @ViewBag.Name</h2>
+
+
+<table>
+    <tr><th></th>
+        <th>
+            Дата
+        </th>
+        <th>
+            Пользователь
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in ViewData.Model)
+{
+    <tr>
+        <td>
+            @Html.ActionImage("ViewCheckDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотр")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Login)
+        </td>
+    </tr>
+}
+
+</table>
+<div class="pager">
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+</div>
+<div>
+    @Html.ActionLink("Назад", "EditStore")
+</div>

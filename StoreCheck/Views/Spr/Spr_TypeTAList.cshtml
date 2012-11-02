@@ -1,0 +1,42 @@
+﻿@using MvcPaging;
+@using StoreCheck;
+@model IPagedList<StoreCheck.Models.Spr_TypeTA>
+
+
+@{
+    ViewBag.Title = "Справочник: Типы торговых агентов";
+}
+
+<h2>Справочник: Типы торговых агентов</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "Spr_TypeTACreate")
+</p>
+<table>
+    <tr>
+        <th class="td_btn"></th>
+        <th>
+            ТипТА
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td class="td_btn">
+                @Html.ActionImage("Spr_TypeTAEdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
+                @Html.ActionImage("Spr_TypeTADetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
+                @Html.ActionImage("Spr_TypeTADelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
+                </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ТипТА)
+        </td>
+    </tr>
+}
+</table>
+<div class="pager">
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+</div>
+<div>
+    @Html.ActionLink("Назад", "Spr")
+</div>

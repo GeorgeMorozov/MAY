@@ -1,0 +1,102 @@
+﻿@using MvcPaging;
+@using StoreCheck;
+@model IPagedList<StoreCheck.Models.Spr_SR>
+
+@{
+    ViewBag.Title = "Справочник: Торговые агенты";
+}
+
+<h2>Справочник:Торговые агенты</h2>
+
+
+<p>
+    @Html.ActionLink("Добавить", "Spr_SRCreate")
+</p>
+<table >
+  <thead>
+    <tr>
+        <th></th>
+        <th>
+            SBU
+        </th>
+        <th>
+            Регион
+        </th>
+        <th>
+            Область
+        </th>
+        <th>
+            Дистрибутор
+        </th>
+        <th>
+            КодСупервайзер
+        </th>
+        <th>
+            Супервайзер
+        </th>
+        <th>
+            КодТА
+        </th>
+        <th>
+            ТА
+        </th>
+        <th>
+            ТипТА
+        </th>
+        <th>
+            МаршрутТА
+        </th>
+    </tr>
+ </thead>
+  <tbody>
+@foreach (var item in ViewData.Model)
+{
+    <tr>
+        <td class="td_btn">
+        @Html.ActionImage("Spr_SREdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
+        @Html.ActionImage("Spr_SRDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
+        @Html.ActionImage("Spr_SRDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
+        </td>  
+        <td>
+            @item.SBU
+        </td>
+        <td>
+            @item.Регион
+        </td>
+        <td>
+            @item.Область
+        </td>
+        <td>
+            @item.Дистрибутор
+        </td>
+        <td>
+            @item.КодСупервайзер
+        </td>
+        <td>
+            @item.Супервайзер
+        </td>
+        <td>
+            @item.КодТА
+        </td>
+        <td>
+            @item.ТА
+        </td>
+        <td>
+            @item.ТипТА
+        </td>
+        <td>
+            @item.МаршрутТА
+        </td>
+    </tr>
+}
+
+</tbody>
+</table>
+<div class="pager">
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+</div>
+<div>
+    @Html.ActionLink("Назад", "Spr")
+</div>
+
+

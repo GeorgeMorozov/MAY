@@ -1,0 +1,23 @@
+﻿@model StoreCheck.Models.Spr_ChannelRetail
+
+@{
+    ViewBag.Title = "Просмотр: Каналы реализации";
+}
+
+<fieldset>
+    <legend>Просмотр: Каналы реализации</legend>
+
+    <div class="display-label">SBU</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SBU)
+    </div>
+
+    <div class="display-label">Каналреализации</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Каналреализации)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Редактировать", "Spr_ChannelRetailEdit", new { id = Model.ID }) |
+    @Html.ActionLink("Назад", "Spr_ChannelRetailList")
+</p>

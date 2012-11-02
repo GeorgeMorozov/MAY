@@ -1,0 +1,59 @@
+﻿@using MvcPaging;
+@using StoreCheck
+@model IPagedList<StoreCheck.Models.VWRoles>
+           
+
+@{
+    ViewBag.Title = "Назначение прав";
+}
+
+<h2>Назначение прав</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "AddRole")
+</p>
+<table>
+    <tr>
+        <th></th>
+
+        <th>
+            Роль
+        </th>
+        <th>
+            Право
+        </th>  
+    </tr>
+    @{
+        string nm = "";
+        foreach (var item in Model)
+        {
+            if (nm != item.RoleName && nm !="")
+            {
+                @MvcHtmlString.Create("<tr><td colspan=\"3\" class=\"fill_bg\"></td></tr>") 
+            }
+            <tr>
+                <td>
+                    @Html.ActionImage("RoleDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
+                </td>
+                <td>
+                    @if (nm != item.RoleName)
+                    { @item.RoleName
+                        nm = item.RoleName;
+                    }
+                </td>
+                <td>
+                    @item.RightName
+                </td>
+            </tr>
+       
+        }
+    }
+</table>
+<div class="pager">
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+</div>
+
+<div>
+    @Html.ActionLink("Назад", "Admin")
+</div>
+

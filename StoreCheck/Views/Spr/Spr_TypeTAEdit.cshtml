@@ -1,0 +1,34 @@
+﻿@model StoreCheck.Models.Spr_TypeTA
+
+@{
+    ViewBag.Title = "Редактирование: Типы торговых агентов";
+}
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Редактирование: Типы торговых агентов</legend>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ТипТА)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ТипТА)
+            @Html.ValidationMessageFor(model => model.ТипТА)
+        </div>
+
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Назад", "Spr_TypeTAList")
+</div>

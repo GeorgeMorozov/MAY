@@ -1,0 +1,40 @@
+﻿@model StoreCheck.Models.Users
+
+@{
+    ViewBag.Title = ViewBag.Login;
+}
+
+<h2>@ViewBag.Login</h2>
+
+
+@using (Html.BeginForm())
+{
+    <div class="display-label">Login</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Login)
+    </div>
+
+    <div class="display-label">FIO</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FIO)
+    </div>
+
+    <div class="display-label">RoleID</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RoleID)
+    </div>
+
+<fieldset>
+    <legend>Группировка</legend>
+    @{
+    bool b = (ViewBag.SortType == StoreCheck.Models.enSortType.enSrtAssort);
+         @Html.RadioButton("SortType", (object)StoreCheck.Models.enSortType.enSrtAssort, b) @Html.Label("По ассортименту");
+        <br/>                                                  
+        @Html.RadioButton("SortType", (object)StoreCheck.Models.enSortType.enSrtTM, !b) @Html.Label("По торговой марке") ;
+     }
+</fieldset>   
+         <p>
+            <input type="submit" value="Сохранить" />
+         </p>
+}
+

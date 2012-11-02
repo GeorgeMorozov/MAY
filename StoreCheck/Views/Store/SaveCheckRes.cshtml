@@ -1,0 +1,82 @@
+﻿@using System.Web.UI.WebControls
+@using StoreCheck.Models;
+@model StoreCheck.Models.Spr_Outlets
+          
+@{ViewBag.Title = Model.Клиент;}
+
+<h2>@Model.Клиент</h2>
+
+<form action="SaveCheckRes" method="post"  enctype = "multipart/form-data">
+      
+        @Html.Hidden("OutletID", Model.ID)
+ 
+        @{          
+            string s = String.Empty;
+            if (ViewBag.SortTp == enSortType.enSrtAssort)
+            {
+                foreach (Spr_CAP item in ViewBag.ChkBoxLstNm)
+                {
+                    if (s != item.Ассортимент)
+                    {
+                     
+                        <br/><b>@item.Ассортимент</b><br/>
+                        <span>@Html.CheckBox(item.ID.ToString()) </span>            
+                        <span>@Html.Label(item.SKUКМУ) </span><br/>
+                    
+                    
+                    }
+                    else
+                    {
+                        <span>@Html.CheckBox(item.ID.ToString()) </span>
+                        <span>@Html.Label(item.SKUКМУ) </span><br/>
+                    }
+                    s = item.Ассортимент;
+                }
+            }
+            else
+            {
+                foreach (Spr_CAP item in ViewBag.ChkBoxLstNm)
+                {
+                    if (s != item.ТорговаяМарка)
+                    {
+                     
+                        <br/><b>@item.ТорговаяМарка</b><br/>
+                        <span>@Html.CheckBox(item.ID.ToString()) </span>            
+                        <span>@Html.Label(item.SKUКМУ) </span><br/>
+                    
+                    
+                    }
+                    else
+                    {
+                        <span>@Html.CheckBox(item.ID.ToString()) </span>
+                        <span>@Html.Label(item.SKUКМУ) </span><br/>
+                    }
+                    s = item.ТорговаяМарка;
+                }
+            }
+         }
+
+         <br/>
+        <fieldset id ="filelist">
+         <legend>Файлы (jpg, png, bmp)</legend>
+
+            <label for="file1">Файл:</label>
+            <input type="file" name="files" id="file1" />
+            <br/>
+            <label for="file2">Файл:</label>
+            <input type="file" name="files" id="file2" />
+            <br/>
+            <label for="file1">Файл:</label>
+            <input type="file" name="files" id="file3" />
+            <br/>
+            <label for="file2">Файл:</label>
+            <input type="file" name="files" id="file4" />
+            <br/>
+          </fieldset>          
+        <input type="submit" value="Сохранить" />
+
+    </form>
+
+<p>
+    @Html.ActionLink("Назад", "EditStore")
+</p>

@@ -1,0 +1,18 @@
+﻿@model StoreCheck.Models.Spr_TypeTA
+
+@{
+    ViewBag.Title = "Просмотр: Типы торговых агентов";
+}
+
+<fieldset>
+    <legend>Просмотр: Типы торговых агентов</legend>
+
+    <div class="display-label">ТипТА</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ТипТА)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Редактировать", "Spr_TypeTAEdit", new { id = Model.ID }) |
+    @Html.ActionLink("Назад", "Spr_TypeTAList")
+</p>

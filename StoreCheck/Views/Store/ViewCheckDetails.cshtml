@@ -1,0 +1,47 @@
+﻿@using MvcPaging;
+@using StoreCheck;
+@model IPagedList<StoreCheck.Models.VWCheckOutletData>           
+
+@{
+    ViewBag.Title = "ViewCheckDetails";
+}
+
+<h2></h2>
+
+<p>
+</p>
+<table><tr>
+@foreach (StoreCheck.Models.CheckOutletImg itm in ViewBag.ImgList)
+{
+  <td>
+  
+  <!--@Html.MyImage("~/App_Data/uploads/" + itm.Path)-->
+  <!--img src="/App_Data/uploads/@itm.Path" alt="" width="200px"/-->
+
+  @{ var imgPath = UrlHelper.GenerateContentUrl( itm.Path, this.ViewContext.HttpContext); } <img src="@Url.Content(imgPath)" alt="[IMAGE]" />
+  
+  </td>
+}
+</tr></table>
+<table>
+    <tr>
+        <th>
+            SKUКМУ
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SKUКМУ)
+        </td>
+    </tr>
+}
+
+</table>
+<div class="pager">
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+</div>
+<div>
+    @Html.ActionLink("Назад", "EditStore")
+</div>

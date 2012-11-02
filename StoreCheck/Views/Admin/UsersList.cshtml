@@ -1,0 +1,50 @@
+﻿@using MvcPaging;
+@using StoreCheck
+@model IPagedList<StoreCheck.Models.VWUsers>
+
+@{
+    ViewBag.Title = "Пользователи";
+}
+
+<h2>Пользователи</h2>
+
+<table>
+    <tr>
+        <th></th>
+        <th>
+            Логин
+        </th>
+        <th>
+            ФИО
+        </th>
+        <th>
+            Роль
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.ActionImage("EditUser", new { id = item.UserID }, "~/Content/Images/page_edit.png", "Редактировать")
+            </td>
+            <td>
+                @item.Login
+            </td>
+            <td>
+                @item.FIO
+            </td>
+            <td>
+                @item.RoleName
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="pager">
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+</div>
+<div>
+    @Html.ActionLink("Назад", "Admin")
+</div>
+
