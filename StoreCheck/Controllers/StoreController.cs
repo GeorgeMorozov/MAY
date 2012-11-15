@@ -13,88 +13,75 @@ namespace StoreCheck.Controllers
 {
     public class StoreController : Controller
     {
-        public AccountMembershipService MembershipService { get; set; }
-
+        
+        public AccountMembershipService MembershipService { get; set; }        
         protected override void Initialize(RequestContext requestContext)
         {
             if (MembershipService == null) { MembershipService = new AccountMembershipService(requestContext.HttpContext.User.Identity.Name); }
 
             base.Initialize(requestContext);
         }
-
         private readonly DataManager _db = new DataManager();
         private const int defaultPageSize = 10;
+        private const string ALL = "Все";
 
-        public ActionResult EditStore(string RegNm, string OblNm, string DistNm, string Release, string Category, string Client, string Adress, int? page)
+
+        public ActionResult EditStore(string RegNm, string OblNm, string DistNm, string Release, string Category, string Client, string Adress, string City, string Street, string House, string Comment, int? page)
         {
+            
             if (!Request.IsAuthenticated)
                 return RedirectToAction("LogOn", "Account");
 
             int currentPageIndex = page.HasValue ? page.Value : 1;
             IList<Spr_Outlets> Fltlst =  _db.GetStores();
 
-            List<string> RegLst = new List<string>();
-            List<string> OblLst = new List<string>();
-            List<string> DistLst = new List<string>();
-            List<string> ReleaseLst = new List<string>();
-            List<string> CategoryLst = new List<string>();
-            List<string> ClientLst = new List<string>();
-            List<string> AdressLst = new List<string>();
+            List<string> RegLst = new List<string>(from itm in Fltlst orderby itm.Регион select itm.Регион);
+            List<string> OblLst = new List<string>(from itm in Fltlst orderby itm.Область select itm.Область);
+            List<string> DistLst = new List<string>(from itm in Fltlst orderby itm.Дистрибутор select itm.Дистрибутор);
+            List<string> ReleaseLst = new List<string>(from itm in Fltlst orderby itm.Каналреализации select itm.Каналреализации);
+            List<string> CategoryLst = new List<string>(from itm in Fltlst orderby itm.КатегорияТРТ select itm.КатегорияТРТ);
+            List<string> ClientLst = new List<string>(from itm in Fltlst orderby itm.Клиент select itm.Клиент);
+            List<string> AdressLst = new List<string>(from itm in Fltlst orderby itm.Адресдоставки select itm.Адресдоставки);
+            List<string> CityLst = new List<string>(from itm in Fltlst orderby itm.ГородТРТ select itm.ГородТРТ);
+            List<string> StreetLst = new List<string>(from itm in Fltlst orderby itm.УлицаТРТ select itm.УлицаТРТ);
+            List<string> HouseLst = new List<string>(from itm in Fltlst orderby itm.ДомТРТ select itm.ДомТРТ);
+            List<string> CommentLst = new List<string>(from itm in Fltlst orderby itm.ПримечаниеТРТ select itm.ПримечаниеТРТ);
 
-            RegNm = RegNm ?? "Все";
-            OblNm = OblNm ?? "Все";
-            DistNm = DistNm ?? "Все";
-            Release = Release ?? "Все";
-            Category = Category ?? "Все";
-            Client = Client ?? "Все";
-            Adress = Adress ?? "Все";
+            RegNm = RegNm ?? ALL;
+            OblNm = OblNm ?? ALL;
+            DistNm = DistNm ?? ALL;
+            Release = Release ?? ALL;
+            Category = Category ?? ALL;
+            Client = Client ?? ALL;
+            Adress = Adress ?? ALL;
+            City = City ?? ALL;
+            Street = Street ?? ALL;
+            House = House ?? ALL;
+            Comment = Comment ?? ALL;
 
-            //RegLst = new string[Fltlst.Count + 1];
-            RegLst.Add("Все");
-            //OblLst = new string[Fltlst.Count + 1]; 
-            OblLst.Add("Все");
-            //DistLst = new string[Fltlst.Count + 1]; 
-            DistLst.Add("Все");
-            //ReleaseLst = new string[Fltlst.Count + 1]; 
-            ReleaseLst.Add("Все");
-            //CategoryLst = new string[Fltlst.Count + 1]; 
-            CategoryLst.Add("Все");
-            //ClientLst = new string[Fltlst.Count + 1]; 
-            ClientLst.Add("Все");
-            //AdressLst = new string[Fltlst.Count + 1]; 
-            AdressLst.Add("Все");
+            RegLst.Insert(0, ALL);
+            OblLst.Insert(0, ALL);
+            DistLst.Insert(0, ALL);
+            ReleaseLst.Insert(0, ALL);
+            CategoryLst.Insert(0, ALL);
+            ClientLst.Insert(0, ALL);
+            AdressLst.Insert(0, ALL);
+            CityLst.Insert(0, ALL);
+            StreetLst.Insert(0, ALL);
+            HouseLst.Insert(0, ALL);
+            CommentLst.Insert(0, ALL);
 
-            foreach (var item in Fltlst)
-            {
-                if (!String.IsNullOrEmpty(item.Регион))
-                RegLst.Add(item.Регион);
-                if (!String.IsNullOrEmpty(item.Область))
-                OblLst.Add(item.Область);
-                if (!String.IsNullOrEmpty(item.Дистрибутор))
-                DistLst.Add(item.Дистрибутор);
-                if (!String.IsNullOrEmpty(item.Каналреализации))
-                ReleaseLst.Add(item.Каналреализации);
-                if (!String.IsNullOrEmpty(item.КатегорияТРТ))
-                CategoryLst.Add(item.КатегорияТРТ);
-                if (!String.IsNullOrEmpty(item.Клиент))
-                ClientLst.Add(item.Клиент);
-                if (!String.IsNullOrEmpty(item.Адресдоставки))
-                AdressLst.Add(item.Адресдоставки);
-            }
-
-            if (RegNm != "Все") Fltlst = Fltlst.Where(p => p.Регион.Equals(RegNm)).ToList();
-
-            if (OblNm != "Все") Fltlst = Fltlst.Where(p => p.Область.Equals(OblNm)).ToList();
-
-            if (DistNm != "Все") Fltlst = Fltlst.Where(p => p.Дистрибутор.Equals(DistNm)).ToList();
-
-            if (Release != "Все") Fltlst = Fltlst.Where(p => p.Каналреализации.Equals(Release)).ToList();
-
-            if (Category != "Все") Fltlst = Fltlst.Where(p => p.КатегорияТРТ.Equals(Category)).ToList();
-
-            if (Client != "Все") Fltlst = Fltlst.Where(p => p.Клиент.Equals(Client)).ToList();
-
-            if (Adress != "Все") Fltlst = Fltlst.Where(p => p.Адресдоставки.Equals(Adress)).ToList();
+            if (RegNm != ALL) Fltlst = Fltlst.Where(p => p.Регион.Equals(RegNm)).ToList();
+            if (OblNm != ALL) Fltlst = Fltlst.Where(p => p.Область.Equals(OblNm)).ToList();
+            if (DistNm != ALL) Fltlst = Fltlst.Where(p => p.Дистрибутор.Equals(DistNm)).ToList();
+            if (Release != ALL) Fltlst = Fltlst.Where(p => p.Каналреализации.Equals(Release)).ToList();
+            if (Category != ALL) Fltlst = Fltlst.Where(p => p.КатегорияТРТ.Equals(Category)).ToList();
+            if (Client != ALL) Fltlst = Fltlst.Where(p => p.Клиент.Equals(Client)).ToList();
+            if (Adress != ALL) Fltlst = Fltlst.Where(p => p.Адресдоставки.Equals(Adress)).ToList();
+            if (City != ALL) Fltlst = Fltlst.Where(p => p.ГородТРТ.Equals(City)).ToList(); 
+            if (Street != ALL) Fltlst = Fltlst.Where(p => p.УлицаТРТ.Equals(Street)).ToList();
+            if (House != ALL) Fltlst = Fltlst.Where(p => p.ДомТРТ.Equals(House)).ToList();
+            if (Comment != ALL) Fltlst = Fltlst.Where(p => p.ПримечаниеТРТ.Equals(Comment)).ToList();
 
             ViewData["RegNm"] = new SelectList(RegLst.AsEnumerable().Distinct<string>(), RegNm);
             ViewData["OblNm"] = new SelectList(OblLst.AsEnumerable().Distinct<string>(), OblNm);
@@ -103,10 +90,14 @@ namespace StoreCheck.Controllers
             ViewData["Category"] = new SelectList(CategoryLst.AsEnumerable().Distinct<string>(), Category);
             ViewData["Client"] = new SelectList(ClientLst.AsEnumerable().Distinct<string>(), Client);
             ViewData["Adress"] = new SelectList(AdressLst.AsEnumerable().Distinct<string>(), Adress);
-
+            ViewData["City"] = new SelectList(CityLst.AsEnumerable().Distinct<string>(), City);
+            ViewData["Street"] = new SelectList(StreetLst.AsEnumerable().Distinct<string>(), Street);
+            ViewData["House"] = new SelectList(HouseLst.AsEnumerable().Distinct<string>(), House);
+            ViewData["Comment"] = new SelectList(CommentLst.AsEnumerable().Distinct<string>(), Comment);
             return View(Fltlst.ToPagedList(currentPageIndex, defaultPageSize));
 
         }
+
         [HttpGet]
         public ActionResult SaveCheckRes(Guid id)
         {
@@ -120,52 +111,26 @@ namespace StoreCheck.Controllers
 
             IList<Spr_CAP> Caplst = null;
             Users usr = MembershipService.CurrUser;
-           
+            //MYS 14.11.2012
+            //Также, когда выбрана группировка по ассортименту, в первую очередь показывать СКЮ Стандартного ассортиментного присутствия, а затем ассортимент для развития.
+            //СКЮ должны быть отсортированы по полю «Приоритетность» 1 – высокая приоритетность.
 
             if (usr.SortType == enSortType.enSrtAssort)
-                Caplst = _db.GetSpr_CAPs().Where(p => p.КатегорияТРТ.Equals(Outlet.КатегорияТРТ)).OrderBy(obj => obj.Ассортимент).ToList();
+                //Caplst = _db.GetSpr_CAPs().Where(p => p.КатегорияТРТ.Equals(Outlet.КатегорияТРТ)).OrderBy(obj => obj.Ассортимент).OrderBy(obj => obj.Приоритетность).ToList();
+                Caplst = _db.GetSpr_CAPs().Where(p => p.КатегорияТРТ.Equals(Outlet.КатегорияТРТ)).OrderBy(obj => obj.КодАссортимент).ThenBy(obj => obj.Приоритетность).ToList();
             else
-                Caplst = _db.GetSpr_CAPs().Where(p => p.КатегорияТРТ.Equals(Outlet.КатегорияТРТ)).OrderBy(obj => obj.ТорговаяМарка).ToList();
+                Caplst = _db.GetSpr_CAPs().Where(p => p.КатегорияТРТ.Equals(Outlet.КатегорияТРТ)).OrderBy(obj => obj.ТорговаяМарка).ThenBy(obj => obj.Приоритетность).ToList();
             
             ViewBag.ChkBoxLstNm = Caplst;
             ViewBag.SortTp = usr.SortType;
                     
             return View(_db.GetStore(id));
         }
-        /*
-        public ActionResult SaveStore(Guid OutletID) 
-        {
-          string []values;
-          CheckOutlet Outlet = new CheckOutlet();
-          Outlet.ID = Guid.NewGuid();
-          Outlet.OutletID = OutletID;
-          Users usr = (Users)Session["CurrUsr"];
-          Outlet.UserID = usr.ID;
-          Outlet.CkeckDate = DateTime.Now;
-          _db.AddCheckOutlet(Outlet);
-          
-          for (int i = 0; i < Request.Form.Count; i++)
-          {
-              values = Request.Form.GetValues(i);
-              if (values != null && values[0] == "true")
-              {
-                  CheckOutletData OutletData = new CheckOutletData();
-                  OutletData.ID = Guid.NewGuid();
-                  OutletData.CheckOutletID = Outlet.ID;
-                  OutletData.SKUID = Guid.Parse(Request.Form.Keys[i]);
-                  _db.AddCheckOutletData(OutletData);
-              }       
-          }            
-          return RedirectToAction("EditStore");
-        }
-         */
-
 
         [HttpPost]
         public ActionResult SaveCheckRes(IEnumerable<HttpPostedFileBase> files, Guid OutletID)
         {
             AppConfiguration cfg = new AppConfiguration();
-            //cfg.imagePath = "~/App_Data/uploads";
             cfg.imagePath = "~/Content/Images/foto";
             string imgPath = cfg.imagePath;
 

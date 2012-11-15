@@ -1664,7 +1664,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _SBU;
+                return _SBU != null ? _SBU : String.Empty; ;
             }
             set
             {
@@ -1688,7 +1688,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _Регион;
+                return _Регион != null ? _Регион : String.Empty;
             }
             set
             {
@@ -1712,7 +1712,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _Область;
+                return _Область != null ? _Область : String.Empty;
             }
             set
             {
@@ -1736,7 +1736,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _Дистрибутор;
+                return _Дистрибутор != null ? _Дистрибутор : String.Empty;
             }
             set
             {
@@ -1760,7 +1760,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _КодКлиент;
+                return _КодКлиент != null ? _КодКлиент : String.Empty;
             }
             set
             {
@@ -1784,7 +1784,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _ИНН;
+                return _ИНН != null ? _ИНН : String.Empty;
             }
             set
             {
@@ -1808,7 +1808,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _КодАдресдоставки;
+                return _КодАдресдоставки != null ? _КодАдресдоставки : String.Empty;
             }
             set
             {
@@ -1832,7 +1832,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _Клиент;
+                return _Клиент != null ? _Клиент : String.Empty;
             }
             set
             {
@@ -1856,7 +1856,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _Адресдоставки;
+                return _Адресдоставки != null ? _Адресдоставки : String.Empty;
             }
             set
             {
@@ -1880,7 +1880,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _ОбластьТРТ;
+                return _ОбластьТРТ != null ? _ОбластьТРТ : String.Empty;
             }
             set
             {
@@ -1904,7 +1904,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _РайонТРТ;
+                return _РайонТРТ != null ? _РайонТРТ : String.Empty;
             }
             set
             {
@@ -1928,7 +1928,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _ГородТРТ;
+                return _ГородТРТ != null ? _ГородТРТ : String.Empty;
             }
             set
             {
@@ -1952,7 +1952,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _УлицаТРТ;
+                return _УлицаТРТ != null ? _УлицаТРТ : String.Empty;
             }
             set
             {
@@ -1976,7 +1976,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _ДомТРТ;
+                return _ДомТРТ != null ? _ДомТРТ : String.Empty;
             }
             set
             {
@@ -2000,7 +2000,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _ПримечаниеТРТ;
+                return _ПримечаниеТРТ != null ? _ПримечаниеТРТ : String.Empty;
             }
             set
             {
@@ -2024,7 +2024,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _Каналреализации;
+                return _Каналреализации != null ? _Каналреализации : String.Empty;
             }
             set
             {
@@ -2048,7 +2048,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _КатегорияТРТ;
+                return _КатегорияТРТ != null ? _КатегорияТРТ : String.Empty;
             }
             set
             {
@@ -2072,7 +2072,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _Холдинг;
+                return _Холдинг != null ? _Холдинг : String.Empty;
             }
             set
             {
@@ -2096,7 +2096,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _Актуальность;
+                return _Актуальность != null ? _Актуальность : String.Empty;
             }
             set
             {
@@ -2120,7 +2120,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _ПровереноМП;
+                return _ПровереноМП != null ? _ПровереноМП : String.Empty;
             }
             set
             {
@@ -2432,7 +2432,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _SBU;
+                return _SBU != null ? _SBU : String.Empty;
             }
             set
             {
@@ -2456,7 +2456,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _Регион;
+                return _Регион != null ? _Регион : String.Empty;
             }
             set
             {
@@ -2480,7 +2480,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _Область;
+                return _Область != null ? _Область : String.Empty;
             }
             set
             {
@@ -2504,7 +2504,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _Дистрибутор;
+                return _Дистрибутор != null ? _Дистрибутор : String.Empty;
             }
             set
             {
@@ -2528,7 +2528,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _КодТА;
+                return _КодТА != null ? _КодТА : String.Empty;
             }
             set
             {
@@ -2552,7 +2552,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _ТА;
+                return _ТА != null ? _ТА : String.Empty;
             }
             set
             {
@@ -2576,7 +2576,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _ТипТА;
+                return _ТипТА != null ? _ТипТА : String.Empty;
             }
             set
             {
@@ -2600,7 +2600,7 @@ namespace StoreCheck.Models
         {
             get
             {
-                return _МаршрутТА;
+                return _МаршрутТА != null ? _МаршрутТА : String.Empty;
             }
             set
             {

@@ -28,7 +28,6 @@ table th {
            color:White; 
            cursor:pointer;
 }
-table thead th:hover { background-color:#E8EEF4;color:black;}
 table td { min-height:80px; border:1px solid gray;}
 
 .first, .next, .prev, .last{margin-top:5px;} 

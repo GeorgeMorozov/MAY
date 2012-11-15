@@ -14,6 +14,7 @@ namespace StoreCheck.Controllers
 
         private readonly DataManager _db = new DataManager();
         private const int defaultPageSize = 10;
+        private const string ALL = "Все";
 
         public ActionResult Spr()
         {
@@ -193,9 +194,59 @@ namespace StoreCheck.Controllers
     
         //-------------------Spr_SR------------------------------------
 
-        public ActionResult Spr_SRList(int? page)
+        public ActionResult Spr_SRList(string SBU, string RegNm, string OblNm, string DistNm, string CodeTA, string TypeTA, string TA, string RouteTA, int? page)
         {
-            return View(_db.GetSpr_SRs().ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
+            
+            //Регион	 Область	 Дистрибутор	 КодТА	 ТА	 ТипТА	 МаршрутТА
+            int currentPageIndex = page.HasValue ? page.Value : 1;
+            IList<Spr_SR> Fltlst = _db.GetSpr_SRs();
+
+            List<string> SBULst = new List<string>(from itm in Fltlst orderby itm.SBU select itm.SBU );
+            List<string> RegLst = new List<string>(from itm in Fltlst orderby itm.Регион select itm.Регион);
+            List<string> OblLst = new List<string>(from itm in Fltlst orderby itm.Область select itm.Область);
+            List<string> DistLst = new List<string>(from itm in Fltlst orderby itm.Дистрибутор select itm.Дистрибутор);
+            List<string> CodeTALst = new List<string>(from itm in Fltlst orderby itm.КодТА select itm.КодТА);
+            List<string> TALst = new List<string>(from itm in Fltlst orderby itm.ТА select itm.ТА);
+            List<string> TypeTALst = new List<string>(from itm in Fltlst orderby itm.ТипТА select itm.ТипТА);
+            List<string> RouteTALst = new List<string>(from itm in Fltlst orderby itm.МаршрутТА select itm.МаршрутТА);
+
+            SBU = SBU ?? ALL;
+            RegNm = RegNm ?? ALL;
+            OblNm = OblNm ?? ALL;
+            DistNm = DistNm ?? ALL;
+            CodeTA = CodeTA ?? ALL;
+            TA = TA ?? ALL;
+            TypeTA = TypeTA ?? ALL;
+            RouteTA = RouteTA ?? ALL;
+
+            SBULst.Insert(0, ALL);
+            RegLst.Insert(0, ALL);
+            OblLst.Insert(0, ALL);
+            DistLst.Insert(0, ALL);
+            CodeTALst.Insert(0, ALL);
+            TALst.Insert(0, ALL);
+            TypeTALst.Insert(0, ALL);
+            RouteTALst.Insert(0, ALL);
+
+            if (SBU     != ALL) Fltlst = Fltlst.Where(p => p.SBU.Equals(SBU)).ToList();
+            if (RegNm   != ALL) Fltlst = Fltlst.Where(p => p.Регион.Equals(RegNm)).ToList();
+            if (OblNm   != ALL) Fltlst = Fltlst.Where(p => p.Область.Equals(OblNm)).ToList();
+            if (DistNm  != ALL) Fltlst = Fltlst.Where(p => p.Дистрибутор.Equals(DistNm)).ToList();
+            if (CodeTA  != ALL) Fltlst = Fltlst.Where(p => p.КодТА.Equals(CodeTA)).ToList();
+            if (TA      != ALL) Fltlst = Fltlst.Where(p => p.ТА.Equals(TA)).ToList();
+            if (TypeTA  != ALL) Fltlst = Fltlst.Where(p => p.ТипТА.Equals(TypeTA)).ToList();
+            if (RouteTA != ALL) Fltlst = Fltlst.Where(p => p.МаршрутТА == RouteTA).ToList();
+
+            ViewData["SBU"]    = new SelectList(SBULst.AsEnumerable().Distinct<string>(), SBU);
+            ViewData["RegNm"]  = new SelectList(RegLst.AsEnumerable().Distinct<string>(), RegNm);
+            ViewData["OblNm"]  = new SelectList(OblLst.AsEnumerable().Distinct<string>(), OblNm);
+            ViewData["DistNm"] = new SelectList(DistLst.AsEnumerable().Distinct<string>(), DistNm);
+            ViewData["CodeTA"] = new SelectList(CodeTALst.AsEnumerable().Distinct<string>(), CodeTA);
+            ViewData["TA"]     = new SelectList(TALst.AsEnumerable().Distinct<string>(), TA);
+            ViewData["TypeTA"] = new SelectList(TypeTALst.AsEnumerable().Distinct<string>(), TypeTA);
+            ViewData["RouteTA"] = new SelectList(RouteTALst.AsEnumerable().Distinct<string>(), RouteTA);
+
+            return View(Fltlst.ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
         }
 
         [HttpGet]

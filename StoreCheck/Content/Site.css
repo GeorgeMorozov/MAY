@@ -118,7 +118,7 @@ page width. Or, you can specify an exact pixel width. */
 
 #main
 {
-    padding: 30px 30px 15px 30px;
+    padding: 10px 10px 5px 10px;
     background-color: #fff;
     margin-bottom: 30px;
     _height: 1px; /* only IE6 applies CSS properties starting with an underscrore */
@@ -309,17 +309,15 @@ _margin-right: auto;
 }
 
 
-table thead th:hover { 
-background-color:#E8EEF4;color:black;
-}
-
 table td { 
 border-bottom:1px solid gray;
 border-right:1px solid gray;
 padding:2px;
 }
 
-.td_btn{width:60px; text-align:center;}
+.td_btn{width:60px; text-align:center; _float:left;}
+
+.td_btn A{_float:left;}
 
 _table { border-spacing:0; border:1px solid gray;}
 
@@ -349,10 +347,8 @@ table th {
            background-color:#5C87B2; 
            color:White; 
            cursor:pointer;
-           text-align:left;
+           text-align:center;
 }
-table thead th:hover { background-color:#E8EEF4;color:black;}
-
 
 .first, .next, .prev, .last{margin-top:5px;} 
 
@@ -376,3 +372,7 @@ border:0px;
 .no-border TD{
 border:0px;
 }   
+
+TH{
+text-align:center;	
+	}

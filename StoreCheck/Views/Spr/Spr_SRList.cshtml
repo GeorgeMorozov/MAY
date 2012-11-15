@@ -12,33 +12,38 @@
 <p>
     @Html.ActionLink("Добавить", "Spr_SRCreate")
 </p>
-<table >
+
+<form action="Spr_SRList" method="post" enctype = "multipart/form-data"> 
+
+<input type="submit" value="Поиск" />
+
+<table>
   <thead>
     <tr>
         <th></th>
         <th>
-            SBU
+            SBU<br/>@Html.DropDownList("SBU")
         </th>
         <th>
-            Регион
+            Регион<br/>@Html.DropDownList("RegNm")
         </th>
         <th>
-            Область
+            Область<br/>@Html.DropDownList("OblNm")
         </th>
         <th>
-            Дистрибутор
+            Дистрибутор<br/>@Html.DropDownList("DistNm")
         </th>
         <th>
-            КодТА
+            КодТА<br/>@Html.DropDownList("CodeTA")
         </th>
         <th>
-            ТА
+            ТА<br/>@Html.DropDownList("TA")
         </th>
         <th>
-            ТипТА
+            ТипТА<br/>@Html.DropDownList("TypeTA")
         </th>
         <th>
-            МаршрутТА
+            МаршрутТА<br/>@Html.DropDownList("RouteTA")
         </th>
     </tr>
  </thead>
@@ -80,6 +85,7 @@
 
 </tbody>
 </table>
+</form>
 <div class="pager">
     @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
 </div>

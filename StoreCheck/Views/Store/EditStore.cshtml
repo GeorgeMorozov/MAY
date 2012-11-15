@@ -12,13 +12,13 @@
        <input type="submit" value="Поиск" />
 <table>
     <tr>
-        <th></th>
+        <th class="td_btn"> &nbsp;</th>
         <th>
             Регион<br/>
             @Html.DropDownList("RegNm")
         </th>
         <th>
-            Область<br/>
+            Область<br/> 
             @Html.DropDownList("OblNm") 
         </th>
         <th>
@@ -41,6 +41,22 @@
             Адресдоставки<br/>
              @Html.DropDownList("Adress")
         </th>
+         <th>
+            Город<br/>
+             @Html.DropDownList("City")
+        </th>
+         <th>
+            Улица<br/>
+             @Html.DropDownList("Street")
+        </th>
+         <th>
+            Дом<br/>
+             @Html.DropDownList("House")
+        </th>
+         <th>
+            Примечание<br/>
+             @Html.DropDownList("Comment")
+        </th>
     </tr>
    
 
@@ -50,7 +66,7 @@
             <td class="td_btn">
                 @Html.ActionImage("ViewChecks", new { id = item.ID }, "~/Content/Images/page.png", "Просмотр")
                 @Html.ActionImage("Spr_OutletsEdit", "Spr", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
-                @Html.ActionImage("SaveCheckRes", new { id = item.ID }, "~/Content/Images/page_add.png", "Добавить проверку")
+                @Html.ActionImage("SaveCheckRes", new { id = item.ID }, "~/Content/Images/page_add.png", "Заполнить StoreCheck")
             </td>
             <td>
                 @item.Регион
@@ -72,7 +88,19 @@
             </td>
             <td>
                 @item.Адресдоставки
-            </td>          
+            </td> 
+            <td>
+                @item.ГородТРТ
+            </td>
+            <td>
+                @item.УлицаТРТ
+            </td>
+            <td>
+                @item.ДомТРТ
+            </td>
+            <td>
+                @item.ПримечаниеТРТ
+            </td>             
         </tr>
     }
 </table>
