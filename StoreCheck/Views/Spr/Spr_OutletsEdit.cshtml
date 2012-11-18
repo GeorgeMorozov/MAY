@@ -1,178 +1,134 @@
 ﻿@model StoreCheck.Models.Spr_Outlets
 
-@{
-    ViewBag.Title = "Редактирование КатегорияТРТ";
-}
 
-<h2>Редактирование КатегорияТРТ</h2>
-
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
-@using (Html.BeginForm()) {
+@{String id = Model.ID.ToString();}
+@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = id }))
+{    
+    
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Spr_Outlets</legend>
-
-        <div class="editor-label">
+       <table class="spr_edit">
+        <tr><td style="width:35%;">
             @Html.LabelFor(model => model.SBU)
-        </div>
-        <div class="editor-field">
+         </td><td>
             @Html.EditorFor(model => model.SBU)
             @Html.ValidationMessageFor(model => model.SBU)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.Регион)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.Регион)
             @Html.ValidationMessageFor(model => model.Регион)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.Область)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.Область)
             @Html.ValidationMessageFor(model => model.Область)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.Дистрибутор)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.Дистрибутор)
             @Html.ValidationMessageFor(model => model.Дистрибутор)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.КодКлиент)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.КодКлиент)
             @Html.ValidationMessageFor(model => model.КодКлиент)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.ИНН)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.ИНН)
             @Html.ValidationMessageFor(model => model.ИНН)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.КодАдресдоставки)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.КодАдресдоставки)
             @Html.ValidationMessageFor(model => model.КодАдресдоставки)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.Клиент)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.Клиент)
             @Html.ValidationMessageFor(model => model.Клиент)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.Адресдоставки)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.Адресдоставки)
             @Html.ValidationMessageFor(model => model.Адресдоставки)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.ОбластьТРТ)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.ОбластьТРТ)
             @Html.ValidationMessageFor(model => model.ОбластьТРТ)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.РайонТРТ)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.РайонТРТ)
             @Html.ValidationMessageFor(model => model.РайонТРТ)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.ГородТРТ)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.ГородТРТ)
             @Html.ValidationMessageFor(model => model.ГородТРТ)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.УлицаТРТ)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.УлицаТРТ)
             @Html.ValidationMessageFor(model => model.УлицаТРТ)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.ДомТРТ)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.ДомТРТ)
             @Html.ValidationMessageFor(model => model.ДомТРТ)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.ПримечаниеТРТ)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.ПримечаниеТРТ)
             @Html.ValidationMessageFor(model => model.ПримечаниеТРТ)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.Каналреализации)
-        </div>
-        <div class="editor-field">
-             @Html.DropDownList("ChannelRetail")
+        </td><td>
+            @Html.DropDownList("ChannelRetail")
             @Html.ValidationMessageFor(model => model.Каналреализации)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.КатегорияТРТ)
-        </div>
-        <div class="editor-field">
-             @Html.DropDownList("CatigoryTRT")
+        </td><td>
+            @Html.DropDownList("CatigoryTRT")
             @Html.ValidationMessageFor(model => model.КатегорияТРТ)
-        </div>
-
-        <div class="editor-label">
+       </td></tr>
+       <tr><td>
             @Html.LabelFor(model => model.Холдинг)
-        </div>
-        <div class="editor-field">
+       </td><td>
             @Html.EditorFor(model => model.Холдинг)
             @Html.ValidationMessageFor(model => model.Холдинг)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.Актуальность)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.Актуальность)
             @Html.ValidationMessageFor(model => model.Актуальность)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.ПровереноМП)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.ПровереноМП)
             @Html.ValidationMessageFor(model => model.ПровереноМП)
-        </div>
+       </td></tr>
+       </table>
 
          @Html.HiddenFor(model => model.ID)
 
@@ -183,5 +139,8 @@
 }
 
 <div>
-    @Html.ActionLink("Назад", "EditStore", "Store")
+    @*Html.ActionLink("Назад", "EditStore", "Store")*@
 </div>
+
+
+

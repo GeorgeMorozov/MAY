@@ -173,10 +173,16 @@ namespace StoreCheck.Controllers
         [HttpGet]
         public ActionResult Spr_OutletsEdit(Guid id)
         {
-            Spr_Outlets obj = _db.GetSpr_Outlet(id);
-            ViewData["CatigoryTRT"] = new SelectList(_db.GetCatigoryTRTListDist(), obj.КатегорияТРТ);
-            ViewData["ChannelRetail"] = new SelectList(_db.GetChannelRetailListDist(), obj.Каналреализации);
-            return View(_db.GetSpr_Outlets(id));
+
+            if (Request.IsAjaxRequest())
+            {
+                Spr_Outlets obj = _db.GetSpr_Outlet(id);
+                ViewData["CatigoryTRT"] = new SelectList(_db.GetCatigoryTRTListDist(), obj.КатегорияТРТ);
+                ViewData["ChannelRetail"] = new SelectList(_db.GetChannelRetailListDist(), obj.Каналреализации);
+                ViewBag.ID = id; 
+                return PartialView(_db.GetSpr_Outlets(id));
+            }
+            return View();
         }
 
         [HttpPost]
@@ -187,20 +193,31 @@ namespace StoreCheck.Controllers
                 obj.КатегорияТРТ = CatigoryTRT;
                 obj.Каналреализации = ChannelRetail;
                 _db.SaveSpr_Outlets(obj);
-                return RedirectToAction("EditStore", "Store", new { id = obj.ID });
+                /*
+                ViewBag.ID = obj.ID;
+                ViewData["CatigoryTRT"] = new SelectList(_db.GetCatigoryTRTListDist(), CatigoryTRT);
+                ViewData["ChannelRetail"] = new SelectList(_db.GetChannelRetailListDist(), ChannelRetail);
+                */
+                //return RedirectToAction("EditStore", "Store", new { id = obj.ID });    
+                 
+                //return View(_db.GetSpr_Outlets(obj.ID));
+                //return PartialView("_EditStoreRow", _db.GetSpr_Outlets(obj.ID));
+                //return PartialView("EditStore");
+                //PartialViewResult res = PartialView("_EditStoreRow", _db.GetSpr_Outlets(obj.ID));//Content("<tr><td>test</td></tr>");
+                //return res;
+
+                return Content(_db.GetSprOutletsViewRow(obj));
             }
-            return RedirectToAction("EditStore", "Store");
+            return PartialView("EditStore");
+            //return RedirectToAction("EditStore", "Store", new { id = obj.ID });
+            //return View(_db.GetSpr_Outlets(obj.ID));
         }
     
         //-------------------Spr_SR------------------------------------
-
-        public ActionResult Spr_SRList(string SBU, string RegNm, string OblNm, string DistNm, string CodeTA, string TypeTA, string TA, string RouteTA, int? page)
-        {
-            
-            //Регион	 Область	 Дистрибутор	 КодТА	 ТА	 ТипТА	 МаршрутТА
-            int currentPageIndex = page.HasValue ? page.Value : 1;
+        [HttpGet]
+        public ActionResult Spr_SRList(string SBU, string RegNm, string OblNm, string DistNm, string CodeTA, string TypeTA, string TA, string RouteTA, int? page, int SortBy = 1, bool isAsc = true, string search = null)
+        {         
             IList<Spr_SR> Fltlst = _db.GetSpr_SRs();
-
             List<string> SBULst = new List<string>(from itm in Fltlst orderby itm.SBU select itm.SBU );
             List<string> RegLst = new List<string>(from itm in Fltlst orderby itm.Регион select itm.Регион);
             List<string> OblLst = new List<string>(from itm in Fltlst orderby itm.Область select itm.Область);
@@ -237,6 +254,52 @@ namespace StoreCheck.Controllers
             if (TypeTA  != ALL) Fltlst = Fltlst.Where(p => p.ТипТА.Equals(TypeTA)).ToList();
             if (RouteTA != ALL) Fltlst = Fltlst.Where(p => p.МаршрутТА == RouteTA).ToList();
 
+            #region Search
+            Fltlst = Fltlst.Where(
+            p => search == null
+            || p.Регион.Contains(search)
+            || p.Область.Contains(search)
+            || p.Дистрибутор.Contains(search)
+            || p.КодТА.Contains(search)
+            || p.ТА.Contains(search)
+            || p.ТипТА.Contains(search)
+            || p.МаршрутТА.Contains(search)
+            ).ToList();
+            #endregion
+
+            #region Sorting
+            switch (SortBy)
+            {
+                case 1:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.SBU).ToList() : Fltlst.OrderByDescending(p => p.SBU).ToList();
+                    break;
+                case 2:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.Регион).ToList() : Fltlst.OrderByDescending(p => p.Регион).ToList();
+                    break;
+                case 3:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.Область).ToList() : Fltlst.OrderByDescending(p => p.Область).ToList();
+                    break;
+                case 4:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.Дистрибутор).ToList() : Fltlst.OrderByDescending(p => p.Дистрибутор).ToList();
+                    break;
+                case 5:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.КодТА).ToList() : Fltlst.OrderByDescending(p => p.КодТА).ToList();
+                    break;
+                case 6:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.ТА).ToList() : Fltlst.OrderByDescending(p => p.ТА).ToList();
+                    break;
+                case 7:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.ТипТА).ToList() : Fltlst.OrderByDescending(p => p.ТипТА).ToList();
+                    break;
+                case 8:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.МаршрутТА).ToList() : Fltlst.OrderByDescending(p => p.МаршрутТА).ToList();
+                    break;
+                default:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.SBU).ToList() : Fltlst.OrderByDescending(p => p.SBU).ToList();
+                    break;
+            }
+            #endregion
+
             ViewData["SBU"]    = new SelectList(SBULst.AsEnumerable().Distinct<string>(), SBU);
             ViewData["RegNm"]  = new SelectList(RegLst.AsEnumerable().Distinct<string>(), RegNm);
             ViewData["OblNm"]  = new SelectList(OblLst.AsEnumerable().Distinct<string>(), OblNm);
@@ -245,6 +308,13 @@ namespace StoreCheck.Controllers
             ViewData["TA"]     = new SelectList(TALst.AsEnumerable().Distinct<string>(), TA);
             ViewData["TypeTA"] = new SelectList(TypeTALst.AsEnumerable().Distinct<string>(), TypeTA);
             ViewData["RouteTA"] = new SelectList(RouteTALst.AsEnumerable().Distinct<string>(), RouteTA);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.PageSize = defaultPageSize;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)Fltlst.Count() / defaultPageSize);
+            ViewBag.SortBy = SortBy;
+            ViewBag.IsAsc = isAsc;
+            ViewBag.Search = search;
 
             return View(Fltlst.ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
         }

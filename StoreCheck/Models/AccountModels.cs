@@ -153,8 +153,8 @@ namespace StoreCheck.Models
             string _filterAttribute = String.Empty;
 
             //TEST{
-            _filterAttribute = "mGeorge";
-            return _db.GetCurrUser(username, _filterAttribute);
+            // _filterAttribute = "mGeorge";
+            // return _db.GetCurrUser(username, _filterAttribute);
             //TEST}
 
             DirectoryEntry entry = new DirectoryEntry(_path, domainAndUsername, pwd);

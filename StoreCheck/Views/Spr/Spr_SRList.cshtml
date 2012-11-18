@@ -6,6 +6,19 @@
     ViewBag.Title = "Справочник: Торговые агенты";
 }
 
+@helper sortLink(string name, int id)
+{
+   <a href="@Url.Action("Spr_SRList", "Spr", new { sortby = id, isasc = (id == ViewBag.sortBy ? !ViewBag.isAsc : ViewBag.isAsc).ToString().ToLower() })">@name</a>  
+   if (id == ViewBag.sortBy)
+   {
+       <i class="arrow @( ViewBag.isAsc ? "up" : "down")">&nbsp;&nbsp;</i>
+   }
+   else
+   {
+       <i class="arrow">&nbsp;&nbsp;</i> 
+   }
+    
+}
 <h2>Справочник:Торговые агенты</h2>
 
 
@@ -13,73 +26,44 @@
     @Html.ActionLink("Добавить", "Spr_SRCreate")
 </p>
 
-<form action="Spr_SRList" method="post" enctype = "multipart/form-data"> 
 
-<input type="submit" value="Поиск" />
+<form action="@Url.Action("Spr_SRList", "Spr")" method="get" enctype = "multipart/form-data"> 
+<div class="product-search">
+ <input id="search" name="search" type="text" value="@ViewBag.Search" /><input type="submit" value="Поиск" />
+</div> 
 
 <table>
   <thead>
     <tr>
         <th></th>
-        <th>
-            SBU<br/>@Html.DropDownList("SBU")
-        </th>
-        <th>
-            Регион<br/>@Html.DropDownList("RegNm")
-        </th>
-        <th>
-            Область<br/>@Html.DropDownList("OblNm")
-        </th>
-        <th>
-            Дистрибутор<br/>@Html.DropDownList("DistNm")
-        </th>
-        <th>
-            КодТА<br/>@Html.DropDownList("CodeTA")
-        </th>
-        <th>
-            ТА<br/>@Html.DropDownList("TA")
-        </th>
-        <th>
-            ТипТА<br/>@Html.DropDownList("TypeTA")
-        </th>
-        <th>
-            МаршрутТА<br/>@Html.DropDownList("RouteTA")
-        </th>
+        <th>@sortLink("SBU", 1)<br/>@Html.DropDownList("SBU")</th>
+        <th>@sortLink("Регион", 2)<br/>@Html.DropDownList("RegNm")</th>
+        <th>@sortLink("Область", 3)<br/>@Html.DropDownList("OblNm")</th>
+        <th>@sortLink("Дистрибутор", 4)<br/>@Html.DropDownList("DistNm")</th>
+        <th>@sortLink("КодТА", 5)<br/>@Html.DropDownList("CodeTA")</th>
+        <th>@sortLink("ТА", 6)<br/>@Html.DropDownList("TA")</th>
+        <th>@sortLink("ТипТА", 7)<br/>@Html.DropDownList("TypeTA")</th>
+        <th>@sortLink("МаршрутТА", 8)<br/>@Html.DropDownList("RouteTA")</th>
     </tr>
  </thead>
   <tbody>
+@{int i = 1;}
 @foreach (var item in ViewData.Model)
 {
-    <tr>
+    <tr class="@(i++ % 2 == 0 ? "highlighted" : "")">
         <td class="td_btn">
         @Html.ActionImage("Spr_SREdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
         @Html.ActionImage("Spr_SRDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
         @Html.ActionImage("Spr_SRDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
         </td>  
-        <td>
-            @item.SBU
-        </td>
-        <td>
-            @item.Регион
-        </td>
-        <td>
-            @item.Область
-        </td>
-        <td>
-            @item.Дистрибутор
-        </td>
-        <td>
-            @item.КодТА
-        </td>
-        <td>
-            @item.ТА
-        </td>
-        <td>
-            @item.ТипТА
-        </td>
-        <td>
-            @item.МаршрутТА
-        </td>
+        <td> @item.SBU</td>
+        <td>@item.Регион</td>
+        <td>@item.Область</td>
+        <td>@item.Дистрибутор</td>
+        <td>@item.КодТА</td>
+        <td> @item.ТА</td>
+        <td> @item.ТипТА</td>
+        <td>@item.МаршрутТА</td>
     </tr>
 }
 

@@ -3,12 +3,59 @@ The base color for this template is #5c87b2. If you'd like
 to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
+  
+
+
 #Adress, #Client{
 width:200px;
 }
 
+.up{
+    background-image: url(images/ascb.png); background-repeat: no-repeat;
+    background-position: center 7px;
+}
+.down{
+    background-image: url(images/descb.png);  background-repeat: no-repeat;
+    background-position: center 7px;
+}
 
+.highlighted
+{
+  background-color: #F4F4F4;  
+}   
 
+TH A
+{
+  color:White;
+}
+
+.colapseTitle
+{
+   padding:0px 0px;
+   font-weight:bold;  
+}
+
+.colapseBtn{
+  _border:1px solid black;
+  cursor:pointer;
+  margin-right:3px;
+  padding:0px 1px;
+  font-weight:bold;
+  text-align:center;
+  width:13px;
+  height:13px;  
+}
+.colapseBtnNm {
+ padding-top:3px; 
+}
+
+.colapseItem{
+  display:none;  
+} 
+
+.colapseItem INPUT{
+margin-left:20px;
+}       
 
 body
 {
@@ -19,25 +66,10 @@ body
     padding: 0;
     color: #696969;
 }
+TH a{
+  color:White;
+}
 
-a:link
-{
-    color: #034af3;
-    text-decoration: underline;
-}
-a:visited
-{
-    color: #505abc;
-}
-a:hover
-{
-    color: #1d60ff;
-    text-decoration: none;
-}
-a:active
-{
-    color: #12eb87;
-}
 
 p, ul
 {
@@ -77,21 +109,13 @@ h5, h6
     font-size: 1em;
 }
 
-/* this rule styles <h2> tags that are the 
-first child of the left and right table columns */
 .rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
 {
     margin-top: 0;
 }
-
-/* PRIMARY LAYOUT ELEMENTS   
-----------------------------------------------------------*/
-
-/* you can specify a greater or lesser percentage for the 
-page width. Or, you can specify an exact pixel width. */
 .page
 {
-    width: 90%;
+    width: 96%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -374,5 +398,24 @@ border:0px;
 }   
 
 TH{
-text-align:center;	
-	}
+text-align:center;
+}	
+
+LI{
+list-style:none;    
+}
+.spr_edit{
+ width:100%;
+}
+
+.spr_edit INPUT{
+ width:100%;
+}
+
+
+.spr_edit TD{
+border: 0px; 
+}
+LEGEND{
+ font-weight:bold;    
+}  

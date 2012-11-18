@@ -2,59 +2,71 @@
 @using StoreCheck;
 @model IPagedList<StoreCheck.Models.Spr_Outlets>
 
-
-    @{ViewBag.Title = "Торговые точки";}
+@{ViewBag.Title = "Торговые точки";}
+@helper sortLink(string name, int id)
+{
+   <a href="@Url.Action("EditStore", "Store", new { sortby = id, isasc = (id == ViewBag.sortBy ? !ViewBag.isAsc : ViewBag.isAsc).ToString().ToLower() })">@name</a>     
+    if (id == ViewBag.sortBy)
+    {
+       <i class="arrow @( ViewBag.isAsc ? "up" : "down")">&nbsp;&nbsp;</i>   
+    }
+    else
+    {
+       <i class="arrow">&nbsp;&nbsp;</i> 
+    }    
+}
 
 <h2>Торговые точки</h2>
 
-<form action="EditStore" method="post" enctype = "multipart/form-data">     
-                                                                                                                                   
-       <input type="submit" value="Поиск" />
+<form action="@Url.Action("EditStore", "Store")" method="get" enctype = "multipart/form-data"> 
+<div class="product-search">
+ <input id="search" name="search" type="text" value="@ViewBag.Search" /><input type="submit" value="Поиск" />
+</div>    
+                                                                                                                                        
 <table>
     <tr>
         <th class="td_btn"> &nbsp;</th>
-        <th>
-            Регион<br/>
+        <th>@sortLink("Регион", 1)<br/>
             @Html.DropDownList("RegNm")
         </th>
         <th>
-            Область<br/> 
+            @sortLink("Область", 2)<br/> 
             @Html.DropDownList("OblNm") 
         </th>
         <th>
-            Дистрибутор<br/>
+            @sortLink("Дистрибутор", 3)<br/>
             @Html.DropDownList("DistNm")
         </th>
         <th>
-            Каналреализации<br/>
+            @sortLink("Каналреализации", 4)<br/>
             @Html.DropDownList("Release") 
         </th>
         <th>
-            КатегорияТРТ<br/>
+            @sortLink("КатегорияТРТ", 5)<br/>
             @Html.DropDownList("Category")
         </th>
         <th>
-            Клиент<br/>
+            @sortLink("Клиент", 6)<br/>
             @Html.DropDownList("Client")
         </th>
         <th>
-            Адресдоставки<br/>
-             @Html.DropDownList("Adress")
+            @sortLink("Адресдоставки", 7)<br/>
+            @Html.DropDownList("Adress")
         </th>
          <th>
-            Город<br/>
+            @sortLink("Город", 8)<br/>
              @Html.DropDownList("City")
         </th>
          <th>
-            Улица<br/>
+            @sortLink("Улица", 9)<br/>
              @Html.DropDownList("Street")
         </th>
          <th>
-            Дом<br/>
+            @sortLink("Дом", 10)<br/>
              @Html.DropDownList("House")
         </th>
          <th>
-            Примечание<br/>
+            @sortLink("Примечание", 11)<br/>
              @Html.DropDownList("Comment")
         </th>
     </tr>
@@ -62,10 +74,11 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+          <tr id="@item.ID">
             <td class="td_btn">
                 @Html.ActionImage("ViewChecks", new { id = item.ID }, "~/Content/Images/page.png", "Просмотр")
-                @Html.ActionImage("Spr_OutletsEdit", "Spr", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
+                @Html.ActionImage("Spr_OutletsEdit", "Spr", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать", new { @class = "openDialog", data_dialog_id = item.ID, data_dialog_title = "Редактирование торговой точки ("+ item.Клиент+ ")" }) 
+                @*Html.ActionLink("Редактировать", "Spr_OutletsEdit", "Spr", new { id = item.ID }, new { @class = "openDialog", data_dialog_id = item.ID, data_dialog_title = "MY TITLE" })    *@
                 @Html.ActionImage("SaveCheckRes", new { id = item.ID }, "~/Content/Images/page_add.png", "Заполнить StoreCheck")
             </td>
             <td>
@@ -102,12 +115,15 @@
                 @item.ПримечаниеТРТ
             </td>             
         </tr>
+       
     }
 </table>
 </form>
 <div class="pager">
     @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
 </div>
+
+<div id="emailDialog"></div>
 
 
 

@@ -104,6 +104,7 @@
     <Content Include="Content\images\last.png" />
     <Content Include="Content\images\next.png" />
     <Content Include="Content\images\prev.png" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Content\Tables.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery.tablesorter.js" />
@@ -229,9 +230,6 @@
     <Content Include="Views\Spr\Spr_SREdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_PaginationBar.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MvcPaging\MvcPaging.csproj">
       <Project>{AAF30968-1118-4937-B392-E9863EA8D76D}</Project>
       <Name>MvcPaging</Name>
@@ -268,9 +266,6 @@
     <Content Include="Views\Admin\UserPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Spr\_Spr_OutletsEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Spr\Spr_TypeTAList.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +288,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Spr\Spr_ChannelRetailEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_LayoutPopup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Spr\Spr_OutletsEdit.cshtml" />

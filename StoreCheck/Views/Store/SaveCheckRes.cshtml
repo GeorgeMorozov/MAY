@@ -17,19 +17,11 @@
                 foreach (Spr_CAP item in ViewBag.ChkBoxLstNm)
                 {
                     if (s != item.Ассортимент)
-                    {
-                     
-                        <br/><b>@item.Ассортимент</b><br/>
-                        <span>@Html.CheckBox(item.ID.ToString()) </span>            
-                        <span>@Html.Label(item.SKUКМУ) </span><br/>
-                    
-                    
+                    {                      
+                        <br/><div class="colapseTitle"><span class="colapseBtn" id="@item.КодАссортимент" OnClick="colapseBtnClick(arguments[0]);">+</span>@item.Ассортимент</div>
                     }
-                    else
-                    {
-                        <span>@Html.CheckBox(item.ID.ToString()) </span>
-                        <span>@Html.Label(item.SKUКМУ) </span><br/>
-                    }
+                        <li class="colapseItem @item.КодАссортимент">@Html.CheckBox(item.ID.ToString()) @Html.Label(item.SKUКМУ) </li>
+                    
                     s = item.Ассортимент;
                 }
             }
@@ -39,18 +31,9 @@
                 {
                     if (s != item.ТорговаяМарка)
                     {
-                     
-                        <br/><b>@item.ТорговаяМарка</b><br/>
-                        <span>@Html.CheckBox(item.ID.ToString()) </span>            
-                        <span>@Html.Label(item.SKUКМУ) </span><br/>
-                    
-                    
+                        <br/><div class="colapseTitle"><span class="colapseBtn" id="@item.ТорговаяМарка" OnClick="colapseBtnClick(arguments[0]);">+</span>@item.ТорговаяМарка</div>                    
                     }
-                    else
-                    {
-                        <span>@Html.CheckBox(item.ID.ToString()) </span>
-                        <span>@Html.Label(item.SKUКМУ) </span><br/>
-                    }
+                        <li class="colapseItem @item.ТорговаяМарка">@Html.CheckBox(item.ID.ToString()) @item.SKUКМУ </li>                   
                     s = item.ТорговаяМарка;
                 }
             }
@@ -72,7 +55,8 @@
             <label for="file2">Файл:</label>
             <input type="file" name="files" id="file4" />
             <br/>
-          </fieldset>          
+          </fieldset>               
+                   
         <input type="submit" value="Сохранить" />
 
     </form>

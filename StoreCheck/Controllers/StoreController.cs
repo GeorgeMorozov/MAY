@@ -25,14 +25,12 @@ namespace StoreCheck.Controllers
         private const int defaultPageSize = 10;
         private const string ALL = "Все";
 
-
-        public ActionResult EditStore(string RegNm, string OblNm, string DistNm, string Release, string Category, string Client, string Adress, string City, string Street, string House, string Comment, int? page)
+        [HttpGet]
+        public ActionResult EditStore(string RegNm, string OblNm, string DistNm, string Release, string Category, string Client, string Adress, string City, string Street, string House, string Comment, int? page, int SortBy = 1, bool isAsc = true, string search = null)
         {
             
             if (!Request.IsAuthenticated)
                 return RedirectToAction("LogOn", "Account");
-
-            int currentPageIndex = page.HasValue ? page.Value : 1;
             IList<Spr_Outlets> Fltlst =  _db.GetStores();
 
             List<string> RegLst = new List<string>(from itm in Fltlst orderby itm.Регион select itm.Регион);
@@ -83,6 +81,64 @@ namespace StoreCheck.Controllers
             if (House != ALL) Fltlst = Fltlst.Where(p => p.ДомТРТ.Equals(House)).ToList();
             if (Comment != ALL) Fltlst = Fltlst.Where(p => p.ПримечаниеТРТ.Equals(Comment)).ToList();
 
+            #region Search
+            Fltlst = Fltlst.Where(
+            p => search == null
+            || p.Регион.Contains(search)
+            || p.Область.Contains(search)
+            || p.Дистрибутор.Contains(search)
+            || p.Каналреализации.Contains(search)
+            || p.КатегорияТРТ.Contains(search)
+            || p.Адресдоставки.Contains(search)
+            || p.ГородТРТ.Contains(search)
+            || p.УлицаТРТ.Contains(search)
+            || p.ДомТРТ.Contains(search)
+            || p.ПримечаниеТРТ.Contains(search)
+            ).ToList();
+            #endregion
+
+            #region Sorting
+            switch (SortBy)
+            {
+                case 1:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.Регион).ToList() : Fltlst.OrderByDescending(p => p.Регион).ToList();
+                    break;
+                case 2:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.Область).ToList() : Fltlst.OrderByDescending(p => p.Область).ToList();
+                    break;
+                case 3:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.Дистрибутор).ToList() : Fltlst.OrderByDescending(p => p.Дистрибутор).ToList();
+                    break;
+                case 4:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.Каналреализации).ToList() : Fltlst.OrderByDescending(p => p.Каналреализации).ToList();
+                    break;
+                case 5:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.КатегорияТРТ).ToList() : Fltlst.OrderByDescending(p => p.КатегорияТРТ).ToList();
+                    break;
+                case 6:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.Клиент).ToList() : Fltlst.OrderByDescending(p => p.Клиент).ToList();
+                    break;
+                case 7:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.Адресдоставки).ToList() : Fltlst.OrderByDescending(p => p.Адресдоставки).ToList();
+                    break;
+                case 8:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.ГородТРТ).ToList() : Fltlst.OrderByDescending(p => p.ГородТРТ).ToList();
+                    break;
+                case 9:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.КатегорияТРТ).ToList() : Fltlst.OrderByDescending(p => p.КатегорияТРТ).ToList();
+                    break;
+                case 10:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.УлицаТРТ).ToList() : Fltlst.OrderByDescending(p => p.УлицаТРТ).ToList();
+                    break;
+                case 11:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.ДомТРТ).ToList() : Fltlst.OrderByDescending(p => p.ДомТРТ).ToList();
+                    break;
+                default:
+                    Fltlst = isAsc ? Fltlst.OrderBy(p => p.ПримечаниеТРТ).ToList() : Fltlst.OrderByDescending(p => p.ПримечаниеТРТ).ToList();
+                    break;
+            }
+            #endregion
+
             ViewData["RegNm"] = new SelectList(RegLst.AsEnumerable().Distinct<string>(), RegNm);
             ViewData["OblNm"] = new SelectList(OblLst.AsEnumerable().Distinct<string>(), OblNm);
             ViewData["DistNm"] = new SelectList(DistLst.AsEnumerable().Distinct<string>(), DistNm);
@@ -94,7 +150,15 @@ namespace StoreCheck.Controllers
             ViewData["Street"] = new SelectList(StreetLst.AsEnumerable().Distinct<string>(), Street);
             ViewData["House"] = new SelectList(HouseLst.AsEnumerable().Distinct<string>(), House);
             ViewData["Comment"] = new SelectList(CommentLst.AsEnumerable().Distinct<string>(), Comment);
-            return View(Fltlst.ToPagedList(currentPageIndex, defaultPageSize));
+
+            ViewBag.CurrentPage = page;
+            ViewBag.PageSize = defaultPageSize;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)Fltlst.Count() / defaultPageSize);
+            ViewBag.SortBy = SortBy;
+            ViewBag.IsAsc = isAsc;
+            ViewBag.Search = search;
+
+            return View(Fltlst.ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
 
         }
 

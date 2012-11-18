@@ -1,3 +1,8 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Request.Path.Contains("____/Spr/Spr_OutletsEdit/"))
+    {
+        Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+    }
+    else{    
+      Layout = "~/Views/Shared/_Layout.cshtml";}
 }

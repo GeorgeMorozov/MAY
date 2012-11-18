@@ -370,6 +370,51 @@ namespace StoreCheck.Models
         {
             return GetCatigoryTRTList().Distinct();
         }
+
+        public string GetSprOutletsViewRow(Spr_Outlets obj)
+        {
+            string ret= String.Empty;
+            ret = "<td class=\"td_btn\">" +
+                  "<a Title=\"Просмотр\" href=\"/Store/ViewChecks/" + obj.ID.ToString() + "\"><img alt=\"Просмотр\" border=\"0\" src=\"/Content/Images/page.png\" /></a> " +
+                  "<a class=\"openDialog\" data-dialog-id=\"" + obj.ID.ToString() + "\" data-dialog-title=\"Редактирование: Торговые точки\" href=\"/Spr/Spr_OutletsEdit/" + obj.ID.ToString() + "\"><img alt=\"Редактировать\" border=\"0\" src=\"/Content/Images/page_edit.png\" /></a> " +
+                  "<a Title=\"Заполнить StoreCheck\" href=\"/Store/SaveCheckRes/" + obj.ID.ToString() + "\"><img alt=\"Заполнить StoreCheck\" border=\"0\" src=\"/Content/Images/page_add.png\" /></a> " +
+            "</td>" +
+            "<td>" +
+                obj.Регион +
+            "</td>" +
+            "<td>" +
+                obj.Область +
+            "</td>" +
+            "<td>" +
+                obj.Дистрибутор +
+            "</td>" +
+            "<td>" +
+                obj.Каналреализации +
+            "</td>" +
+            "<td>" +
+                obj.КатегорияТРТ +
+            "</td>" +
+            "<td>" +
+                obj.Клиент +
+            "</td>" +
+            "<td>" +
+                obj.Адресдоставки +
+            "</td>" +
+            "<td>" +
+                obj.ГородТРТ +
+            "</td>" +
+            "<td>" +
+                obj.УлицаТРТ +
+            "</td>" +
+            "<td>" +
+                obj.ДомТРТ +
+            "</td>" +
+            "<td>" +
+                obj.ПримечаниеТРТ +
+            "</td>";         
+            
+            return ret;
+        }
        
         //-------------Stores-------------------------------------------------------
 
