@@ -1,91 +1,69 @@
 ﻿@model StoreCheck.Models.Spr_SR
 
-@{
-    ViewBag.Title = "Редактирование: Торговые агенты";
-}
 
-
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+@{String id = Model.ID.ToString();}
+@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = id }))
+{    
+    
+    @Html.ValidationSummary(true) 
     <fieldset>
-        <legend>Редактирование: Торговые агенты</legend>
-
-        <div class="editor-label">
+       <table class="spr_edit">
+        <tr><td style="width:35%;">
             @Html.LabelFor(model => model.SBU)
-        </div>
-        <div class="editor-field">
+         </td><td>
             @Html.EditorFor(model => model.SBU)
-            @Html.ValidationMessageFor(model => model.SBU)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.Регион)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.Регион)
-            @Html.ValidationMessageFor(model => model.Регион)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.Область)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.Область)
-            @Html.ValidationMessageFor(model => model.Область)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.Дистрибутор)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.Дистрибутор)
-            @Html.ValidationMessageFor(model => model.Дистрибутор)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.КодТА)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.КодТА)
-            @Html.ValidationMessageFor(model => model.КодТА)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.ТА)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.ТА)
             @Html.ValidationMessageFor(model => model.ТА)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.ТипТА)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.DropDownList("TypeTA")
             @Html.ValidationMessageFor(model => model.ТипТА)
-        </div>
-
-        <div class="editor-label">
+        </td></tr>
+        <tr><td>
+            @Html.LabelFor(model => model.КодТА)
+        </td><td>
+            @Html.EditorFor(model => model.КодТА)
+        </td></tr>
+        <tr><td>
             @Html.LabelFor(model => model.МаршрутТА)
-        </div>
-        <div class="editor-field">
+        </td><td>
             @Html.EditorFor(model => model.МаршрутТА)
             @Html.ValidationMessageFor(model => model.МаршрутТА)
-        </div>
+        </td></tr>
+       
+       </table>
 
-        @Html.HiddenFor(model => model.ID)
+         @Html.HiddenFor(model => model.ID)
 
         <p>
-            <input type="submit" value="Сохранить" />
+            <input type="submit" class="dialogSave" value="Сохранить" />  <input type="button"  class="close" value="Закрыть" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Назад", "Spr_SRList")
 </div>
+
+
 

@@ -1,5 +1,13 @@
-﻿@if(Request.IsAuthenticated) {
-    <text>Здравствуйте <b>@Html.ActionLink(Context.User.Identity.Name, "UserPage","Admin")</b>!
+﻿@using StoreCheck;
+
+
+@{String ID = "UsrPageDialogId";}
+
+@if(Request.IsAuthenticated) {
+    <text>Здравствуйте <b>
+
+     @Html.ActionPopup("UserPage", "Admin", new { id = ID }, Context.User.Identity.Name, new { @class = "openDialog", data_dialog_id = ID, data_dialog_title = Context.User.Identity.Name }) 
+    </b>!
       <div>
 </div>
     [ @Html.ActionLink("Выход", "LogOff", "Account") ]</text>

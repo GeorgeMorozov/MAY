@@ -93,18 +93,37 @@ namespace StoreCheck.Models
         private readonly MembershipProvider _provider;
         private readonly DataManager _db = new DataManager();
         private Users _currUser;
-        private string _CurrUsrLogin;
+        private string _CurrUsrLogin = String.Empty;
+        
         /*
         public AccountMembershipService()
             : this(null)
         {
         }
          */ 
+
+        public string UserLogin
+        {
+           get{
+              return _CurrUsrLogin;
+              }
+        }
+
         public AccountMembershipService(string Login)
         {
-            _CurrUsrLogin = Login; 
+            if (!String.IsNullOrEmpty(Login))
+            {
+                _CurrUsrLogin = Login;
+                System.Web.HttpContext.Current.Session["Login"] = Login;
+            }
+
+
             if (_currUser == null)
             {
+                _CurrUsrLogin = (System.Web.HttpContext.Current.Session["Login"] != null
+                                ? System.Web.HttpContext.Current.Session["Login"].ToString()
+                                : _CurrUsrLogin);
+
                 _currUser = _db.GetUserByLogin(_CurrUsrLogin);
             }
         }
@@ -128,6 +147,9 @@ namespace StoreCheck.Models
             {
                 if (_currUser == null)
                 {
+                    _CurrUsrLogin = (System.Web.HttpContext.Current.Session["Login"] != null
+                                ? System.Web.HttpContext.Current.Session["Login"].ToString()
+                                : _CurrUsrLogin);
                     _currUser = _db.GetUserByLogin(_CurrUsrLogin);
                 }
                 return _currUser;
@@ -139,7 +161,6 @@ namespace StoreCheck.Models
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Value cannot be null or empty.", "userName");
             if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
             
-            //_currUser = IsAuthenticated("LDAP://office.intelserv.com", "office", userName, password);
             _currUser = IsAuthenticated("LDAP://maytea.com", "maytea", userName, password);            
             // if (_currUser == null)  _currUser = new Users(); _currUser.Login = "George";
             return (_currUser != null);
@@ -147,16 +168,14 @@ namespace StoreCheck.Models
 
         public Users IsAuthenticated(string _path, string domain, string username, string pwd)
         {
-   
+            //sysadmin{
+            if (username == "sysadmin")
+                return _db.GetCurrUser(username, pwd);
+            //sysadmin}
+
             Users usr = null;
-            string domainAndUsername = domain + @"\" + username;
             string _filterAttribute = String.Empty;
-
-            //TEST{
-            // _filterAttribute = "mGeorge";
-            // return _db.GetCurrUser(username, _filterAttribute);
-            //TEST}
-
+            string domainAndUsername = domain + @"\" + username;
             DirectoryEntry entry = new DirectoryEntry(_path, domainAndUsername, pwd);
 
             try
@@ -181,13 +200,11 @@ namespace StoreCheck.Models
                 usr = _db.GetCurrUser(username, _filterAttribute);
                 
             }
-            catch (Exception ex)
-            {
-                
-                throw new Exception("Error authenticating user. " + ex.Message);
-                return usr;
+            catch (Exception)
+            {               
+               // throw new Exception("Error authenticating user. " + ex.Message);
+                return null;
             }
-
             return usr;
         }
 

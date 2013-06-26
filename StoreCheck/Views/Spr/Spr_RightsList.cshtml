@@ -15,8 +15,12 @@
 <table>
   <thead>
     <tr>
-        <th colspan="2">
-            Права
+        <th></th>
+        <th>
+            Название
+        </th>
+         <th >
+            Сущность
         </th>
     </tr>
  </thead>
@@ -31,6 +35,9 @@
        </td>  
         <td>
             @item.Name
+        </td>
+         <td>
+             @if(item.Spr_AdmObject != null) { @item.Spr_AdmObject.Name}
         </td>
 
     </tr>

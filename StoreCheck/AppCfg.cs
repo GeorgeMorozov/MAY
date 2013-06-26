@@ -7,15 +7,26 @@ using System.Web.Configuration;
 
 namespace StoreCheck
 {
-    public sealed class AppConfiguration : ConfigurationSection
+    public static class Configuration
     {
+        /*
         [ConfigurationProperty("imagePath", IsRequired = true)]
-        public  string imagePath
+        public string imagePath
         {
             get { return (string)base["imagePath"]; }
             set { base["imagePath"] = value; }
         }
+        */
+        public static string SysPassword
+        {
+            get
+            {
+                string s = ConfigurationManager.AppSettings["filterAttribute"];
+                return s;
+            }
+        }
     }
+
 /*
     private static AppConfiguration instance = null;
 

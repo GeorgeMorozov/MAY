@@ -16,18 +16,19 @@
 <table>
             <thead>
                 <tr>
-                    <th colspan="2">Роль</th>
+                    <th></th>
+                    <th >Роль</th>
                 </tr>
             </thead>
     <tbody>
     @foreach (var item in ViewData.Model)
     {
-        <tr>
-                 <td class="td_btn">
+            <tr>
+               <td class="td_btn">
                 @Html.ActionImage("Spr_RoleEdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
                 @Html.ActionImage("Spr_RoleDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
                 @Html.ActionImage("Spr_RoleDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
-                </td>  
+               </td>  
             <td>
                 @item.Name
             </td>  

@@ -11,7 +11,7 @@ using StoreCheck.Models;
 
 namespace StoreCheck.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : ApplicationController
     {
         private readonly DataManager _db = new DataManager();
 
@@ -44,7 +44,7 @@ namespace StoreCheck.Controllers
                 if (MembershipService.ValidateUser(model.UserName, model.Password))
                 {
                     Users usr = MembershipService.CurrUser;
-                    Session["CurrUsr"] = usr;
+                    //Session["CurrUsr"] = usr;
                     FormsService.SignIn(model.UserName, model.RememberMe);
                     if (Url.IsLocalUrl(returnUrl))
                     {
@@ -71,8 +71,10 @@ namespace StoreCheck.Controllers
 
         public ActionResult LogOff()
         {
+            System.Web.HttpContext.Current.Session["Users"] = null;
+            System.Web.HttpContext.Current.Session["membershipService"] = null;
+            System.Web.HttpContext.Current.Session["Login"] = null;
             FormsService.SignOut();
-
             return RedirectToAction("Index", "Home");
         }
 

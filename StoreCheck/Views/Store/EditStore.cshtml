@@ -3,83 +3,150 @@
 @model IPagedList<StoreCheck.Models.Spr_Outlets>
 
 @{ViewBag.Title = "Торговые точки";}
+
+
 @helper sortLink(string name, int id)
 {
-   <a href="@Url.Action("EditStore", "Store", new { sortby = id, isasc = (id == ViewBag.sortBy ? !ViewBag.isAsc : ViewBag.isAsc).ToString().ToLower() })">@name</a>     
+    String className = "";
+    String className2 = "";
+    
     if (id == ViewBag.sortBy)
     {
-       <i class="arrow @( ViewBag.isAsc ? "up" : "down")">&nbsp;&nbsp;</i>   
+        if (ViewBag.isAsc){
+           className2 = "up";}
+        else{
+           className2 = "down";}   
     }
-    else
+       
+    if (id == ViewBag.sortBy) { className = "underline"; }
+    
+    <pre class="@className2"><a class="@className"  href="@Url.Action("EditStore", "Store",
+    new
     {
-       <i class="arrow">&nbsp;&nbsp;</i> 
-    }    
+        sortby = id,
+        isasc = (id == ViewBag.sortBy ? !ViewBag.isAsc : ViewBag.isAsc).ToString().ToLower(),
+        RegNm = @ViewBag.RegNm,
+        OblNm = @ViewBag.OblNm,
+        DistNm = @ViewBag.DistNm,
+        Release = @ViewBag.Release,
+        Category = @ViewBag.Category,
+        TypeAkciya = @ViewBag.TypeAkciya,
+        Client = @ViewBag.Client,
+        Adress = @ViewBag.Adress,
+        City = @ViewBag.City,
+        search = @ViewBag.search,
+        Street = @ViewBag.Street,
+        House = @ViewBag.House,
+        Comment = @ViewBag.Comment
+    })">@name</a></pre>                    
 }
+
 
 <h2>Торговые точки</h2>
 
 <form action="@Url.Action("EditStore", "Store")" method="get" enctype = "multipart/form-data"> 
 <div class="product-search">
- <input id="search" name="search" type="text" value="@ViewBag.Search" /><input type="submit" value="Поиск" />
+ 
+ <input id="search" name="search" type="text" value="@ViewBag.Search" />
+ 
+ <input type="submit" value="Поиск" /> <input type="button" value="Сброс" onclick="ClearFilterBtnClick();" /> 
 </div>    
                                                                                                                                         
 <table>
+    
     <tr>
-        <th class="td_btn"> &nbsp;</th>
-        <th>@sortLink("Регион", 1)<br/>
-            @Html.DropDownList("RegNm")
+        <th class="td_btn"></th>
+        <th>@sortLink("Регион", 1)
         </th>
         <th>
-            @sortLink("Область", 2)<br/> 
-            @Html.DropDownList("OblNm") 
+            @sortLink("Область", 2)
         </th>
         <th>
-            @sortLink("Дистрибутор", 3)<br/>
-            @Html.DropDownList("DistNm")
+            @sortLink("Дистриб.", 3)
         </th>
         <th>
-            @sortLink("Каналреализации", 4)<br/>
-            @Html.DropDownList("Release") 
+            @sortLink("К.реализ.", 4)
         </th>
         <th>
-            @sortLink("КатегорияТРТ", 5)<br/>
-            @Html.DropDownList("Category")
+            @sortLink("Кат.ТРТ", 5)
         </th>
         <th>
-            @sortLink("Клиент", 6)<br/>
-            @Html.DropDownList("Client")
+            @sortLink("ТипАкции", 6)
         </th>
         <th>
-            @sortLink("Адресдоставки", 7)<br/>
-            @Html.DropDownList("Adress")
+            @sortLink("Клиент", 7)
+        </th>
+        <th>
+            @sortLink("Адр.доставки", 8)
         </th>
          <th>
-            @sortLink("Город", 8)<br/>
-             @Html.DropDownList("City")
+            @sortLink("Город", 9)
         </th>
          <th>
-            @sortLink("Улица", 9)<br/>
-             @Html.DropDownList("Street")
+            @sortLink("Улица", 10)
         </th>
          <th>
-            @sortLink("Дом", 10)<br/>
-             @Html.DropDownList("House")
+            @sortLink("Дом", 11)
         </th>
          <th>
-            @sortLink("Примечание", 11)<br/>
-             @Html.DropDownList("Comment")
+            @sortLink("Примечание", 12)
         </th>
+       </tr>
+       <tr>
+        <td></td>
+        <td>
+           @Html.DropDownList("_RegNm")
+        </td>
+        <td>
+            @Html.DropDownList("_OblNm") 
+        </td>
+        <td>
+            @Html.DropDownList("_DistNm")
+        </td>
+        <td>
+            @Html.DropDownList("_Release") 
+        </td>
+        <td>
+            @Html.DropDownList("_Category")
+        </td>
+        <td>
+            @Html.DropDownList("_TypeAkciya")
+        </td>
+        <td>
+            @*Html.DropDownList("_Client")*@
+        </td>
+        <td>
+            @*Html.DropDownList("_Adress")*@
+        </td>
+         <td>
+             @Html.DropDownList("_City")
+        </td>
+         <td>
+             @Html.DropDownList("_Street")
+        </td>
+         <td>
+             @Html.DropDownList("_House")
+        </td>
+         <td>
+             @Html.DropDownList("_Comment")
+        </td>
     </tr>
-   
-
     @foreach (var item in Model)
     {
           <tr id="@item.ID">
             <td class="td_btn">
                 @Html.ActionImage("ViewChecks", new { id = item.ID }, "~/Content/Images/page.png", "Просмотр")
-                @Html.ActionImage("Spr_OutletsEdit", "Spr", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать", new { @class = "openDialog", data_dialog_id = item.ID, data_dialog_title = "Редактирование торговой точки ("+ item.Клиент+ ")" }) 
-                @*Html.ActionLink("Редактировать", "Spr_OutletsEdit", "Spr", new { id = item.ID }, new { @class = "openDialog", data_dialog_id = item.ID, data_dialog_title = "MY TITLE" })    *@
-                @Html.ActionImage("SaveCheckRes", new { id = item.ID }, "~/Content/Images/page_add.png", "Заполнить StoreCheck")
+           
+                @Html.ActionImagePopup("Spr_OutletsEdit", "Spr", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать", new { @class = "openDialog", data_dialog_id = item.ID, data_dialog_title = "Редактирование торговой точки (" + item.Клиент + ")" }) 
+           
+                @if (String.IsNullOrEmpty(item.КатегорияТРТ))
+                {
+                     @Html.ActionImagePopup("Spr_OutletsEdit", "Spr", new { id = item.ID }, "~/Content/Images/page_add.png", "Заполнить StoreCheck", new { @class = "openDialog", data_dialog_id = item.ID, data_dialog_title = "Редактирование торговой точки (" + item.Клиент + ")" }) 
+                }
+                else
+                {
+                     @Html.ActionImage("SaveCheckRes", new { id = item.ID }, "~/Content/Images/page_add.png", "Заполнить StoreCheck", true)
+                }
             </td>
             <td>
                 @item.Регион
@@ -97,10 +164,17 @@
                 @item.КатегорияТРТ
             </td>
             <td>
-                @item.Клиент
+                @item.ТипАкции
             </td>
             <td>
-                @item.Адресдоставки
+                 @if (!String.IsNullOrEmpty(item.Клиент))
+                { @item.Клиент.Trim();
+                }
+            </td>
+            <td>
+                 @if (!String.IsNullOrEmpty(item.Адресдоставки))
+                { @item.Адресдоставки.Trim();
+                }
             </td> 
             <td>
                 @item.ГородТРТ
@@ -120,7 +194,26 @@
 </table>
 </form>
 <div class="pager">
-    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount,
+                new
+                {
+                    RegNm = @ViewBag.RegNm,
+                    OblNm = @ViewBag.OblNm,
+                    DistNm = @ViewBag.DistNm,
+                    Release = @ViewBag.Release,
+                    Category = @ViewBag.Category,
+                    TypeAkciya = @ViewBag.TypeAkciya,
+                    Client = @ViewBag.Client,
+                    Adress = @ViewBag.Adress,
+                    City = @ViewBag.City,
+                    SortBy = @ViewBag.SortBy,
+                    isAsc = @ViewBag.isAsc,
+                    search = @ViewBag.search,
+                    Street = @ViewBag.Street,
+                    House = @ViewBag.House,
+                    Comment = @ViewBag.Comment
+                }
+                )
 </div>
 
 <div id="emailDialog"></div>

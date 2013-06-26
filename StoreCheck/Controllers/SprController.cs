@@ -9,12 +9,12 @@ using StoreCheck.Models;
 
 namespace StoreCheck.Controllers
 {
-    public class SprController : Controller
+    public class SprController : ApplicationController
     {
-
         private readonly DataManager _db = new DataManager();
         private const int defaultPageSize = 10;
         private const string ALL = "Все";
+        private String searchUP = String.Empty;
 
         public ActionResult Spr()
         {
@@ -23,7 +23,8 @@ namespace StoreCheck.Controllers
            return View();
         }
 
-        //---------------------------Spr_Roles----------------------------------------
+        #region  ---------------------------------Spr_Roles---------------------------------
+
         public ActionResult Spr_RolesList(int? page)
         {
             return View(_db.GetSpr_Roles().ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
@@ -71,7 +72,10 @@ namespace StoreCheck.Controllers
             return View();
         }
 
-        //-------------------Spr_Right------------------------------------
+        #endregion
+
+        #region ---------------------------------Spr_Right---------------------------------
+
         public ActionResult Spr_RightsList(int? page)
         {
             return View(_db.GetSpr_Rights().ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
@@ -80,6 +84,7 @@ namespace StoreCheck.Controllers
         [HttpGet]
         public ActionResult Spr_RightCreate()
         {
+            ViewBag.ChkBoxLst_AdmObj = _db.GetSpr_AdmObjectLst().ToList();
             return View();
         }
 
@@ -87,6 +92,18 @@ namespace StoreCheck.Controllers
         public ActionResult Spr_RightCreate(Spr_Rights obj)
         {
             obj.ID = Guid.NewGuid();
+            string[] values;
+            Guid AdmObjID = Guid.Empty;
+            for (int i = 0; i < Request.Form.Count; i++)
+            {
+                values = Request.Form.GetValues(i);
+                if (values != null && values[0] == "true")
+                {
+                    AdmObjID = Guid.Parse(Request.Form.Keys[i]);
+                    break;
+                }
+            }
+            obj.AdmObj = AdmObjID; 
             _db.AddSpr_Right(obj);
             return RedirectToAction("Spr_RightsList");
         }
@@ -105,21 +122,36 @@ namespace StoreCheck.Controllers
         [HttpGet]
         public ActionResult Spr_RightEdit(Guid id)
         {
+            ViewBag.ChkBoxLst_AdmObj = _db.GetSpr_AdmObjectLst().ToList();
             return View(_db.GetSpr_Right(id));
         }
 
         [HttpPost]
-        public ActionResult Spr_RightEdit(Spr_Roles obj)
+        public ActionResult Spr_RightEdit( Spr_Roles obj)
         {
             if (ModelState.IsValid)
             {
-                _db.SaveSpr_Right(obj);
+                string[] values;
+                Guid AdmObjID = Guid.Empty;
+                for (int i = 0; i < Request.Form.Count; i++)
+                {
+                    values = Request.Form.GetValues(i);
+                    if (values != null && values[0] == "true")
+                    {
+                        AdmObjID = Guid.Parse(Request.Form.Keys[i]);
+                        break;
+                    }
+                }                             
+                _db.SaveSpr_Right(obj, AdmObjID);
                 return RedirectToAction("Spr_RightsList");
             }
             return View();
         }
 
-        //-------------------Spr_CAP------------------------------------
+        #endregion
+
+        #region ---------------------------------Spr_CAP---------------------------------
+
         public ActionResult Spr_CAPList(int? page)
         {
             return View(_db.GetSpr_CAPs().ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
@@ -168,54 +200,68 @@ namespace StoreCheck.Controllers
 
         }
 
-        //-------------------Spr_Outlets-------------------------------
+        #endregion
+
+        #region ---------------------------------Spr_TypeAkciya---------------------------------
+
+        public ActionResult Spr_TypeAkciyaList(int? page)
+        {
+            return View(_db.GetSpr_TypeAkciya().ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
+        }
 
         [HttpGet]
-        public ActionResult Spr_OutletsEdit(Guid id)
+        public ActionResult Spr_TypeAkciyaCreate()
         {
-
-            if (Request.IsAjaxRequest())
-            {
-                Spr_Outlets obj = _db.GetSpr_Outlet(id);
-                ViewData["CatigoryTRT"] = new SelectList(_db.GetCatigoryTRTListDist(), obj.КатегорияТРТ);
-                ViewData["ChannelRetail"] = new SelectList(_db.GetChannelRetailListDist(), obj.Каналреализации);
-                ViewBag.ID = id; 
-                return PartialView(_db.GetSpr_Outlets(id));
-            }
             return View();
         }
 
         [HttpPost]
-        public ActionResult Spr_OutletsEdit(Spr_Outlets obj, String CatigoryTRT, String ChannelRetail)
+        public ActionResult Spr_TypeAkciyaCreate(Spr_TypeAkciya obj)
+        {
+            obj.ID = Guid.NewGuid();
+            _db.AddSpr_TypeAkciya(obj);
+            return RedirectToAction("Spr_TypeAkciyaList");
+        }
+
+        public ActionResult Spr_TypeAkciyaDetails(Guid id)
+        {
+            return View(_db.GetSpr_TypeAkciya(id));
+        }
+
+        public ActionResult Spr_TypeAkciyaDelete(Guid id)
+        {
+            _db.DeleteSpr_TypeAkciya(id);
+            return RedirectToAction("Spr_TypeAkciyaList");
+        }
+
+        [HttpGet]
+        public ActionResult Spr_TypeAkciyaEdit(Guid id)
+        {
+            return View(_db.GetSpr_TypeAkciya(id));
+        }
+
+        [HttpPost]
+        public ActionResult Spr_TypeAkciyaEdit(Spr_TypeAkciya obj)
         {
             if (ModelState.IsValid)
             {
-                obj.КатегорияТРТ = CatigoryTRT;
-                obj.Каналреализации = ChannelRetail;
-                _db.SaveSpr_Outlets(obj);
-                /*
-                ViewBag.ID = obj.ID;
-                ViewData["CatigoryTRT"] = new SelectList(_db.GetCatigoryTRTListDist(), CatigoryTRT);
-                ViewData["ChannelRetail"] = new SelectList(_db.GetChannelRetailListDist(), ChannelRetail);
-                */
-                //return RedirectToAction("EditStore", "Store", new { id = obj.ID });    
-                 
-                //return View(_db.GetSpr_Outlets(obj.ID));
-                //return PartialView("_EditStoreRow", _db.GetSpr_Outlets(obj.ID));
-                //return PartialView("EditStore");
-                //PartialViewResult res = PartialView("_EditStoreRow", _db.GetSpr_Outlets(obj.ID));//Content("<tr><td>test</td></tr>");
-                //return res;
-
-                return Content(_db.GetSprOutletsViewRow(obj));
+                _db.SaveSpr_TypeAkciya(obj);
+                return RedirectToAction("Spr_TypeAkciyaList");
             }
-            return PartialView("EditStore");
-            //return RedirectToAction("EditStore", "Store", new { id = obj.ID });
-            //return View(_db.GetSpr_Outlets(obj.ID));
+            return View();
+
         }
-    
-        //-------------------Spr_SR------------------------------------
+
+        #endregion
+
+        #region ---------------------------------Spr_SR---------------------------------
+
         [HttpGet]
-        public ActionResult Spr_SRList(string SBU, string RegNm, string OblNm, string DistNm, string CodeTA, string TypeTA, string TA, string RouteTA, int? page, int SortBy = 1, bool isAsc = true, string search = null)
+        public ActionResult Spr_SRList(
+                                        string SBU, string RegNm, string OblNm, string DistNm, string CodeTA, string TypeTA, string TA, string RouteTA,
+                                        string _SBU, string _RegNm, string _OblNm, string _DistNm, string _CodeTA, string _TypeTA, string _TA, string _RouteTA, 
+                                        int? page, int SortBy = 1, bool isAsc = true, string search = null
+                                      )
         {         
             IList<Spr_SR> Fltlst = _db.GetSpr_SRs();
             List<string> SBULst = new List<string>(from itm in Fltlst orderby itm.SBU select itm.SBU );
@@ -226,6 +272,24 @@ namespace StoreCheck.Controllers
             List<string> TALst = new List<string>(from itm in Fltlst orderby itm.ТА select itm.ТА);
             List<string> TypeTALst = new List<string>(from itm in Fltlst orderby itm.ТипТА select itm.ТипТА);
             List<string> RouteTALst = new List<string>(from itm in Fltlst orderby itm.МаршрутТА select itm.МаршрутТА);
+
+            SBU = !String.IsNullOrEmpty(SBU) ? SBU : _SBU;
+            RegNm = !String.IsNullOrEmpty(RegNm) ? RegNm : _RegNm;
+            OblNm = !String.IsNullOrEmpty(OblNm) ? OblNm : _OblNm;
+            DistNm = !String.IsNullOrEmpty(DistNm) ? DistNm : _DistNm;
+            CodeTA = !String.IsNullOrEmpty(CodeTA) ? CodeTA : _CodeTA;
+            TA = !String.IsNullOrEmpty(TA) ? TA : _TA;
+            TypeTA = !String.IsNullOrEmpty(TypeTA) ? TypeTA : _TypeTA;
+            RouteTA = !String.IsNullOrEmpty(RouteTA) ? RouteTA : _RouteTA;
+
+            ViewBag.SBU = SBU;
+            ViewBag.RegNm = RegNm;
+            ViewBag.OblNm = OblNm;
+            ViewBag.DistNm = DistNm;
+            ViewBag.CodeTA = CodeTA;
+            ViewBag.TA = TA;
+            ViewBag.TypeTA = TypeTA;
+            ViewBag.RouteTA = RouteTA;
 
             SBU = SBU ?? ALL;
             RegNm = RegNm ?? ALL;
@@ -245,25 +309,28 @@ namespace StoreCheck.Controllers
             TypeTALst.Insert(0, ALL);
             RouteTALst.Insert(0, ALL);
 
-            if (SBU     != ALL) Fltlst = Fltlst.Where(p => p.SBU.Equals(SBU)).ToList();
-            if (RegNm   != ALL) Fltlst = Fltlst.Where(p => p.Регион.Equals(RegNm)).ToList();
-            if (OblNm   != ALL) Fltlst = Fltlst.Where(p => p.Область.Equals(OblNm)).ToList();
-            if (DistNm  != ALL) Fltlst = Fltlst.Where(p => p.Дистрибутор.Equals(DistNm)).ToList();
-            if (CodeTA  != ALL) Fltlst = Fltlst.Where(p => p.КодТА.Equals(CodeTA)).ToList();
-            if (TA      != ALL) Fltlst = Fltlst.Where(p => p.ТА.Equals(TA)).ToList();
-            if (TypeTA  != ALL) Fltlst = Fltlst.Where(p => p.ТипТА.Equals(TypeTA)).ToList();
-            if (RouteTA != ALL) Fltlst = Fltlst.Where(p => p.МаршрутТА == RouteTA).ToList();
+            if (SBU != ALL) Fltlst = Fltlst.Where(p => (!String.IsNullOrEmpty(p.SBU) ? p.SBU : String.Empty).Equals(SBU)).ToList();
+            if (RegNm != ALL) Fltlst = Fltlst.Where(p => (!String.IsNullOrEmpty(p.Регион) ? p.Регион : String.Empty).Equals(RegNm)).ToList();
+            if (OblNm != ALL) Fltlst = Fltlst.Where(p => (!String.IsNullOrEmpty(p.Область) ? p.Область : String.Empty).Equals(OblNm)).ToList();
+            if (DistNm != ALL) Fltlst = Fltlst.Where(p => (!String.IsNullOrEmpty(p.Дистрибутор) ? p.Дистрибутор : String.Empty).Equals(DistNm)).ToList();
+            if (CodeTA != ALL) Fltlst = Fltlst.Where(p => (!String.IsNullOrEmpty(p.КодТА) ? p.КодТА : String.Empty).Equals(CodeTA)).ToList();
+            if (TA != ALL) Fltlst = Fltlst.Where(p => (!String.IsNullOrEmpty(p.ТА) ? p.ТА : String.Empty).Equals(TA)).ToList();
+            if (TypeTA != ALL) Fltlst = Fltlst.Where(p => (!String.IsNullOrEmpty(p.ТипТА) ? p.ТипТА : String.Empty).Equals(TypeTA)).ToList();
+            if (RouteTA != ALL) Fltlst = Fltlst.Where(p => (!String.IsNullOrEmpty(p.МаршрутТА) ? p.МаршрутТА : String.Empty).Equals(RouteTA)).ToList();
 
             #region Search
+            if (String.IsNullOrEmpty(search)) search = null;
+            searchUP = search != null ? search.ToUpper() : String.Empty;
             Fltlst = Fltlst.Where(
             p => search == null
-            || p.Регион.Contains(search)
-            || p.Область.Contains(search)
-            || p.Дистрибутор.Contains(search)
-            || p.КодТА.Contains(search)
-            || p.ТА.Contains(search)
-            || p.ТипТА.Contains(search)
-            || p.МаршрутТА.Contains(search)
+            || (!String.IsNullOrEmpty(p.SBU) ? p.SBU : String.Empty).ToUpper().Contains(searchUP)
+            || (!String.IsNullOrEmpty(p.Регион) ? p.Регион : String.Empty).ToUpper().Contains(searchUP)
+            || (!String.IsNullOrEmpty(p.Область) ? p.Область : String.Empty).ToUpper().Contains(searchUP)
+            || (!String.IsNullOrEmpty(p.Дистрибутор) ? p.Дистрибутор : String.Empty).ToUpper().Contains(searchUP)
+            || (!String.IsNullOrEmpty(p.КодТА) ? p.КодТА : String.Empty).ToUpper().Contains(searchUP)
+            || (!String.IsNullOrEmpty(p.ТА) ? p.ТА : String.Empty).ToUpper().Contains(searchUP)
+            || (!String.IsNullOrEmpty(p.ТипТА) ? p.ТипТА : String.Empty).ToUpper().Contains(searchUP)
+            || (!String.IsNullOrEmpty(p.МаршрутТА) ? p.МаршрутТА : String.Empty).ToUpper().Contains(searchUP)
             ).ToList();
             #endregion
 
@@ -300,14 +367,14 @@ namespace StoreCheck.Controllers
             }
             #endregion
 
-            ViewData["SBU"]    = new SelectList(SBULst.AsEnumerable().Distinct<string>(), SBU);
-            ViewData["RegNm"]  = new SelectList(RegLst.AsEnumerable().Distinct<string>(), RegNm);
-            ViewData["OblNm"]  = new SelectList(OblLst.AsEnumerable().Distinct<string>(), OblNm);
-            ViewData["DistNm"] = new SelectList(DistLst.AsEnumerable().Distinct<string>(), DistNm);
-            ViewData["CodeTA"] = new SelectList(CodeTALst.AsEnumerable().Distinct<string>(), CodeTA);
-            ViewData["TA"]     = new SelectList(TALst.AsEnumerable().Distinct<string>(), TA);
-            ViewData["TypeTA"] = new SelectList(TypeTALst.AsEnumerable().Distinct<string>(), TypeTA);
-            ViewData["RouteTA"] = new SelectList(RouteTALst.AsEnumerable().Distinct<string>(), RouteTA);
+            ViewData["_SBU"]    = new SelectList(SBULst.AsEnumerable().Distinct<string>(), SBU);
+            ViewData["_RegNm"]  = new SelectList(RegLst.AsEnumerable().Distinct<string>(), RegNm);
+            ViewData["_OblNm"]  = new SelectList(OblLst.AsEnumerable().Distinct<string>(), OblNm);
+            ViewData["_DistNm"] = new SelectList(DistLst.AsEnumerable().Distinct<string>(), DistNm);
+            ViewData["_CodeTA"] = new SelectList(CodeTALst.AsEnumerable().Distinct<string>(), CodeTA);
+            ViewData["_TA"]     = new SelectList(TALst.AsEnumerable().Distinct<string>(), TA);
+            ViewData["_TypeTA"] = new SelectList(TypeTALst.AsEnumerable().Distinct<string>(), TypeTA);
+            ViewData["_RouteTA"] = new SelectList(RouteTALst.AsEnumerable().Distinct<string>(), RouteTA);
 
             ViewBag.CurrentPage = page;
             ViewBag.PageSize = defaultPageSize;
@@ -349,10 +416,14 @@ namespace StoreCheck.Controllers
         [HttpGet]
         public ActionResult Spr_SREdit(Guid id)
         {
-            Spr_SR obj = _db.GetSpr_SR(id);
-            ViewData["TypeTA"] = new SelectList(_db.GetSpr_TypeTADist(), obj.ТипТА);
-            //ViewData["SBU"] = new SelectList(_db.GetGetSBUListDist(),  obj.SBU);
-            return View(_db.GetSpr_SR(id));
+            if (Request.IsAjaxRequest())
+            {
+                Spr_SR obj = _db.GetSpr_SR(id);
+                ViewData["TypeTA"] = new SelectList(_db.GetSpr_TypeTADist(), obj.ТипТА);
+                //ViewData["SBU"] = new SelectList(_db.GetGetSBUListDist(),  obj.SBU);
+                return PartialView(_db.GetSpr_SR(id));
+            }
+            return View();
         }
 
         [HttpPost]
@@ -362,13 +433,16 @@ namespace StoreCheck.Controllers
             {
                 obj.ТипТА = TypeTA;
                 _db.SaveSpr_SR(obj);
-                return RedirectToAction("Spr_SRList");
+                return  Content(_db.GetSprSRViewRow(obj));
+               // return RedirectToAction("Spr_SRList");
             }
             return View();
 
         }
 
-        //---------------------------Spr_TypeTA----------------------------------------
+        #endregion
+
+        #region ---------------------------------Spr_TypeTA----------------------------------------
 
         public ActionResult Spr_TypeTAList(int? page)
         {
@@ -417,7 +491,9 @@ namespace StoreCheck.Controllers
             return View();
         }
 
-        //---------------------------Spr_ChannelRetail----------------------------------------
+        #endregion
+
+        #region ---------------------------------Spr_ChannelRetail----------------------------------------
 
         public ActionResult Spr_ChannelRetailList(int? page)
         {
@@ -465,5 +541,102 @@ namespace StoreCheck.Controllers
             }
             return View();
         }
+
+        #endregion
+
+        #region ---------------------------------Spr_Outlets-------------------------------
+
+        [HttpGet]
+        public ActionResult Spr_OutletsEdit(Guid id)
+        {
+            Spr_Outlets obj = _db.GetSpr_Outlet(id);
+            ViewData["CatigoryTRT"] = new SelectList(_db.GetCatigoryTRTListDist(), obj.КатегорияТРТ);
+            ViewData["ChannelRetail"] = new SelectList(_db.GetChannelRetailListDist(), obj.Каналреализации);
+            ViewData["TypeAkciya"] = new SelectList(_db.GetTypeAkciyaListDist(), obj.ТипАкции);
+            ViewData["Actuals"] = new SelectList(_db.GetActualsListDist(), obj.Актуальность);
+            ViewData["Holding"] = new SelectList(_db.GetHoldingListDist(), obj.Холдинг);
+            ViewBag.ID = id;
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(_db.GetSpr_Outlets(id));
+            }
+            return View(_db.GetSpr_Outlets(id));
+        }
+
+        [HttpPost]
+        public ActionResult Spr_OutletsEdit(Spr_Outlets obj, String CatigoryTRT, String ChannelRetail, String Actuals, String TypeAkciya, String Holding)
+        {
+            if (ModelState.IsValid)
+            {
+                //Еще нужен лог-файл. Важно отслеживать кто и когда изменил поля: 
+                //Категория ТРТ, Канал реализации, Тип акции, Холдинг.
+                 //AddLog(Log obj)
+                Spr_Outlets old = _db.GetSpr_Outlet(obj.ID);
+                Users usr = base.MembershipService.CurrUser;
+                Guid UserID = (usr != null )? usr.ID : Guid.Empty ;
+
+                obj.КатегорияТРТ = CatigoryTRT;
+                // obj.Клиент
+                // 
+
+                if (!(String.IsNullOrEmpty(old.КатегорияТРТ) ? String.Empty : old.КатегорияТРТ).Equals(CatigoryTRT))
+                {
+                    Log l = new Log();
+                    l.ID = Guid.NewGuid();
+                    l.CrtDate = DateTime.Now;
+                    l.UserID = UserID;
+                    l.Field = "КатегорияТРТ";
+                    l.New = CatigoryTRT;
+                    l.Old = old.КатегорияТРТ;
+                    _db.AddLog(l);
+                }
+                obj.Каналреализации = ChannelRetail;
+                if (!(String.IsNullOrEmpty(old.Каналреализации) ? String.Empty : old.Каналреализации).Equals(ChannelRetail))
+                {
+                    Log l = new Log();
+                    l.ID = Guid.NewGuid();
+                    l.CrtDate = DateTime.Now;
+                    l.Field = "Каналреализации";
+                    l.UserID = UserID;
+                    l.New = ChannelRetail;
+                    l.Old = old.Каналреализации;
+                    _db.AddLog(l);
+                }
+                obj.ТипАкции = TypeAkciya;
+                if (!(String.IsNullOrEmpty(old.ТипАкции) ? String.Empty : old.ТипАкции).Equals(TypeAkciya))
+                {
+                    Log l = new Log();
+                    l.ID = Guid.NewGuid();
+                    l.CrtDate = DateTime.Now;
+                    l.Field = "ТипАкции";
+                    l.UserID = UserID;
+                    l.New =  TypeAkciya;
+                    l.Old = old.ТипАкции;
+                    _db.AddLog(l);
+                }
+                
+                obj.Холдинг = Holding;
+                if (!(String.IsNullOrEmpty(old.Холдинг) ? String.Empty : old.Холдинг).Equals(Holding))
+                {
+                    Log l = new Log();
+                    l.ID = Guid.NewGuid();
+                    l.CrtDate = DateTime.Now;
+                    l.Field = "Холдинг";
+                    l.UserID = UserID;
+                    l.New =  Holding;
+                    l.Old = old.Холдинг;
+                    _db.AddLog(l);
+                }
+
+                obj.Актуальность = Actuals;
+                _db.SaveSpr_Outlets(obj);
+                return Content(_db.GetSprOutletsViewRow(obj));
+            }
+            return PartialView("EditStore");
+
+        }
+
+        #endregion
+
     }
 }

@@ -4,21 +4,41 @@
 
 @{
     ViewBag.Title = "Справочник: Торговые агенты";
-}
+ }
+
 
 @helper sortLink(string name, int id)
 {
-   <a href="@Url.Action("Spr_SRList", "Spr", new { sortby = id, isasc = (id == ViewBag.sortBy ? !ViewBag.isAsc : ViewBag.isAsc).ToString().ToLower() })">@name</a>  
-   if (id == ViewBag.sortBy)
-   {
-       <i class="arrow @( ViewBag.isAsc ? "up" : "down")">&nbsp;&nbsp;</i>
-   }
-   else
-   {
-       <i class="arrow">&nbsp;&nbsp;</i> 
-   }
+    String className = "";
+    String className2 = "";
     
+    if (id == ViewBag.sortBy)
+    {
+        if (ViewBag.isAsc){
+           className2 = "up";}
+        else{
+           className2 = "down";}   
+    }
+       
+    if (id == ViewBag.sortBy) { className = "underline"; }
+    
+    <pre class="@className2"><a class="@className"  href="@Url.Action("Spr_SRList", "Spr",
+    new
+    {
+        sortby = id,
+        isasc = (id == ViewBag.sortBy ? !ViewBag.isAsc : ViewBag.isAsc).ToString().ToLower(),
+        SBU = @ViewBag.SBU,
+        RegNm = @ViewBag.RegNm,
+        DistNm = @ViewBag.DistNm,
+        CodeTA = @ViewBag.CodeTA,
+        TA = @ViewBag.TA,
+        TypeTA = @ViewBag.TypeTA,
+        RouteTA = @ViewBag.RouteTA
+    }
+    )">@name</a></pre>                    
 }
+
+
 <h2>Справочник:Торговые агенты</h2>
 
 
@@ -29,31 +49,41 @@
 
 <form action="@Url.Action("Spr_SRList", "Spr")" method="get" enctype = "multipart/form-data"> 
 <div class="product-search">
- <input id="search" name="search" type="text" value="@ViewBag.Search" /><input type="submit" value="Поиск" />
+ <input id="search" name="search" type="text" value="@ViewBag.Search" /><input type="submit" value="Поиск" /> <input type="button" value="Сброс" onclick="ClearFilterBtnClick();" />
 </div> 
 
 <table>
-  <thead>
     <tr>
         <th></th>
-        <th>@sortLink("SBU", 1)<br/>@Html.DropDownList("SBU")</th>
-        <th>@sortLink("Регион", 2)<br/>@Html.DropDownList("RegNm")</th>
-        <th>@sortLink("Область", 3)<br/>@Html.DropDownList("OblNm")</th>
-        <th>@sortLink("Дистрибутор", 4)<br/>@Html.DropDownList("DistNm")</th>
-        <th>@sortLink("КодТА", 5)<br/>@Html.DropDownList("CodeTA")</th>
-        <th>@sortLink("ТА", 6)<br/>@Html.DropDownList("TA")</th>
-        <th>@sortLink("ТипТА", 7)<br/>@Html.DropDownList("TypeTA")</th>
-        <th>@sortLink("МаршрутТА", 8)<br/>@Html.DropDownList("RouteTA")</th>
+        <th>@sortLink("SBU", 1)</th>
+        <th>@sortLink("Регион", 2)</th>
+        <th>@sortLink("Область", 3)</th>
+        <th>@sortLink("Дистрибутор", 4)</th>
+        <th>@sortLink("КодТА", 5)<br/></th>
+        <th>@sortLink("ТА", 6)<br/></th>
+        <th>@sortLink("ТипТА", 7)</th>
+        <th>@sortLink("МаршрутТА", 8)</th>
     </tr>
- </thead>
-  <tbody>
+     <tr>
+        <td></td>
+        <td>@Html.DropDownList("_SBU")</td>
+        <td>@Html.DropDownList("_RegNm")</td>
+        <td>@Html.DropDownList("_OblNm")</td>
+        <td>@Html.DropDownList("_DistNm")</td>
+        <td>@Html.DropDownList("_CodeTA")</td>
+        <td>@Html.DropDownList("_TA")</td>
+        <td>@Html.DropDownList("_TypeTA")</td>
+        <td>@Html.DropDownList("_RouteTA")</td>
+    </tr>
 @{int i = 1;}
 @foreach (var item in ViewData.Model)
 {
-    <tr class="@(i++ % 2 == 0 ? "highlighted" : "")">
+        <tr id="@item.ID" class="@(i++ % 2 == 0 ? "highlighted" : "")">
         <td class="td_btn">
-        @Html.ActionImage("Spr_SREdit", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать")
+        @Html.ActionImagePopup("Spr_SREdit", "Spr", new { id = item.ID }, "~/Content/Images/page_edit.png", "Редактировать", new { @class = "openDialog", data_dialog_id = item.ID, data_dialog_title = "Редактирование торгового агента (" + item.ТА + ")" }) 
+       
         @Html.ActionImage("Spr_SRDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотреть")
+       
         @Html.ActionImage("Spr_SRDelete", new { id = item.ID }, "~/Content/Images/page_delete.png", "Удалить", new { onclick = "return confirm('Вы уверены')" })
         </td>  
         <td> @item.SBU</td>
@@ -66,12 +96,22 @@
         <td>@item.МаршрутТА</td>
     </tr>
 }
-
-</tbody>
 </table>
+
 </form>
 <div class="pager">
-    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount)
+    @Html.Pager(ViewData.Model.PageSize, ViewData.Model.PageNumber, ViewData.Model.TotalItemCount,
+                new
+                {
+                    SBU = @ViewBag.SBU,
+                    RegNm = @ViewBag.RegNm,
+                    DistNm = @ViewBag.DistNm,
+                    CodeTA = @ViewBag.CodeTA,
+                    TA = @ViewBag.TA,
+                    TypeTA = @ViewBag.TypeTA,
+                    RouteTA = @ViewBag.RouteTA
+                }
+    )
 </div>
 <div>
     @Html.ActionLink("Назад", "Spr")

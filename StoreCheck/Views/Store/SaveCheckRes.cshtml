@@ -1,5 +1,6 @@
 ﻿@using System.Web.UI.WebControls
 @using StoreCheck.Models;
+@using StoreCheck;
 @model StoreCheck.Models.Spr_Outlets
           
 @{ViewBag.Title = Model.Клиент;}
@@ -12,15 +13,24 @@
  
         @{          
             string s = String.Empty;
+            string b = String.Empty;
+            string id = String.Empty; 
+            string cat = String.Empty; 
+            
             if (ViewBag.SortTp == enSortType.enSrtAssort)
             {
                 foreach (Spr_CAP item in ViewBag.ChkBoxLstNm)
                 {
                     if (s != item.Ассортимент)
-                    {                      
-                        <br/><div class="colapseTitle"><span class="colapseBtn" id="@item.КодАссортимент" OnClick="colapseBtnClick(arguments[0]);">+</span>@item.Ассортимент</div>
+                    {
+                        if (item.КодАссортимент == "0" || item.КодАссортимент == "1") 
+                        {    b = "fbold"; }
+                        else 
+                        {    b = "";      }
+                        <br/><div class="colapseTitle"><span class="colapseBtn" id="@item.КодАссортимент" OnClick="collapseBtnClick(arguments[0]);">-</span>@item.Ассортимент</div>
                     }
-                        <li class="colapseItem @item.КодАссортимент">@Html.CheckBox(item.ID.ToString()) @Html.Label(item.SKUКМУ) </li>
+                        <li class="@b colapseItem @item.КодАссортимент"><div class="itm_chk">@Html.CheckBox(item.ID.ToString())</div><div class="itm_label">@Html.Label(item.SKUКМУ)</div>  <i>Факт. цена в ТРТ:</i><input type="text"  alt="decimal"  name="SPR_CUP##@item.ID.ToString()" id="SPR_CUP##@item.ID.ToString()"/></li>
+                        
                     
                     s = item.Ассортимент;
                 }
@@ -31,12 +41,31 @@
                 {
                     if (s != item.ТорговаяМарка)
                     {
-                        <br/><div class="colapseTitle"><span class="colapseBtn" id="@item.ТорговаяМарка" OnClick="colapseBtnClick(arguments[0]);">+</span>@item.ТорговаяМарка</div>                    
+                       
+                        <br/><div class="colapseTitle"><span class="colapseBtn" id="@item.ТорговаяМарка" OnClick="collapseBtnClick(arguments[0]);">+</span>@item.ТорговаяМарка</div>                    
                     }
-                        <li class="colapseItem @item.ТорговаяМарка">@Html.CheckBox(item.ID.ToString()) @item.SKUКМУ </li>                   
+                    if (item.КодАссортимент == "0" || item.КодАссортимент == "1")
+                    { b = "fbold"; }
+                    else
+                    { b = ""; }
+                        <li class="@b colapseItem @item.ТорговаяМарка"><div class="itm_chk">@Html.CheckBox(item.ID.ToString())</div><div class="itm_label">@Html.Label(item.SKUКМУ)</div><i>Факт. цена в ТРТ:</i><input type="text"  alt="decimal" name="SPR_CUP##@item.ID.ToString()" id="SPR_CUP##@item.ID.ToString()" /></li>                   
                     s = item.ТорговаяМарка;
                 }
             }
+
+            <br/>
+            foreach (Spr_Category_StoreCheck item in ViewBag.Category_StoreCheck)
+            {
+                cat = Html.ToBase64(item.Category);
+                if (s != item.Category)
+                {
+                    id = item.ID.ToString();
+                        <br/><div class="colapseTitle"><span class="colapseBtn" id="@item.ID" OnClick="collapseBtnClick(arguments[0]);">+</span>@item.Category</div>
+                }
+                        <li class="CatStrChk colapseItem @id"><div class="itm_chk">@Html.CheckBox(item.ID.ToString())</div><div class="itm_label">@Html.Label(item.Name_Category)</div>@Html.Editor( @Html.CyrToLatin(item.Category) +"##"+ item.ID.ToString())</li>
+                    
+                s = item.Category;
+            }    
          }
 
          <br/>

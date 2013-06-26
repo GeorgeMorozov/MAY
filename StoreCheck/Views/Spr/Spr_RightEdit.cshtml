@@ -1,4 +1,8 @@
-﻿@model StoreCheck.Models.Spr_Rights
+﻿@using System.Web.UI.WebControls
+@using StoreCheck.Models;
+@model StoreCheck.Models.Spr_Rights
+           
+
 
 @{
     ViewBag.Title = "Редактирование прав";
@@ -9,7 +13,8 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Право</legend>
@@ -22,6 +27,31 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.Name)
             @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <br/>
+        <div class="AdmObjLst">
+        <span><b>Сущность:</b></span>
+        <br/>
+        @{
+            int tp = -1;
+            String s = String.Empty;
+            bool b = false; 
+            foreach (Spr_AdmObject item in ViewBag.ChkBoxLst_AdmObj)
+            {
+                if (item.Type == 0) { s = "Доступ к разделам"; }
+                else if (item.Type == 1) { s = "Модификация данных"; }
+                else { s = "Другое"; }
+                if (Model.Spr_AdmObject != null) { b = Model.Spr_AdmObject.ID == item.ID; }
+                
+                if (tp != item.Type)
+                {
+                    <br/><div class="colapseTitle"><span class="AOcolapseBtn" id="@item.Type" OnClick="AOcollapseBtnClick(arguments[0]);">-</span>@s</div>
+                }
+                    <li class="AOcolapseItem @item.Type">@Html.CheckBox(item.ID.ToString(),  b ) @Html.Label(item.Name)</li>
+                    
+                tp = item.Type ?? tp;
+            }
+        }
         </div>
 
         <p>

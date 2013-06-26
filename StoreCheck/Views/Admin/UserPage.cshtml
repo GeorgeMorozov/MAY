@@ -1,40 +1,36 @@
 ﻿@model StoreCheck.Models.Users
+@using StoreCheck.Models
 
-@{
-    ViewBag.Title = ViewBag.Login;
-}
-
-<h2>@ViewBag.Login</h2>
-
-
-@using (Html.BeginForm())
+@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = " " }))
 {
-    <div class="display-label">Login</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Login)
+     <b>Логин:</b>  @Html.DisplayFor(model => model.Login)
     </div>
-
-    <div class="display-label">FIO</div>
+    <br/>
     <div class="display-field">
-        @Html.DisplayFor(model => model.FIO)
+     <b>ФИО:</b>  @Html.DisplayFor(model => model.FIO)
     </div>
-
-    <div class="display-label">RoleID</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.RoleID)
-    </div>
-
-<fieldset>
-    <legend>Группировка</legend>
+    <br/>       
+    <div class="colapseTitle"><span class="colapseBtn" id="grpLst" onclick="collapseBtnClick(arguments[0]);">-</span>Группировка</div>
+    <ul>
     @{
-    bool b = (ViewBag.SortType == StoreCheck.Models.enSortType.enSrtAssort);
-         @Html.RadioButton("SortType", (object)StoreCheck.Models.enSortType.enSrtAssort, b) @Html.Label("По ассортименту");
-        <br/>                                                  
-        @Html.RadioButton("SortType", (object)StoreCheck.Models.enSortType.enSrtTM, !b) @Html.Label("По торговой марке") ;
+    bool b = (ViewBag.SortType == enSortType.enSrtAssort);
+         <li class="grpLst">@Html.RadioButton("SortType", (object)enSortType.enSrtAssort, b) @Html.Label("По ассортименту")</li>                                                          
+         <li class="grpLst">@Html.RadioButton("SortType", (object)enSortType.enSrtTM, !b) @Html.Label("По торговой марке")</li>
      }
-</fieldset>   
+    </ul> 
+
+    <div class="colapseTitle"><span class="colapseBtn" id="rightsLst" onclick="collapseBtnClick(arguments[0]);">+</span>Права</div>
+    <ul class="rightsLstUL">  
+    @{ foreach (TRights itm in ViewBag.Rights)
+       {
+       <li class="rightsLst"> @itm.Subject</li>
+       } 
+     }
+    </ul>    
+          
          <p>
-            <input type="submit" value="Сохранить" />
+             <input type="submit" class="saveDialog" value="Сохранить" />  <input type="button" class="close"  value="Закрыть" />
          </p>
 }
 

@@ -15,22 +15,53 @@ namespace StoreCheck.Models
     public partial class Users
     {        
         private enSortType _sortTp;
+        private IQueryable<TRights> _rights;
+        //private IQueryable<Roles> _role;
+        private int _accessRights = 0;
+        private readonly DataManager _db = new DataManager();
         public Users()
         {
             
         }
 
-        
+        public IQueryable<TRights> UserRights
+        {
+             get {
+                     if (_rights == null)
+                     {
+                         _rights = _db.GetRights(this.RoleID ?? Guid.Empty);
+                     }
+                     return _rights;
+                 }           
+        }
+
+        public int AccessRights
+        {
+            get {
+                    if (_accessRights == 0)
+                    {
+                        foreach (TRights itm in UserRights.Where(it => it.Type == (int)EnClassifRights.enAccessRights))
+                        {
+                            _accessRights += itm.SubjectID;
+                        }
+                    } 
+                    return _accessRights; 
+                }
+            set {
+                    _accessRights = value;
+                }
+        }
+
         public enSortType SortType
         {
             
             get {
-                int sortBit = this.UserBits ?? 0;
-                if (Convert.ToBoolean(sortBit & (int)enSortType.enSrtAssort))
-                    _sortTp = enSortType.enSrtAssort;
-                else
-                    _sortTp = enSortType.enSrtTM;  
-                    return _sortTp;               
+                    int sortBit = this.UserBits ?? 0;
+                    if (Convert.ToBoolean(sortBit & (int)enSortType.enSrtAssort))
+                        _sortTp = enSortType.enSrtAssort;
+                    else
+                        _sortTp = enSortType.enSrtTM;  
+                        return _sortTp;               
                 }
             set {
                     _sortTp = value;

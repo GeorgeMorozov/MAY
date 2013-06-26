@@ -9,20 +9,23 @@
 <h2>Список проверок: @ViewBag.Name</h2>
 
 
-<table>
-    <tr><th></th>
+<table  width="100%">
+    <thead>
+    <tr>
+    <th></th>
         <th>
             Дата
         </th>
         <th>
             Пользователь
         </th>
-        <th></th>
     </tr>
-
+  </thead>
+  <tbody>
+@{int i = 1;}
 @foreach (var item in ViewData.Model)
 {
-    <tr>
+    <tr id="@item.ID" class="@(i++ % 2 == 0 ? "highlighted" : "")">
         <td>
             @Html.ActionImage("ViewCheckDetails", new { id = item.ID }, "~/Content/Images/page.png", "Просмотр")
         </td>

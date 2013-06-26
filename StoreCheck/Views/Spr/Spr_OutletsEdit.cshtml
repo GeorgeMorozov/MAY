@@ -1,7 +1,7 @@
 ﻿@model StoreCheck.Models.Spr_Outlets
 
 
-@{String id = Model.ID.ToString();}
+@{String id = Model == null ? String.Empty : Model.ID.ToString();}
 @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = id }))
 {    
     
@@ -12,55 +12,46 @@
             @Html.LabelFor(model => model.SBU)
          </td><td>
             @Html.EditorFor(model => model.SBU)
-            @Html.ValidationMessageFor(model => model.SBU)
         </td></tr>
         <tr><td>
             @Html.LabelFor(model => model.Регион)
         </td><td>
             @Html.EditorFor(model => model.Регион)
-            @Html.ValidationMessageFor(model => model.Регион)
         </td></tr>
         <tr><td>
             @Html.LabelFor(model => model.Область)
         </td><td>
             @Html.EditorFor(model => model.Область)
-            @Html.ValidationMessageFor(model => model.Область)
         </td></tr>
         <tr><td>
             @Html.LabelFor(model => model.Дистрибутор)
         </td><td>
             @Html.EditorFor(model => model.Дистрибутор)
-            @Html.ValidationMessageFor(model => model.Дистрибутор)
         </td></tr>
         <tr><td>
             @Html.LabelFor(model => model.КодКлиент)
         </td><td>
             @Html.EditorFor(model => model.КодКлиент)
-            @Html.ValidationMessageFor(model => model.КодКлиент)
         </td></tr>
         <tr><td>
             @Html.LabelFor(model => model.ИНН)
         </td><td>
             @Html.EditorFor(model => model.ИНН)
-            @Html.ValidationMessageFor(model => model.ИНН)
         </td></tr>
         <tr><td>
             @Html.LabelFor(model => model.КодАдресдоставки)
         </td><td>
             @Html.EditorFor(model => model.КодАдресдоставки)
-            @Html.ValidationMessageFor(model => model.КодАдресдоставки)
         </td></tr>
         <tr><td>
             @Html.LabelFor(model => model.Клиент)
         </td><td>
             @Html.EditorFor(model => model.Клиент)
-            @Html.ValidationMessageFor(model => model.Клиент)
         </td></tr>
         <tr><td>
             @Html.LabelFor(model => model.Адресдоставки)
         </td><td>
             @Html.EditorFor(model => model.Адресдоставки)
-            @Html.ValidationMessageFor(model => model.Адресдоставки)
         </td></tr>
         <tr><td>
             @Html.LabelFor(model => model.ОбластьТРТ)
@@ -92,6 +83,12 @@
             @Html.EditorFor(model => model.ДомТРТ)
             @Html.ValidationMessageFor(model => model.ДомТРТ)
         </td></tr>
+         <tr><td>
+            @Html.LabelFor(model => model.ТипАкции)
+        </td><td>
+            @Html.DropDownList("TypeAkciya")
+            @Html.ValidationMessageFor(model => model.ТипАкции)
+        </td></tr>
         <tr><td>
             @Html.LabelFor(model => model.ПримечаниеТРТ)
         </td><td>
@@ -113,13 +110,14 @@
        <tr><td>
             @Html.LabelFor(model => model.Холдинг)
        </td><td>
-            @Html.EditorFor(model => model.Холдинг)
+       
+            @Html.DropDownList("Holding")
             @Html.ValidationMessageFor(model => model.Холдинг)
         </td></tr>
         <tr><td>
             @Html.LabelFor(model => model.Актуальность)
         </td><td>
-            @Html.EditorFor(model => model.Актуальность)
+            @Html.DropDownList("Actuals")
             @Html.ValidationMessageFor(model => model.Актуальность)
         </td></tr>
         <tr><td>
@@ -133,7 +131,7 @@
          @Html.HiddenFor(model => model.ID)
 
         <p>
-            <input type="submit" value="Сохранить" />
+            <input type="submit" class="dialogSave" value="Сохранить" />  <input type="button"  class="close" value="Закрыть" />
         </p>
     </fieldset>
 }

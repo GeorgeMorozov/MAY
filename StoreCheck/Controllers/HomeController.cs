@@ -8,13 +8,13 @@ using StoreCheck.Models;
 
 namespace StoreCheck.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ApplicationController
     {
-        public AccountMembershipService MembershipService { get; set; }
+        //public AccountMembershipService MembershipService { get; set; }
 
         protected override void Initialize(RequestContext requestContext)
         {
-            if (MembershipService == null) { MembershipService = new AccountMembershipService(requestContext.HttpContext.User.Identity.Name); }
+           // if (MembershipService == null) { MembershipService = new AccountMembershipService(requestContext.HttpContext.User.Identity.Name); }
 
             base.Initialize(requestContext);
         }
@@ -29,8 +29,7 @@ namespace StoreCheck.Controllers
                 Users usr = (Users)Session["CurrUsr"];
                 if ( usr == null )
                 {
-                    usr = MembershipService.CurrUser;
-                    Session["CurrUsr"] = usr;
+                    usr = base.MembershipService.CurrUser;
                 }
                 return View(); 
             }
