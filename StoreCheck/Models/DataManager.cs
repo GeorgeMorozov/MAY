@@ -615,7 +615,7 @@ namespace StoreCheck.Models
         {
             string ret= String.Empty;
             ret = "<td class=\"td_btn\">" +
-                  "<a Title=\"Просмотр\" href=\"/Store/ViewChecks/" + obj.ID.ToString() + "\"><img alt=\"Просмотр\" border=\"0\" src=\"/Content/Images/page.png\" /></a> " +
+                  "<!--a Title=\"Просмотр\" href=\"/Store/ViewChecks/" + obj.ID.ToString() + "\"><img alt=\"Просмотр\" border=\"0\" src=\"/Content/Images/page.png\" /></a--> " +
                   "<a class=\"openDialog\" data-dialog-id=\"" + obj.ID.ToString() + "\" data-dialog-title=\"Редактирование: Торговые точки\" href=\"/Spr/Spr_OutletsEdit/" + obj.ID.ToString() + "\"><img alt=\"Редактировать\" border=\"0\" src=\"/Content/Images/page_edit.png\" /></a> " +
                   "<a Title=\"Заполнить StoreCheck\" href=\"/Store/SaveCheckRes/" + obj.ID.ToString() + "\" trget=\"_blank\"><img alt=\"Заполнить StoreCheck\" border=\"0\" src=\"/Content/Images/page_add.png\" /></a> " +
             "</td>" +
@@ -949,21 +949,20 @@ namespace StoreCheck.Models
 
         public IQueryable<TCheckDataSKU> GetCheckDataSKU(Guid CheckOutletID)
         {
+            /*join s in _DB.Spr_CAP on d.SKUID equals s.ID*/
             IQueryable<TCheckDataSKU> model = from d in _DB.CheckOutletData
-                                              join s in _DB.Spr_CAP on d.SKUID equals s.ID
                                               where d.CheckOutletID == CheckOutletID
                                               where d.SKUID != null
-                                              select new TCheckDataSKU() { SKUID = d.SKUID ?? Guid.Empty, SKUName = s.SKUКМУ, SKUValue = d.Value ?? String.Empty, CodeAssortment = s.КодАссортимент, Assortment = s.Ассортимент, Trademark = s.ТорговаяМарка, Priority = s.Приоритетность ?? 0 };
+                                              select new TCheckDataSKU() { SKUID = d.SKUID ?? Guid.Empty, SKUName = d.SKUКМУ ?? String.Empty, SKUValue = d.Value ?? String.Empty, CodeAssortment = d.КодАссортимент ?? String.Empty, Assortment = d.Ассортимент ?? String.Empty, Trademark = d.ТорговаяМарка ?? String.Empty, Priority = d.Приоритетность ?? 0 };
             return model;
         }
 
         public IQueryable<TCheckDataCatStrChk> GetCheckDataCatStrChk(Guid CheckOutletID)
         {
             IQueryable<TCheckDataCatStrChk> model = from d in _DB.CheckOutletData
-                                              join s in _DB.Spr_Category_StoreCheck on d.CategoryID equals s.ID
                                               where d.CheckOutletID == CheckOutletID
                                               where d.SKUID == null
-                                                    select new TCheckDataCatStrChk() { CategoryID = d.CategoryID ?? Guid.Empty, Category = s.Category, NameCategory = s.Name_Category, CategoryValue = d.Value };
+                                                    select new TCheckDataCatStrChk() { CategoryID = d.CategoryID ?? Guid.Empty, Category = d.Category ?? String.Empty, NameCategory = d.CategoryName ?? String.Empty, CategoryValue = d.Value ?? String.Empty };
             return model.OrderBy(o=>o.Category).ThenBy(o=>o.NameCategory);
         }
            

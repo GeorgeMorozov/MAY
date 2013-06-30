@@ -232,10 +232,8 @@ namespace StoreCheck.Controllers
         [HttpPost]
         public ActionResult SaveCheckRes(IEnumerable<HttpPostedFileBase> files, Guid OutletID)
         {
-            //AppConfiguration cfg = new AppConfiguration();
-            //AppConfiguration.imagePath = "~/Content/Images/foto";
             String[] values;
-            String imgPath = "~/Content/Images/foto";//AppConfiguration.imagePath;
+            String imgPath = Configuration.ImgPath;//"~/Content/Images/foto";
             int SKUf = 0;
             List<string> imgPathLst = new List<string>();
             foreach (var file in files)
@@ -254,29 +252,56 @@ namespace StoreCheck.Controllers
                     }
                 }
             }         
-            CheckOutlet Outlet = new CheckOutlet();
-            Outlet.ID = Guid.NewGuid();
-            Outlet.OutletID = OutletID;
+            CheckOutlet ChkOutlet = new CheckOutlet();
+            ChkOutlet.ID = Guid.NewGuid();
+            ChkOutlet.OutletID = OutletID;
+            //MYS 28.06.2013{
+            var spr_outlet = _db.GetSpr_Outlet(OutletID);
+            ChkOutlet.SBU = spr_outlet.SBU;
+            ChkOutlet.Регион = spr_outlet.Регион;
+            ChkOutlet.Область = spr_outlet.Область;
+            ChkOutlet.Дистрибутор = spr_outlet.Дистрибутор;
+            ChkOutlet.КодКлиент = spr_outlet.КодКлиент;
+            ChkOutlet.ИНН = spr_outlet.ИНН;
+            ChkOutlet.КодАдресдоставки = spr_outlet.КодАдресдоставки;
+            ChkOutlet.Клиент = spr_outlet.Клиент;
+            ChkOutlet.Адресдоставки = spr_outlet.Адресдоставки;
+            ChkOutlet.ОбластьТРТ = spr_outlet.ОбластьТРТ;
+            ChkOutlet.РайонТРТ = spr_outlet.РайонТРТ;
+            ChkOutlet.ГородТРТ = spr_outlet.ГородТРТ;
+            ChkOutlet.УлицаТРТ = spr_outlet.УлицаТРТ;
+            ChkOutlet.ДомТРТ = spr_outlet.ДомТРТ;
+            ChkOutlet.ПримечаниеТРТ = spr_outlet.ПримечаниеТРТ;
+            ChkOutlet.Каналреализации = spr_outlet.Каналреализации;
+            ChkOutlet.КатегорияТРТ = spr_outlet.КатегорияТРТ;
+            ChkOutlet.ТипТРТ = spr_outlet.ТипТРТ;
+            ChkOutlet.ТипАкции = spr_outlet.ТипАкции;
+            ChkOutlet.Холдинг = spr_outlet.Холдинг;
+            ChkOutlet.Актуальность = spr_outlet.Актуальность;
+            ChkOutlet.ПровереноМП = spr_outlet.ПровереноМП;
+            ChkOutlet.Обновление = spr_outlet.Обновление;
+            //MYS 28.06.2013}
             Users usr = (Users)Session["CurrUsr"];
             if (usr == null)
                 usr = MembershipService.CurrUser;
-            Outlet.UserID = usr.ID;
-            Outlet.CheckDate = DateTime.Now;
+            ChkOutlet.UserID = usr.ID;
+            ChkOutlet.CheckDate = DateTime.Now;
             Dictionary<Guid, String> Vals = new Dictionary<Guid, String>();
             String CatTRT = _db.GetCatTRT(OutletID);
 
             for (int i = 0; i < Request.Form.Count; i++)
             {
-                values = Request.Form.GetValues(i);
-               
-                String SprID = String.Empty;
-                String itmID = String.Empty;
-                Guid SKUID = Guid.Empty;
-                CheckOutletData OutletData = new CheckOutletData();
-                String[] sep = {"##"};
+                        
+                String SprNm = String.Empty;
+                String itmID = String.Empty;             
+                String[] sep = { "##" };
                 String[] rawStr = Request.Form.Keys[i].Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                Guid SprID = Guid.Empty;
+                values = Request.Form.GetValues(i);                      
+                
+                CheckOutletData OutletData = new CheckOutletData();
                 OutletData.ID = Guid.NewGuid();
-                OutletData.CheckOutletID = Outlet.ID;
+                OutletData.CheckOutletID = ChkOutlet.ID;
                
                 if (values != null && values[0] == "true") //checkbox
                 {   
@@ -284,56 +309,72 @@ namespace StoreCheck.Controllers
                 }                        
                 if (rawStr.Count() > 1)
                 {
-                    SprID = rawStr[0];
+                    SprNm = rawStr[0];
                     itmID = rawStr[1];
-                    SKUID = Guid.Parse(itmID);
+                    SprID = Guid.Parse(itmID);
                 }
-                if (SprID == "SPR_CUP")
+                if (SprNm == "SPR_CUP")
                 {                    
-                    OutletData.SKUID = SKUID;
-                    if (Vals.ContainsKey(SKUID))
+                    OutletData.SKUID = SprID;
+                    if (Vals.ContainsKey(SprID))
                     {
                         OutletData.Value = values[0];
-                        if (_db.GetSKUCode(SKUID) == 1)
+                        //MYS 28.06.2013{
+                        Spr_CAP spr = _db.GetSpr_CAP(SprID);
+                        OutletData.ТорговаяМарка = spr.ТорговаяМарка;
+                        OutletData.SKUКМУ = spr.SKUКМУ;
+                        OutletData.SKUгруппировка = spr.SKUгруппировка;
+                        OutletData.Приоритетность = spr.Приоритетность;
+                        OutletData.ПриоритетностьСчет = spr.ПриоритетностьСчет;
+                        OutletData.КодАссортимент = spr.КодАссортимент;
+                        OutletData.Ассортимент = spr.Ассортимент;
+                        OutletData.КатегорияТРТ = spr.КатегорияТРТ;
+                        //MYS 28.06.2013}
+                        if (_db.GetSKUCode(SprID) == 1)
                             SKUf++;
                         _db.AddCheckOutletData(OutletData);
                     }  
                 }
-                else if (!String.IsNullOrEmpty(SprID))
+                else if (!String.IsNullOrEmpty(SprNm))
                 {
-                    OutletData.CategoryID = SKUID;
-                    if (Vals.ContainsKey(SKUID))
+                    OutletData.CategoryID = SprID;
+                    if (Vals.ContainsKey(SprID))
                     {
                         OutletData.Value = values[0];
+                        //MYS 28.06.2013{
+                        Spr_Category_StoreCheck spr = _db.GetSpr_Category_StoreCheck(SprID);
+                        OutletData.Category = spr.Category;
+                        OutletData.CategoryName = spr.Name_Category;
+                        //MYS 28.06.2013}
                         _db.AddCheckOutletData(OutletData);
                     } 
                 }                           
             }
-
             for (int i = 0; i < imgPathLst.Count; i++ )
             {
                 CheckOutletImg OutletImg = new CheckOutletImg();
                 OutletImg.ID = Guid.NewGuid();
-                OutletImg.OutletID = Outlet.ID;
+                OutletImg.OutletID = ChkOutlet.ID;
                 OutletImg.Path = imgPathLst[i];
                 _db.AddCheckOutletImg(OutletImg);
             }
-            Outlet.SKUf = SKUf;
-            Outlet.SKUp = _db.GetSKUInCatTRT(CatTRT); 
-            _db.AddCheckOutlet(Outlet);       
+            ChkOutlet.SKUf = SKUf;
+            ChkOutlet.SKUp = _db.GetSKUInCatTRT(CatTRT); 
+            _db.AddCheckOutlet(ChkOutlet);       
             return RedirectToAction("EditStore");
         }
-
+        /*
+         @Html.ActionImage("ViewChecks", new { id = item.ID }, "~/Content/Images/page.png", "Просмотр") 
         public ActionResult ViewChecks(int? page, Guid id)
         {
             ViewBag.Name = _db.GetSpr_Outlet(id).Клиент; 
             return View(_db.GetVWCheckOutlet(id).OrderBy( it => it.Login).ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
         }
-        
+         */
+
         public ActionResult ViewCheckDetails(int? page, Guid id)
         {
             ViewBag.ImgList = _db.GetImgList(id); 
-
             return View(_db.GetVWCheckOutletData(id).OrderBy(it => it.Login).ToPagedList(page.HasValue ? page.Value : 1, defaultPageSize));
         }
         

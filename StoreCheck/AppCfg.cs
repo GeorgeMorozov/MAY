@@ -17,6 +17,14 @@ namespace StoreCheck
             set { base["imagePath"] = value; }
         }
         */
+        public static string ImgPath
+        {
+            get
+            {
+                string s = ConfigurationManager.AppSettings["ImgPath"];
+                return s;
+            }
+        }
         public static string SysPassword
         {
             get

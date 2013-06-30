@@ -8,13 +8,12 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel;
-using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Linq;
-using System.Runtime.Serialization;
+using System.Data.EntityClient;
+using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -442,7 +441,6 @@ namespace StoreCheck.Models
         private ObjectSet<CheckOutletData> _CheckOutletData;
 
         #endregion
-
         #region AddTo Methods
     
         /// <summary>
@@ -630,11 +628,11 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
     }
+    
 
     #endregion
-
+    
     #region Entities
     
     /// <summary>
@@ -659,7 +657,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -856,9 +853,560 @@ namespace StoreCheck.Models
         private global::System.String _Value;
         partial void OnValueChanging(global::System.String value);
         partial void OnValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SBU
+        {
+            get
+            {
+                return _SBU;
+            }
+            set
+            {
+                OnSBUChanging(value);
+                ReportPropertyChanging("SBU");
+                _SBU = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SBU");
+                OnSBUChanged();
+            }
+        }
+        private global::System.String _SBU;
+        partial void OnSBUChanging(global::System.String value);
+        partial void OnSBUChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Регион
+        {
+            get
+            {
+                return _Регион;
+            }
+            set
+            {
+                OnРегионChanging(value);
+                ReportPropertyChanging("Регион");
+                _Регион = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Регион");
+                OnРегионChanged();
+            }
+        }
+        private global::System.String _Регион;
+        partial void OnРегионChanging(global::System.String value);
+        partial void OnРегионChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Область
+        {
+            get
+            {
+                return _Область;
+            }
+            set
+            {
+                OnОбластьChanging(value);
+                ReportPropertyChanging("Область");
+                _Область = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Область");
+                OnОбластьChanged();
+            }
+        }
+        private global::System.String _Область;
+        partial void OnОбластьChanging(global::System.String value);
+        partial void OnОбластьChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Дистрибутор
+        {
+            get
+            {
+                return _Дистрибутор;
+            }
+            set
+            {
+                OnДистрибуторChanging(value);
+                ReportPropertyChanging("Дистрибутор");
+                _Дистрибутор = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Дистрибутор");
+                OnДистрибуторChanged();
+            }
+        }
+        private global::System.String _Дистрибутор;
+        partial void OnДистрибуторChanging(global::System.String value);
+        partial void OnДистрибуторChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String КодКлиент
+        {
+            get
+            {
+                return _КодКлиент;
+            }
+            set
+            {
+                OnКодКлиентChanging(value);
+                ReportPropertyChanging("КодКлиент");
+                _КодКлиент = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("КодКлиент");
+                OnКодКлиентChanged();
+            }
+        }
+        private global::System.String _КодКлиент;
+        partial void OnКодКлиентChanging(global::System.String value);
+        partial void OnКодКлиентChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ИНН
+        {
+            get
+            {
+                return _ИНН;
+            }
+            set
+            {
+                OnИННChanging(value);
+                ReportPropertyChanging("ИНН");
+                _ИНН = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ИНН");
+                OnИННChanged();
+            }
+        }
+        private global::System.String _ИНН;
+        partial void OnИННChanging(global::System.String value);
+        partial void OnИННChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String КодАдресдоставки
+        {
+            get
+            {
+                return _КодАдресдоставки;
+            }
+            set
+            {
+                OnКодАдресдоставкиChanging(value);
+                ReportPropertyChanging("КодАдресдоставки");
+                _КодАдресдоставки = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("КодАдресдоставки");
+                OnКодАдресдоставкиChanged();
+            }
+        }
+        private global::System.String _КодАдресдоставки;
+        partial void OnКодАдресдоставкиChanging(global::System.String value);
+        partial void OnКодАдресдоставкиChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Клиент
+        {
+            get
+            {
+                return _Клиент;
+            }
+            set
+            {
+                OnКлиентChanging(value);
+                ReportPropertyChanging("Клиент");
+                _Клиент = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Клиент");
+                OnКлиентChanged();
+            }
+        }
+        private global::System.String _Клиент;
+        partial void OnКлиентChanging(global::System.String value);
+        partial void OnКлиентChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Адресдоставки
+        {
+            get
+            {
+                return _Адресдоставки;
+            }
+            set
+            {
+                OnАдресдоставкиChanging(value);
+                ReportPropertyChanging("Адресдоставки");
+                _Адресдоставки = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Адресдоставки");
+                OnАдресдоставкиChanged();
+            }
+        }
+        private global::System.String _Адресдоставки;
+        partial void OnАдресдоставкиChanging(global::System.String value);
+        partial void OnАдресдоставкиChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ОбластьТРТ
+        {
+            get
+            {
+                return _ОбластьТРТ;
+            }
+            set
+            {
+                OnОбластьТРТChanging(value);
+                ReportPropertyChanging("ОбластьТРТ");
+                _ОбластьТРТ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ОбластьТРТ");
+                OnОбластьТРТChanged();
+            }
+        }
+        private global::System.String _ОбластьТРТ;
+        partial void OnОбластьТРТChanging(global::System.String value);
+        partial void OnОбластьТРТChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String РайонТРТ
+        {
+            get
+            {
+                return _РайонТРТ;
+            }
+            set
+            {
+                OnРайонТРТChanging(value);
+                ReportPropertyChanging("РайонТРТ");
+                _РайонТРТ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("РайонТРТ");
+                OnРайонТРТChanged();
+            }
+        }
+        private global::System.String _РайонТРТ;
+        partial void OnРайонТРТChanging(global::System.String value);
+        partial void OnРайонТРТChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ГородТРТ
+        {
+            get
+            {
+                return _ГородТРТ;
+            }
+            set
+            {
+                OnГородТРТChanging(value);
+                ReportPropertyChanging("ГородТРТ");
+                _ГородТРТ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ГородТРТ");
+                OnГородТРТChanged();
+            }
+        }
+        private global::System.String _ГородТРТ;
+        partial void OnГородТРТChanging(global::System.String value);
+        partial void OnГородТРТChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String УлицаТРТ
+        {
+            get
+            {
+                return _УлицаТРТ;
+            }
+            set
+            {
+                OnУлицаТРТChanging(value);
+                ReportPropertyChanging("УлицаТРТ");
+                _УлицаТРТ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("УлицаТРТ");
+                OnУлицаТРТChanged();
+            }
+        }
+        private global::System.String _УлицаТРТ;
+        partial void OnУлицаТРТChanging(global::System.String value);
+        partial void OnУлицаТРТChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ДомТРТ
+        {
+            get
+            {
+                return _ДомТРТ;
+            }
+            set
+            {
+                OnДомТРТChanging(value);
+                ReportPropertyChanging("ДомТРТ");
+                _ДомТРТ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ДомТРТ");
+                OnДомТРТChanged();
+            }
+        }
+        private global::System.String _ДомТРТ;
+        partial void OnДомТРТChanging(global::System.String value);
+        partial void OnДомТРТChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ПримечаниеТРТ
+        {
+            get
+            {
+                return _ПримечаниеТРТ;
+            }
+            set
+            {
+                OnПримечаниеТРТChanging(value);
+                ReportPropertyChanging("ПримечаниеТРТ");
+                _ПримечаниеТРТ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ПримечаниеТРТ");
+                OnПримечаниеТРТChanged();
+            }
+        }
+        private global::System.String _ПримечаниеТРТ;
+        partial void OnПримечаниеТРТChanging(global::System.String value);
+        partial void OnПримечаниеТРТChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Каналреализации
+        {
+            get
+            {
+                return _Каналреализации;
+            }
+            set
+            {
+                OnКаналреализацииChanging(value);
+                ReportPropertyChanging("Каналреализации");
+                _Каналреализации = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Каналреализации");
+                OnКаналреализацииChanged();
+            }
+        }
+        private global::System.String _Каналреализации;
+        partial void OnКаналреализацииChanging(global::System.String value);
+        partial void OnКаналреализацииChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String КатегорияТРТ
+        {
+            get
+            {
+                return _КатегорияТРТ;
+            }
+            set
+            {
+                OnКатегорияТРТChanging(value);
+                ReportPropertyChanging("КатегорияТРТ");
+                _КатегорияТРТ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("КатегорияТРТ");
+                OnКатегорияТРТChanged();
+            }
+        }
+        private global::System.String _КатегорияТРТ;
+        partial void OnКатегорияТРТChanging(global::System.String value);
+        partial void OnКатегорияТРТChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ТипТРТ
+        {
+            get
+            {
+                return _ТипТРТ;
+            }
+            set
+            {
+                OnТипТРТChanging(value);
+                ReportPropertyChanging("ТипТРТ");
+                _ТипТРТ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ТипТРТ");
+                OnТипТРТChanged();
+            }
+        }
+        private global::System.String _ТипТРТ;
+        partial void OnТипТРТChanging(global::System.String value);
+        partial void OnТипТРТChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ТипАкции
+        {
+            get
+            {
+                return _ТипАкции;
+            }
+            set
+            {
+                OnТипАкцииChanging(value);
+                ReportPropertyChanging("ТипАкции");
+                _ТипАкции = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ТипАкции");
+                OnТипАкцииChanged();
+            }
+        }
+        private global::System.String _ТипАкции;
+        partial void OnТипАкцииChanging(global::System.String value);
+        partial void OnТипАкцииChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Холдинг
+        {
+            get
+            {
+                return _Холдинг;
+            }
+            set
+            {
+                OnХолдингChanging(value);
+                ReportPropertyChanging("Холдинг");
+                _Холдинг = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Холдинг");
+                OnХолдингChanged();
+            }
+        }
+        private global::System.String _Холдинг;
+        partial void OnХолдингChanging(global::System.String value);
+        partial void OnХолдингChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Актуальность
+        {
+            get
+            {
+                return _Актуальность;
+            }
+            set
+            {
+                OnАктуальностьChanging(value);
+                ReportPropertyChanging("Актуальность");
+                _Актуальность = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Актуальность");
+                OnАктуальностьChanged();
+            }
+        }
+        private global::System.String _Актуальность;
+        partial void OnАктуальностьChanging(global::System.String value);
+        partial void OnАктуальностьChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ПровереноМП
+        {
+            get
+            {
+                return _ПровереноМП;
+            }
+            set
+            {
+                OnПровереноМПChanging(value);
+                ReportPropertyChanging("ПровереноМП");
+                _ПровереноМП = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ПровереноМП");
+                OnПровереноМПChanged();
+            }
+        }
+        private global::System.String _ПровереноМП;
+        partial void OnПровереноМПChanging(global::System.String value);
+        partial void OnПровереноМПChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Обновление
+        {
+            get
+            {
+                return _Обновление;
+            }
+            set
+            {
+                OnОбновлениеChanging(value);
+                ReportPropertyChanging("Обновление");
+                _Обновление = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Обновление");
+                OnОбновлениеChanged();
+            }
+        }
+        private global::System.String _Обновление;
+        partial void OnОбновлениеChanging(global::System.String value);
+        partial void OnОбновлениеChanged();
 
         #endregion
-
     
     }
     
@@ -884,7 +1432,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1033,9 +1580,224 @@ namespace StoreCheck.Models
         private global::System.String _Value;
         partial void OnValueChanging(global::System.String value);
         partial void OnValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ТорговаяМарка
+        {
+            get
+            {
+                return _ТорговаяМарка;
+            }
+            set
+            {
+                OnТорговаяМаркаChanging(value);
+                ReportPropertyChanging("ТорговаяМарка");
+                _ТорговаяМарка = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ТорговаяМарка");
+                OnТорговаяМаркаChanged();
+            }
+        }
+        private global::System.String _ТорговаяМарка;
+        partial void OnТорговаяМаркаChanging(global::System.String value);
+        partial void OnТорговаяМаркаChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SKUКМУ
+        {
+            get
+            {
+                return _SKUКМУ;
+            }
+            set
+            {
+                OnSKUКМУChanging(value);
+                ReportPropertyChanging("SKUКМУ");
+                _SKUКМУ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SKUКМУ");
+                OnSKUКМУChanged();
+            }
+        }
+        private global::System.String _SKUКМУ;
+        partial void OnSKUКМУChanging(global::System.String value);
+        partial void OnSKUКМУChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SKUгруппировка
+        {
+            get
+            {
+                return _SKUгруппировка;
+            }
+            set
+            {
+                OnSKUгруппировкаChanging(value);
+                ReportPropertyChanging("SKUгруппировка");
+                _SKUгруппировка = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SKUгруппировка");
+                OnSKUгруппировкаChanged();
+            }
+        }
+        private global::System.String _SKUгруппировка;
+        partial void OnSKUгруппировкаChanging(global::System.String value);
+        partial void OnSKUгруппировкаChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Приоритетность
+        {
+            get
+            {
+                return _Приоритетность;
+            }
+            set
+            {
+                OnПриоритетностьChanging(value);
+                ReportPropertyChanging("Приоритетность");
+                _Приоритетность = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Приоритетность");
+                OnПриоритетностьChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Приоритетность;
+        partial void OnПриоритетностьChanging(Nullable<global::System.Int32> value);
+        partial void OnПриоритетностьChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ПриоритетностьСчет
+        {
+            get
+            {
+                return _ПриоритетностьСчет;
+            }
+            set
+            {
+                OnПриоритетностьСчетChanging(value);
+                ReportPropertyChanging("ПриоритетностьСчет");
+                _ПриоритетностьСчет = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ПриоритетностьСчет");
+                OnПриоритетностьСчетChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ПриоритетностьСчет;
+        partial void OnПриоритетностьСчетChanging(Nullable<global::System.Int32> value);
+        partial void OnПриоритетностьСчетChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String КодАссортимент
+        {
+            get
+            {
+                return _КодАссортимент;
+            }
+            set
+            {
+                OnКодАссортиментChanging(value);
+                ReportPropertyChanging("КодАссортимент");
+                _КодАссортимент = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("КодАссортимент");
+                OnКодАссортиментChanged();
+            }
+        }
+        private global::System.String _КодАссортимент;
+        partial void OnКодАссортиментChanging(global::System.String value);
+        partial void OnКодАссортиментChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Ассортимент
+        {
+            get
+            {
+                return _Ассортимент;
+            }
+            set
+            {
+                OnАссортиментChanging(value);
+                ReportPropertyChanging("Ассортимент");
+                _Ассортимент = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Ассортимент");
+                OnАссортиментChanged();
+            }
+        }
+        private global::System.String _Ассортимент;
+        partial void OnАссортиментChanging(global::System.String value);
+        partial void OnАссортиментChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String КатегорияТРТ
+        {
+            get
+            {
+                return _КатегорияТРТ;
+            }
+            set
+            {
+                OnКатегорияТРТChanging(value);
+                ReportPropertyChanging("КатегорияТРТ");
+                _КатегорияТРТ = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("КатегорияТРТ");
+                OnКатегорияТРТChanged();
+            }
+        }
+        private global::System.String _КатегорияТРТ;
+        partial void OnКатегорияТРТChanging(global::System.String value);
+        partial void OnКатегорияТРТChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Category
+        {
+            get
+            {
+                return _Category;
+            }
+            set
+            {
+                OnCategoryChanging(value);
+                ReportPropertyChanging("Category");
+                _Category = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Category");
+                OnCategoryChanged();
+            }
+        }
+        private global::System.String _Category;
+        partial void OnCategoryChanging(global::System.String value);
+        partial void OnCategoryChanged();
 
         #endregion
-
     
     }
     
@@ -1063,7 +1825,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1142,7 +1903,6 @@ namespace StoreCheck.Models
         partial void OnPathChanged();
 
         #endregion
-
     
     }
     
@@ -1168,7 +1928,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1319,7 +2078,6 @@ namespace StoreCheck.Models
         partial void OnOldChanged();
 
         #endregion
-
     
     }
     
@@ -1345,7 +2103,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1424,7 +2181,6 @@ namespace StoreCheck.Models
         partial void OnRightsChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1505,7 +2261,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1530,7 +2285,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1633,7 +2387,6 @@ namespace StoreCheck.Models
         partial void OnSubjectIDChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1660,7 +2413,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1685,7 +2437,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1908,7 +2659,6 @@ namespace StoreCheck.Models
         partial void OnТорговаяМаркаChanged();
 
         #endregion
-
     
     }
     
@@ -1934,7 +2684,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2013,7 +2762,6 @@ namespace StoreCheck.Models
         partial void OnIDChanged();
 
         #endregion
-
     
     }
     
@@ -2039,7 +2787,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2118,7 +2865,6 @@ namespace StoreCheck.Models
         partial void OnКаналреализацииChanged();
 
         #endregion
-
     
     }
     
@@ -2144,7 +2890,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2199,7 +2944,6 @@ namespace StoreCheck.Models
         partial void OnIDChanged();
 
         #endregion
-
     
     }
     
@@ -2225,7 +2969,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2808,7 +3551,6 @@ namespace StoreCheck.Models
         partial void OnТипТРТChanged();
 
         #endregion
-
     
     }
     
@@ -2834,7 +3576,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2913,7 +3654,6 @@ namespace StoreCheck.Models
         partial void OnAdmObjChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2978,7 +3718,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -3003,7 +3742,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3058,7 +3796,6 @@ namespace StoreCheck.Models
         partial void OnNameChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -3085,7 +3822,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -3110,7 +3846,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3333,7 +4068,6 @@ namespace StoreCheck.Models
         partial void OnIDChanged();
 
         #endregion
-
     
     }
     
@@ -3359,7 +4093,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3414,7 +4147,6 @@ namespace StoreCheck.Models
         partial void OnIDChanged();
 
         #endregion
-
     
     }
     
@@ -3440,7 +4172,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3495,7 +4226,6 @@ namespace StoreCheck.Models
         partial void OnТипТАChanged();
 
         #endregion
-
     
     }
     
@@ -3525,7 +4255,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3652,7 +4381,6 @@ namespace StoreCheck.Models
         partial void OndefinitionChanged();
 
         #endregion
-
     
     }
     
@@ -3678,7 +4406,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3829,7 +4556,6 @@ namespace StoreCheck.Models
         partial void OnRoleIDChanged();
 
         #endregion
-
     
     }
     
@@ -3859,7 +4585,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4016,7 +4741,6 @@ namespace StoreCheck.Models
         partial void OnUserIDChanged();
 
         #endregion
-
     
     }
     
@@ -4048,7 +4772,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4280,7 +5003,6 @@ namespace StoreCheck.Models
         partial void OnIDChanged();
 
         #endregion
-
     
     }
     
@@ -4306,7 +5028,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4721,7 +5442,6 @@ namespace StoreCheck.Models
         partial void OnSKUpChanged();
 
         #endregion
-
     
     }
     
@@ -4747,7 +5467,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4826,7 +5545,6 @@ namespace StoreCheck.Models
         partial void OnRoleNameChanged();
 
         #endregion
-
     
     }
     
@@ -4852,7 +5570,6 @@ namespace StoreCheck.Models
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4979,11 +5696,9 @@ namespace StoreCheck.Models
         partial void OnRoleIDChanged();
 
         #endregion
-
     
     }
 
     #endregion
-
     
 }
