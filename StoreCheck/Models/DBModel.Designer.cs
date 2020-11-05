@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -441,6 +442,7 @@ namespace StoreCheck.Models
         private ObjectSet<CheckOutletData> _CheckOutletData;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -628,11 +630,11 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -657,6 +659,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1407,6 +1410,7 @@ namespace StoreCheck.Models
         partial void OnОбновлениеChanged();
 
         #endregion
+
     
     }
     
@@ -1432,6 +1436,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1798,6 +1803,7 @@ namespace StoreCheck.Models
         partial void OnCategoryChanged();
 
         #endregion
+
     
     }
     
@@ -1825,6 +1831,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1903,6 +1910,7 @@ namespace StoreCheck.Models
         partial void OnPathChanged();
 
         #endregion
+
     
     }
     
@@ -1928,6 +1936,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2078,6 +2087,7 @@ namespace StoreCheck.Models
         partial void OnOldChanged();
 
         #endregion
+
     
     }
     
@@ -2103,6 +2113,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2181,6 +2192,7 @@ namespace StoreCheck.Models
         partial void OnRightsChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2261,6 +2273,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2285,6 +2298,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2387,6 +2401,7 @@ namespace StoreCheck.Models
         partial void OnSubjectIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2413,6 +2428,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2437,6 +2453,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2659,6 +2676,7 @@ namespace StoreCheck.Models
         partial void OnТорговаяМаркаChanged();
 
         #endregion
+
     
     }
     
@@ -2684,6 +2702,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2762,6 +2781,7 @@ namespace StoreCheck.Models
         partial void OnIDChanged();
 
         #endregion
+
     
     }
     
@@ -2787,6 +2807,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2865,6 +2886,7 @@ namespace StoreCheck.Models
         partial void OnКаналреализацииChanged();
 
         #endregion
+
     
     }
     
@@ -2890,6 +2912,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2944,6 +2967,7 @@ namespace StoreCheck.Models
         partial void OnIDChanged();
 
         #endregion
+
     
     }
     
@@ -2969,6 +2993,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3551,6 +3576,7 @@ namespace StoreCheck.Models
         partial void OnТипТРТChanged();
 
         #endregion
+
     
     }
     
@@ -3576,6 +3602,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3654,6 +3681,7 @@ namespace StoreCheck.Models
         partial void OnAdmObjChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3718,6 +3746,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3742,6 +3771,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3796,6 +3826,7 @@ namespace StoreCheck.Models
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3822,6 +3853,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3846,6 +3878,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4068,6 +4101,7 @@ namespace StoreCheck.Models
         partial void OnIDChanged();
 
         #endregion
+
     
     }
     
@@ -4093,6 +4127,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4147,6 +4182,7 @@ namespace StoreCheck.Models
         partial void OnIDChanged();
 
         #endregion
+
     
     }
     
@@ -4172,6 +4208,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4226,6 +4263,7 @@ namespace StoreCheck.Models
         partial void OnТипТАChanged();
 
         #endregion
+
     
     }
     
@@ -4255,6 +4293,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4381,6 +4420,7 @@ namespace StoreCheck.Models
         partial void OndefinitionChanged();
 
         #endregion
+
     
     }
     
@@ -4406,6 +4446,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4556,6 +4597,7 @@ namespace StoreCheck.Models
         partial void OnRoleIDChanged();
 
         #endregion
+
     
     }
     
@@ -4585,6 +4627,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4741,6 +4784,7 @@ namespace StoreCheck.Models
         partial void OnUserIDChanged();
 
         #endregion
+
     
     }
     
@@ -4772,6 +4816,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5003,6 +5048,7 @@ namespace StoreCheck.Models
         partial void OnIDChanged();
 
         #endregion
+
     
     }
     
@@ -5028,6 +5074,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5442,6 +5489,7 @@ namespace StoreCheck.Models
         partial void OnSKUpChanged();
 
         #endregion
+
     
     }
     
@@ -5467,6 +5515,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5545,6 +5594,7 @@ namespace StoreCheck.Models
         partial void OnRoleNameChanged();
 
         #endregion
+
     
     }
     
@@ -5570,6 +5620,7 @@ namespace StoreCheck.Models
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5696,9 +5747,11 @@ namespace StoreCheck.Models
         partial void OnRoleIDChanged();
 
         #endregion
+
     
     }
 
     #endregion
+
     
 }
