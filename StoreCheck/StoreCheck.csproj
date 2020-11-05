@@ -129,6 +129,7 @@
     <Content Include="Scripts\jquery.meiomask.js" />
     <Content Include="Scripts\jquery.tablesorter.js" />
     <Content Include="Scripts\jquery.tablesorter.pager.js" />
+    <Content Include="Scripts\new_test.js" />
     <Content Include="Scripts\ui.spinner.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
