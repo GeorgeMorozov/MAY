@@ -2,7 +2,7 @@
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.Mvc.Ajax;
+//using System.Web.Mvc.Ajax;
 //using System.Web.Mvc.Resources;
 
 namespace MvcPaging
