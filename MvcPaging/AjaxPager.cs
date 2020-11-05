@@ -4,7 +4,7 @@ using System.Text;
 using System.Web.Routing;
 //using System.Web.Mvc.Ajax;
 //using System.Web.Mvc.Resources;
-
+//test
 namespace MvcPaging
 {
 	public class AjaxPager
